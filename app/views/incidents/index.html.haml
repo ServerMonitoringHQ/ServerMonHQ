@@ -1,0 +1,48 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        Incidents
+      %p
+        These are the incidents reported so far.
+    .right-side
+.inner-page
+  = will_paginate @incidents
+  %table.data
+    %caption Incidents
+    %tr
+      %th
+        Server Name
+      %th
+        Monitor Name
+      %th
+        Incident Type
+      %th
+        Description
+      %th
+        Raised Time
+      %th
+        Approx Duration
+      %th
+        Status
+    - for incident in @incidents
+      %tr
+        %td.name
+          = link_to incident.server.name, :controller => :statistics, :id => incident.server.id
+        %td
+          = link_to incident.measure.name, measure_path(incident.measure)
+        %td
+          = h incident.type_to_text
+        %td
+          = h incident.description
+        %td
+          = h time_ago_in_words(incident.created_at)
+          ago
+        %td
+          - unless incident.open
+            = h distance_of_time_in_words(incident.created_at, incident.updated_at)
+        %td.action
+          - if incident.open
+            Open
+          - else
+            Resolved

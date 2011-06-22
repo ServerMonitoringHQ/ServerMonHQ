@@ -1,0 +1,89 @@
+- if @measure.errors.length > 0
+  %div.box
+    = f.error_messages
+%fieldset
+  %h3 Display Name
+  %p
+    Give the monitor a memorable name e.g. Load &amp; Memory Monitor
+  = f.label :name
+  %br
+  = f.text_field :name
+%fieldset
+  = f.check_box :notify_pages
+  = f.label :notify_pages, "Web Page Checking", :class => 'checkbox-label'
+  %p ServerPulse can scan web pages and will report 404 errors. Click on your server and then the pages tab.
+%fieldset
+  = f.check_box :notify_ports
+  = f.label :notify_ports, "TCP/IP Port checking", :class => 'checkbox-label'
+  %p Port checking is enabled from the ports tab.
+%fieldset
+  = f.check_box :notify_mem
+  = f.label :notify_mem, "Memory Usage", :class => 'checkbox-label'
+  %p Create an incident if memory usage exceed the value below.
+  %table.form-table
+    %tr
+      %td.normal
+        Memory
+      %td.memory{ :style => "padding-left: 15px" }
+        .slider
+      %td.normal
+        %span#memory-show
+          0
+        \%
+        = f.hidden_field :mem_perc, :id => 'memory-value'
+%fieldset
+  = f.check_box :notify_swap
+  = f.label :notify_swap, "Monitor Swap Space", :class => 'checkbox-label'
+  %p Create an incident if swap exceeds...
+  %table.form-table
+    %tr
+      %td.normal
+        Swap
+      %td.swap{ :style => "padding-left: 15px" }
+        .slider
+      %td.normal
+        %span#swap-show
+          0
+        \%
+        = f.hidden_field :swap_perc, :id => 'swap-value'
+%fieldset
+  = f.check_box :notify_load
+  = f.label :notify_load, "Monitor CPU Usage", :class => 'checkbox-label'
+  %table.form-table
+    %tr
+      %td.normal
+        Load
+      %td.load{ :style => "padding-left: 15px" }
+        .slider
+      %td.normal
+        %span#load-show
+          0
+        \%
+        = f.hidden_field :load_perc, :id => 'load-value'
+%fieldset
+  = f.check_box :notify_disk
+  = f.label :notify_disk, "Monitor Disk Space", :class => 'checkbox-label'
+  %table.form-table
+    %tr
+      %td.normal
+        Disk
+      %td.disk{ :style => "padding-left: 15px" }
+        .slider
+      %td.normal
+        %span#disk-show
+          0
+        \%
+        = f.hidden_field :disk_perc, :id => 'disk-value'
+%fieldset
+  = f.check_box :notify_heartbeat
+  = f.label :notify_heartbeat, "Check Availability", :class => 'checkbox-label'
+  %p If the server is not contactable via SSH this check will raise an incident.
+
+%fieldset
+  = f.check_box :notify_bandwidth
+  = f.label :notify_bandwidth, "Monitor Bandwidth Usage", :class => 'checkbox-label'
+  %br
+  = f.label :bandwidth, "Bandwidth"
+  = f.text_field :bandwidth
+  = f.select(:bandwidth_scale, [['MB', 'MB'], ['GB', 'GB'], ['TB', 'TB']])
+  = f.select(:bandwidth_time, [['1 Day', '1 Day'], ['1 Week', '1 Week'], ['1 Month', '1 Month']])

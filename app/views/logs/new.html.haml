@@ -1,0 +1,11 @@
+.inner-page
+  - form_for(@log, :html => { :class => 'edit-form'}, :url => server_logs_path(@server)) do |f|
+    = f.error_messages
+    %p
+      = f.label :path
+      %br
+      = f.text_field :path
+    %p
+      = f.submit 'Create'
+      or
+      = link_to 'Back', server_logs_path(@server)

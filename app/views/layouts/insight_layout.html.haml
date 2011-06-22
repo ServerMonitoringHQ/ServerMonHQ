@@ -1,0 +1,46 @@
+!!! 5
+%html
+  %head
+
+    = render :partial => "layouts/marketing_header"
+    = render :partial => "layouts/analytics"
+    = stylesheet_link_tag 'insight'
+
+  %body#doc
+    %header#hd
+      .page
+        = render :partial => "layouts/marketing_nav"
+    %section#bd
+      #support-nav
+        %h1 Help &amp; Support
+        .nav-bar
+          %ul.nav
+            %li 
+              = link_to("Start a Discussion", new_help_issue_path)
+            %li 
+              = link_to("Browse Discussions", help_browse_path)
+            %li 
+              = link_to("Knowledge Base", knowledge_path) 
+
+      = yield
+
+      .latest-discussions
+        .latest.discussions
+          %h3 Latest Discussions
+          %ul
+          - Issue.where(:from => :latest).each do |issue| 
+            %li
+              %span
+                = issue.created_at.strftime("%d %b %H:%M") 
+              = link_to(issue.subject, help_issue_path(issue)) 
+
+        .latest.articles
+          %h3 Latest Knowledge Base Articles
+          %ul
+          - Article.where(:from => :latest).each do |article| 
+            %li
+              = link_to(article.title, knowledge_article_path(article)) 
+
+    %footer#ft
+      = render :partial => "layouts/marketing_footer"
+    

@@ -1,0 +1,29 @@
+- @user.password = @user.password_confirmation = nil
+= error_messages_for :account
+= error_messages_for :user
+- form_for @user, :html => { :class => 'sign-up'} do |f|
+  = render :partial => 'users/plan_form'
+  %div.form-input
+    = f.label :first_name
+    = f.text_field :first_name
+  %div.form-input
+    = f.label :last_name
+    = f.text_field :last_name
+  %div.form-input
+    = f.label :email
+    = f.text_field :email
+  %div.form-input
+    = f.label :login
+    = f.text_field :login, :autocomplete => 'off'
+  %div.form-input
+    = label(:account, :plan_id, "Plan")
+    = select(:account, :plan_id, [['Basic - Monitor 1 Server', 0], ['Plus - Monitor 5 Servers', 1], 
+      ['Premium - Monitor 10 Servers', 2], ['Max - Monitor 20 Servers', 3]])
+  %div.form-input
+    = f.label :password
+    = f.password_field :password, :autocomplete => 'off'
+  %div.form-input
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  %button{ :type => 'submit' }
+    Sign Me Up

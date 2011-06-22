@@ -1,0 +1,7 @@
+%h1
+  Rename
+- form_for :server, @server, :url => { :action => 'renamed' } do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+    = submit_tag 'Rename'

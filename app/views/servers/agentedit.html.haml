@@ -1,0 +1,20 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        Edit Server
+    .right-side
+.yui-gc.inner-page
+  .yui-u.first
+    - form_for(@server, :html => { :class => 'data-entry'} ) do |f|
+      
+      = render :partial => 'agentform', :locals => { :f => f }
+
+      %fieldset.buttons
+        = f.submit 'Connect Now', :class => 'awesome'
+        or
+        = link_to 'Back to Servers', servers_path
+    :javascript
+      document.getElementById('server_hostname').focus();
+
+  = render :partial => 'agentsidebar', :locals => { :server => @server }

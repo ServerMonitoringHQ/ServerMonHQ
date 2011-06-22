@@ -1,0 +1,40 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Management Monitor
+  account: two
+  mem_perc: 80
+  load_perc: 80
+  swap_perc: 80
+  heartbeat: 10
+  disk_perc: 90
+  bandwidth: 100
+  notify_pages: true
+  notify_ports: true
+  paused: false
+
+two:
+  name: GMT Monitor
+  account: two
+  mem_perc: 90
+  load_perc: 90
+  swap_perc: 90
+  heartbeat: 10
+  disk_perc: 90
+  bandwidth: 100
+  notify_pages: true
+  notify_ports: true
+  paused: false
+
+three:
+  name: "You Shouldn't See This"
+  account: two
+  mem_perc: 1
+  load_perc: 1
+  swap_perc: 1
+  heartbeat: 1
+  disk_perc: 1
+  bandwidth: 10
+  notify_pages: true
+  notify_ports: true
+  paused: false

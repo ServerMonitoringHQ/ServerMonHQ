@@ -1,0 +1,22 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        = "#{@user.name} 's Details"
+.inner-page
+  %p
+    %strong
+      Name:
+    = @user.name
+  %p
+    %strong
+      Email:
+    = @user.email
+  %p
+    %strong
+      Mobile Number:
+    = @user.mobile_number
+  %p
+    = link_to 'Back', users_path
+    \|
+    = link_to 'Edit', edit_user_path(@user)

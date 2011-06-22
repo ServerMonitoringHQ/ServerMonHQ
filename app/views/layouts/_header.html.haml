@@ -1,0 +1,21 @@
+= next_steps
+#top-line.inner-page
+  %p
+    = link_to 'All Servers', servers_path
+  %ul
+    - if ! current_user.account.active?
+      %li
+        = time_ago_in_words(current_user.account.trial_end, Time.now)
+        trial remaining &nbsp;
+    - if current_user.admin?
+      %li
+        = link_to 'Account', account_path
+      %li
+        \&nbsp;|&nbsp;
+    %li
+      = link_to 'My Profile', edit_user_path(current_user)
+    %li
+      \&nbsp;|&nbsp;
+    %li
+      = link_to 'Logout', logout_path
+  %div{ :style => "clear:both" }

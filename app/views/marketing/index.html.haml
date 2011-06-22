@@ -1,0 +1,93 @@
+- content_for :title, "Server Monitoring - CPU, Load and Bandwidth"
+- content_for :navigation, @selected_nav = :home
+
+#headings
+  %h1.heading Get notified BEFORE your server goes down not afterwards.
+  %h2.subheading We monitor CPU, Load, Memory, Bandwidth, Disks and notify you when critical levels are reached.
+
+%img{:width => "900", :height => "250", :class => 'screenshot', :src => "images/marketing/ServerPulseNewLook.png"}
+  
+#signup-call
+  %a{:href => '/buy'} Sign up now for a free 30 day trial &mdash; 30 second signup &mdash; no credit card required &gt;&gt;
+  
+.yui-g.boxer
+  .yui-u.first
+    .yui-u.first
+      %h3 No Software to Install
+      %p
+        No software to install on your server we
+        collect measurements via SSH and can use
+        key authentication.
+    .yui-u
+      %h3 Vital Statistics and Alerts
+      %p
+        We alert you if memory, load or bandwidth
+        limits set by you are exceeded.
+
+  .yui-u
+    .yui-u.first
+      %h3 Live Statistics Drill Down
+      %p
+        Drill down by server and see a live display
+        of your servers statistics including TCP/IP ports
+        and pages.
+
+    .yui-u
+      %h3 Historic Data and Graphs
+      %p
+        Predict memory, bandwidth usage and load trends with 24 hour,
+        7 day and 1 year graphs.
+
+%blockquote
+  %p 
+    &quot;
+    Yet, this one [ServerMonitoringHQ.com] thankfully brings something praiseworthy to the table, 
+    namely the ability to  monitor everything from CPU, memory and bandwidth without you having to  
+    install a single file on your computer.
+    &quot;
+  %cite
+    &mdash; 
+    %a{ :href => 'http://www.killerstartups.com/Web-App-Tools/servermonitoringhq-com-monitor-your-servers',
+      :target => "#" } 
+      Killer Startups
+
+.yui-g.small-shots
+  .yui-u.first
+    .yui-u.first
+      %img{ :src => "images/marketing/front-screen1.png", :width => "210", :height => "90", :alt => "Bar Graph" }
+    .yui-u
+      %img{ :src => "images/marketing/front-screen2.png", :width => "210", :height => "90", :alt => "Bar Graph" }
+
+  .yui-u
+    .yui-u.first
+      %img{ :src => "images/marketing/front-screen3.png", :width => "210", :height => "90", :alt => "Bar Graph" }
+
+    .yui-u
+      %img{ :src => "images/marketing/front-screen4.png", :width => "210", :height => "90", :alt => "Bar Graph" }
+      
+.yui-g.boxer
+  .yui-u.first
+    .yui-u.first
+      %h3 Alert Escalation
+      %p
+        Configure alert escalations. e.g. Contact support after 5 mins, managers after 1 hour of downtime.
+    .yui-u
+      %h3 Monitor Granularity
+      %p
+        Only want to monitor disk space ? ServerMonitoringHQ allows you to configure each monitor.
+  .yui-u
+    .yui-u.first
+      %h3 Public Key Authentication
+      %p
+        We can generate a public key for each server you configure for maximum security.
+    .yui-u
+      %h3 1 Minute Granularity
+      %p
+        We can monitor server down to 1 minute resolution so you see issues as soon as they happen.
+
+%blockquote
+  %p 
+    &quot;We had a CPU load alert from ServerMonitoringHQ 2 days ago. 
+    We're sure the heads up saved us from a potential outage on a production server.&quot;
+  %cite
+    &mdash; Ian Herringham, Montreal (herringham.com)

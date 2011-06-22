@@ -1,0 +1,35 @@
+!!!5
+%html
+  %head
+    %meta{ 'http-equiv' => 'content-type', :content => 'text/html;charset=UTF-8'}/
+    %title
+      = @title || "Server Monitoring"
+    %link{:rel => 'icon', :href => '/images/favicon.ico'} 
+    = stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'application', 'facebox', 'jquery.ui', 'awesome', 'pricing'
+    %script{ :type => 'text/javascript',
+      :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.js' }
+    = javascript_include_tag 'jquery.labelify.js', 'jquery-ui-1.8rc3.custom.min.js', 'facebox', 'application'
+    = render :partial => "layouts/analytics"
+  %body
+    #doc3
+      #hd
+        = render :partial => "layouts/header"
+        #nav
+          .inner-page
+            %h1
+              = h current_user.account.name
+            %ul
+              %li#server-tab{ :class => select_tab(/servers/) }
+                = link_to 'Servers', servers_path
+              %li#monitor-tab{ :class => select_tab(/measures/) }
+                = link_to 'Monitors', measures_path
+              %li#incidents-tab{ :class => select_tab(/incidents/) }
+                = link_to 'Incidents', incidents_path
+              %li#contacts-tab{ :class => select_tab(/users/) }
+                = link_to 'Contacts', users_path
+            %div{ :style => "clear:both" }
+      #bd
+        = yield :layout
+      #ft
+        .inner-page
+          = render :partial => "layouts/footer"

@@ -1,0 +1,125 @@
+#livestats
+  %table.stats-table
+    %tr
+      %td.tiny
+        Current Load
+      %td#cpu-load.tiny
+        = h @server.cpuload
+      %td
+        #load-graph.progressbar
+      %td#cpu-load2.tiny
+        = h @server.cpuload
+        \/ 1.0
+    %tr
+      %td
+        Memory Used
+      %td#memory-used
+        = h @server.usedmem
+      %td
+        #memory-graph.progressbar
+      %td#memory2
+        = h @server.usedmem
+        MB \/
+        = h @server.totalmem
+        MB
+    - if ! (@server.totalswap == 0 or @server.totalswap == nil)
+      %tr
+        %td
+          Swap Used
+        %td#swap
+          = @server.usedswap
+        %td
+          #swap-graph.progressbar
+        %td#swap2
+          = @server.usedswap
+          \/
+          = @server.totalswap
+  %table.drive-table
+    - @server.disks.each_index do |i|
+      %tr
+        %td.tiny
+          = Disk
+        %td.tiny
+          = @server.disks[i].path
+        = '<td><div id="drive-graph' + i.to_s + '" class="progressbar"></div></td>'
+        %td.tiny
+          = @server.disks[i].usedspace
+          \/
+          = @server.disks[i].totalspace
+.yui-g
+  .yui-u.first.info-panel
+    %h3
+      Bandwidth Usage
+    %ul
+      %li
+        = image_tag 'icons/php.gif'
+        TX:
+        %span#tx
+      %li
+        = image_tag 'icons/database.gif'
+        RX:
+        %span#rx
+      %li
+        = image_tag 'icons/zend.gif'
+        TX Rate :
+        %span#tx_rate
+        \/ min
+  .yui-u.info-panel
+    %h3
+      System Stats &amp; Info
+    %ul
+      %li
+        = image_tag 'icons/comp.gif'
+        Uptime:
+        %span#uptime
+      %li
+        = image_tag 'icons/load.gif'
+        Avg Load:
+        %span#load1
+        %span#load2
+        %span#load3
+      %li
+        = image_tag 'icons/memory.gif'
+        Memory:
+        %span#memory_stat
+          = h @server.usedmem
+          MB \/
+          = h @server.totalmem
+          MB
+
+.yui-g
+  .yui-u.first.info-panel
+    %h3
+      CPU/Processor Info
+    %ul
+      %li
+        = image_tag 'icons/cpu.gif'
+        CPU:
+        %span#cpu
+          = @server.cpu
+      %li
+        = image_tag 'icons/cpunum.gif'
+        Number Of CPU(s):
+        %span#cpucount
+          = @server.cpucount
+      %li
+        = image_tag 'icons/speed.gif'
+        Speed:
+        %span#cpumhz
+          = @server.cpumhz
+  .yui-u.info-panel
+    %h3
+      Distro &amp; Os Info
+    %ul
+      %li
+        = image_tag 'icons/distro.gif'
+        Linux Distro:
+        = @server.distro
+      %li
+        = image_tag 'icons/kernel.gif'
+        Kernel:
+        = @server.kernelver
+      %li
+        = image_tag 'icons/platform.gif'
+        Platform:
+        = @server.platform

@@ -1,0 +1,16 @@
+- yield(:navigation)
+!!! 5
+%html
+  %head
+
+    = render :partial => "layouts/marketing_header"
+    = render :partial => "layouts/analytics"
+
+  %body#doc
+    %header#hd
+      .page
+        = render :partial => "layouts/marketing_nav"
+    %section#bd.marketing
+      = yield
+    %footer#ft
+      = render :partial => "layouts/marketing_footer"

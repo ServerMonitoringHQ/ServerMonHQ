@@ -1,0 +1,200 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        = h @measure.name
+      %p
+        This monitor is currently active.
+    .right-side
+.inner-page
+  .yui-ge
+    .yui-u.first
+      %table.data
+        %caption
+          1. Monitor Allowances
+        %tr
+          %td{ :style => 'width:40%' } 
+            Memory
+          %td
+            - if ! @measure.notify_mem?
+              %strong Don't
+            Create an incident if memory >
+            %strong
+              = h @measure.mem_perc
+              \ %
+        %tr
+          %td 
+            Load
+          %td
+            - if ! @measure.notify_load?
+              %strong Don't
+            Create an incident if server load >
+            %strong
+              = h @measure.load_perc
+              \ %
+        %tr
+          %td 
+            Swap Space
+          %td
+            - if ! @measure.notify_swap?
+              %strong Don't
+            Create an incident if used swap space >
+            %strong
+              = h @measure.swap_perc
+              \ %
+        %tr
+          %td 
+            Server Connection
+          %td
+            - if @measure.notify_heartbeat?
+              %strong Do
+              Generate an incident if we can't connect via SSH
+            - else
+              %strong Do not
+              Generate an incident if we can't connect via SSH
+        %tr
+          %td 
+            Monitor Web Pages
+          %td
+            - if @measure.notify_pages?
+              %strong Do
+              raise an incident if we can't access a web page
+            - else
+              %strong Do not
+              raise an incident if we can't access a web page
+        %tr
+          %td 
+            Monitor TCP/IP Ports
+          %td
+            - if @measure.notify_ports?
+              %strong Do
+              raise an incident if we can't access a port
+            - else
+              %strong Do not
+              raise an incident if we can't access a port
+        %tr
+          %td 
+            Disk Space
+          %td
+            - if ! @measure.notify_disk?
+              %strong Don't
+            Create an incident if used disk space >
+            %strong
+              = h @measure.disk_perc
+              \ %
+            on any disk.
+        %tr
+          %td 
+            Monitor Bandwidth Usage
+          %td
+            - if ! @measure.notify_disk?
+              %strong Don't
+            Raise an incident if bandwidth > 
+            %strong
+              = h @measure.bandwidth
+            %strong
+              = h @measure.bandwidth_scale
+            over
+            %strong
+              = h @measure.bandwidth_time
+        %tr
+          %td{ :colspan => '2'}
+            %a{ :href => edit_measure_path(@measure), :class => 'awesome' }  Edit Monitor
+
+      %table#users-table.data
+        %caption
+          2. Who will receive notifications
+        %tr
+          %th{ :style => 'width:40%' }
+            Name
+          %th{ :style => 'width:40%' }
+            Period
+          %th
+            Action
+        - @measure.monitor_users.each do |user|
+          %tr
+            %td
+              = h user.user.first_name 
+              = h user.user.last_name
+            %td
+              Notify by email after
+              = h user.wait_for
+              minutes
+            %td.action
+              = link_to 'Delete', remove_users_path(@measure.id, user.id), :class => 'remote-delete'
+
+      #add-user-form{ :style => "display:none" }
+        %h1
+          Add a contact to notify
+        %form#adduser-form{ :onsubmit => "return add_user()", :action => "#" }
+          %label
+            Contact
+          = collection_select(nil, :user_id, @users, :id, :name)
+          %label
+            How long to wait before sending an alert
+          %select.wait_for{ :name => "wait_for" }
+            %option{ :value => "5" }
+              5 Minutes
+            %option{ :value => "10" }
+              10 Minutes
+            %option{ :value => "15" }
+              15 Minutes
+            %option{ :value => "20" }
+              20 Minutes
+            %option{ :value => "30" }
+              30 Minutes
+            %option{ :value => "60" }
+              1 hour
+          %input.add-user-button{ :type => "submit", :value => "Add" }
+          %input.measure_id{ :name => "measure_id", :type => "hidden", :value => @measure.id }
+      %table#servers-table.data
+        %caption
+          3. Servers to monitor
+        %tr
+          %th{ :style => "width:80%" }
+            Server Name
+          %th
+            Action
+        - @measure.monitor_servers.each do |server|
+          %tr
+            %td
+              = h server.server.name
+            %td.action
+              = link_to 'Delete', remove_servers_path(@measure.id, server.id), :class => 'remote-delete'
+
+      #add-server-form{ :style => "display:none" }
+        %h1
+          Add a server to monitor
+        %form#addserver-form{ :onsubmit => "return add_server()", :action => "#" }
+          %label
+            Server
+          = collection_select(nil, :server_id, @servers, :id, :name)
+          %input{ :type => "submit", :value => "Add" }
+          %input.measure_id{ :name => "measure_id", :type => "hidden", :value => @measure.id }
+
+    .yui-u
+      .box
+        .inner
+          %h3
+            Users that will receive alerts from this monitor
+          %ul
+            - @measure.monitor_users.each do |user|
+              %li
+                = link_to h(user.user.name), user.user
+                after
+                = h user.wait_for
+                minutes
+
+          %a#add-user-link{ :href => "", :class => 'awesome' }
+            Add User
+      .box
+        .inner
+          %h3
+            This monitor is effective for the following servers
+          %ul
+            - @measure.monitor_servers.each do |server|
+              %li
+                = link_to h(server.server.name), :controller => :statistics, :id => server.server.id
+
+          %a#add-server-link{ :href => "", :class => 'awesome' }
+            Monitor Another Server

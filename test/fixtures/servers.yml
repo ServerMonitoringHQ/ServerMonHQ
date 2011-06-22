@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+server_one: 
+  id: 4
+  name: Status2K Server
+  account: two
+  url: http://pulse.ianpurton.com/0df7ac0d42b51cef0446.php
+  hostname: serverpulse.ianpurton.com
+  username: ianpurton.com
+  password: Vja481xian
+  ssh_port: 22
+  access_key: 0df7ac0d42b51cef0446 
+  public_key: b435923896fd155d3795
+  private_key: 345345345345
+  distro: Debian
+  platform: i686
+  kernelver: 2.6.18-14-fza-686-bigmem
+
+server_four:
+  name: foo
+  account: expired

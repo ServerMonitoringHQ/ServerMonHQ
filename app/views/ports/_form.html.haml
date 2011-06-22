@@ -1,0 +1,17 @@
+- if @port.errors.length > 0
+  %div.box
+    = f.error_messages
+%fieldset
+  %h3 The Name of this port
+  %p
+    Give the Port a name so you can easily recognise it. e.g. MySQL
+  = f.label :name
+  %br
+  = f.text_field :name
+%fieldset
+  %h3 The Address of the Port
+  %p
+    The address is the port number e.g. 3306
+  = f.label :address
+  %br
+  = f.text_field :address

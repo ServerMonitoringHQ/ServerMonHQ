@@ -1,0 +1,24 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        Server Load
+    .right-side.mini-right
+      = render :partial => 'mininav'
+.inner-page
+  %h2
+    Load 24 Hours (
+    = Time.now.to_s
+    )
+  #load{ :style => 'width:100%;height:300px;' }
+  %script#source{ :language => 'javascript', :type => 'text/javascript' }
+    $(function () {
+    var load= [
+    - @load_history.each do |key, load|
+      = '[' + key + ',' + (load).to_s + '],'
+    ];
+    $.plot($("#load"), [ {
+    data: load,
+    bars: { show: true }
+    } ]);
+    });

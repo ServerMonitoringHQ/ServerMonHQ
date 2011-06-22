@@ -1,0 +1,69 @@
+!!!5
+%html
+  %head
+    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
+    %title
+      = yield :main_title
+    = stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'application', 'facebox', 'jquery.ui', 'awesome'
+    %script{ :type => 'text/javascript',
+      :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.js' }
+    = javascript_include_tag 'jquery.labelify.js', 'jquery-ui-1.8rc3.custom.min.js', 'facebox', 'jqueryprogressbar', 'application'
+    = yield :head
+    = render :partial => "layouts/analytics"
+  %body
+    #doc3
+      #hd
+        = render :partial => "layouts/header"
+        #nav
+          .inner-page
+            %h1
+              = h @server.account.name
+            %ul
+              %li#server-tab.selected
+                = link_to 'Servers', servers_path
+              %li
+                = link_to 'Monitors', measures_path
+              %li
+                = link_to 'Incidents', incidents_path
+              %li
+                = link_to 'Contacts', users_path
+            %div{ :style => "clear:both" }
+        #breadcrumbs
+          .inner-page
+            %ul
+              %li
+                = link_to 'Servers', servers_path
+              %li
+                &raquo;
+              %li
+                = link_to @server.name, server_path(@server)
+            %p
+              = @small_notice
+            %div{ :style => "clear:both" }
+        #mini-nav
+          .inner-page
+            %ul
+              %li#live-stats-tab{ :class => select_tab(/index/) }
+                = link_to 'Live Stats', :action => 'index', :controller => 'statistics', :id => @server
+              %li#memory-tab{ :class => select_tab(/memory/) }
+                = link_to 'Memory', :action => 'memory', :controller => 'statistics', :id => @server
+              %li#processes-tab{ :class => select_tab(/processes/) }
+                = link_to 'CPU / Load', :action => 'processes', :controller => 'statistics', :id => @server
+              %li#downtime-tab{ :class => select_tab(/downtime/) }
+                = link_to 'Downtime', :action => 'downtime', :controller => 'statistics', :id => @server
+              %li#bandwidth-tab{ :class => select_tab(/bandwidth/) }
+                = link_to 'Bandwidth', :action => 'bandwidth', :controller => 'statistics', :id => @server
+              %li#ports-tab{ :class => select_tab(/ports/) }
+                = link_to 'Ports', server_ports_path(@server)
+              %li#pages-tab{ :class => select_tab(/pages/) }
+                = link_to 'Pages', server_pages_path(@server)
+              -# %li#logs-tab{ :class => select_tab(/logs/) }
+              -#  = link_to 'Logs', server_logs_path(@server)
+            %h2
+              = yield :title
+            %div{ :style => "clear:both" }
+      #bd
+        = yield :layout
+      #ft
+        .inner-page
+          = render :partial => "layouts/footer"

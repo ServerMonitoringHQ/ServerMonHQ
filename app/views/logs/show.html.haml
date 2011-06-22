@@ -1,0 +1,10 @@
+.inner-page
+  %pre#log
+    = @xml
+  %form
+    %input#log_id{ :name => "log_id", :type => "hidden", :value => @log.id }
+    log
+    %input#server_id{ :name => "server_id", :type => "hidden", :value => @server.id }
+  = link_to 'Edit', edit_server_log_path(@server, @log)
+  \|
+  = link_to 'Back', server_logs_path(@server)

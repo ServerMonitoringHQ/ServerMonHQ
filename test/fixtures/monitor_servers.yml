@@ -1,0 +1,7 @@
+one:
+  measure: two
+  server_id: 4
+
+two:
+  measure: two
+  server_id: 4

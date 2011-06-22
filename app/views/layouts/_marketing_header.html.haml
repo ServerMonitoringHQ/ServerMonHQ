@@ -1,0 +1,13 @@
+%meta{ 'http-equiv' => 'content-type', :content => 'text/html;charset=UTF-8'}/
+%title
+  = yield(:title)
+
+%link{:rel => 'icon', :href => '/images/favicon.ico'} 
+= stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'marketing', 'awesome', 'pricing'
+
+/[if IE]
+  = javascript_include_tag  "http://html5shiv.googlecode.com/svn/trunk/html5.js"
+
+%script{ :type => 'text/javascript',
+  :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.js' }
+= javascript_include_tag 'marketing'

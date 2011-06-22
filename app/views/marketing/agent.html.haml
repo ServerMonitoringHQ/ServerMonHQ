@@ -1,0 +1,31 @@
+- content_for :title, "Server Monitoring - ServerPulse Agent Script"
+- content_for :navigation, @selected_nav = :agent
+
+#headings
+  %h1.heading The ServerPulse Live Server Statistics Agent
+  %h2.subheading It's free ! You don't need to be a ServerPulse customer to use the agent
+
+
+.yui-g#boxer
+  .yui-u.first
+    %h3 Signup to receive the agent script.
+    = render :partial => 'emailform'
+
+  .yui-u
+    %img{ :src => '/images/marketing/s2kscreenshot1.png', :width => '450' }
+
+#sales-faq
+  %h3 Frequently Asked Questions
+  %dl
+    %dt ServerPulse Agent System Requirements ?
+    %dd 
+      A Unix distribution (Such as Linux) running PHP.
+    %dt Unsure of something ?
+    %dd 
+      Check our 
+      %a{ :href => "#"} Knowledge Base
+      , or have a look through the 
+      %a{ :href => "#"} Discussions.
+    %dt Are you going to send me lots of emails.
+    %dd 
+      No. You may get 1 a month, but you can unsubscribe at any time. 

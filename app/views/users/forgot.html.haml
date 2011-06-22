@@ -1,0 +1,16 @@
+= error_messages_for :user
+#container
+  .bubble
+    .rectangle
+      %h2
+        Request Password
+    .triangle-l
+    .triangle-r
+    .info
+      - form_for :user do |f|
+        %p
+          = f.label :email
+          %br
+          = f.text_field :email
+        %p
+          = submit_tag 'Submit'

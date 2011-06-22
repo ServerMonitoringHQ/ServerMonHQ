@@ -1,0 +1,64 @@
+%h2
+  Memory
+%table
+  %tr
+    %th
+      Name
+    %th
+      Memory Calc
+    %th
+      Memory Against
+  - for sm in @memory
+    %tr
+      %td
+        = h sm[:name]
+      %td
+        = h sm[:mem_calc]
+      %td
+        = h sm[:mem_perc]
+%h2
+  Load
+%table
+  %tr
+    %th
+      Name
+    %th
+      Load Calc
+    %th
+      Load Against
+  - for sm in @load
+    %tr
+      %td
+        = h sm[:name]
+      %td
+        = h sm[:load_calc]
+      %td
+        = h sm[:load_perc]
+%h2
+  Page monitoring
+%table
+  %tr
+    %th
+      Name
+    %th
+      Pages
+  - for sm in @pages
+    %tr
+      %td
+        = h sm[:name]
+      %td
+        = h sm[:pages]
+%h2
+  Port monitoring
+%table
+  %tr
+    %th
+      Name
+    %th
+      Ports Down
+  - for sm in @ports
+    %tr
+      %td
+        = h sm[:name]
+      %td
+        = h sm[:ports]

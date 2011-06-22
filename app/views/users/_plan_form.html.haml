@@ -1,0 +1,10 @@
+- unless @plans.blank?
+  %fieldset
+    %legend
+      Subscription plan
+    %ol
+      - @plans.each do |plan|
+        - if plan.enabled
+          %li
+            = radio_button_tag "account[plan_id]", plan.id, plan.id.eql?(@account.plan_id)
+            = label_tag "account[plan_id_#{plan.id}]", "#{plan.name} (#{sprintf '$%#.2f', plan.price.to_f})"

@@ -1,0 +1,13 @@
+one:
+  server_id: 4
+  title: Greenlight Signup Page
+  url: http://tci.broadcastnow.co.uk/session/new
+  search_text: Please enter your login details
+  follow_redirects: true
+
+two:
+  server_id: 4
+  title: ServerPulseHQ Home Page
+  url: http://serverpulsehq.com/
+  search_text: friendly interface
+  follow_redirects: true

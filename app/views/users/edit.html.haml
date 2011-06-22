@@ -1,0 +1,48 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        - if current_user.id == @user.id
+          = "#{current_user.name}'s Profile"
+        - else
+          Edit
+          = @user.name
+.inner-page
+  - if flash[:notice]
+    .item-details.flash
+      %h2
+        = flash[:notice]
+  - form_for @user, :html => { :class => 'data-entry'}, :url => user_path(@user) do |f|
+    %fieldset
+      %h3
+        First Name
+        = f.label :first_name
+        = f.text_field :first_name
+      %h3
+        Last Name
+        = f.label :last_name
+        = f.text_field :last_name
+      %h3
+        Email
+        = f.label :email
+        = f.text_field :email
+      %h3
+        Mobile Number
+        = f.label :mobile_number
+        = f.text_field :mobile_number
+
+      - if current_user.id == @user.id
+        %fieldset
+          %h3
+            Change Password
+          %p
+            If you want to change your password fill in the fields
+            below. Otherwise leave it blank to keep your password the same.
+            = f.password_field :password, :autocomplete => 'off'
+          %h3
+            Confirm Password
+            = f.password_field :password_confirmation, :autocomplete => 'off'
+    %fieldset.buttons
+      = f.submit 'Update Profile', :class => 'awesome'
+      or
+      = link_to('Cancel', :back)

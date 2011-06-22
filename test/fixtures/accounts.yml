@@ -1,0 +1,15 @@
+one:
+  name: Ian Purton
+  trial_end: <%= 30.days.from_now.to_s %>
+  plan_id: 1
+
+two:
+  name: Acme PLC
+  trial_end: <%= 30.days.from_now.to_s %>
+  plan_id: 1
+
+expired:
+  name: expired
+  trial_end: <%= 2.days.ago %>
+  active: false
+  plan_id: 1

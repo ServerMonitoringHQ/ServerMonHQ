@@ -1,0 +1,23 @@
+- content_for :title do
+  Port Monitoring
+  
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        Live Statistics
+      %p
+        Next update in 4 seconds.
+    .right-side
+.inner-page
+  %p
+    %b
+      Name:
+    = h @port.name
+  %p
+    %b
+      Address:
+    = h @port.address
+  = link_to 'Edit', edit_server_port_path(@server, @port)
+  \|
+  = link_to 'Back', server_ports_path(@server)

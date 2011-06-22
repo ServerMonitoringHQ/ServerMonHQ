@@ -1,0 +1,20 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        Live Statistics
+      %p
+        Next update in 4 seconds.
+    .right-side
+.inner-page
+  %p
+    %b
+      Name:
+    = h @server.name
+  %p
+    %b
+      URL:
+    = h @server.url
+  = link_to 'Edit', edit_server_path(@server)
+  \|
+  = link_to 'Back', servers_path

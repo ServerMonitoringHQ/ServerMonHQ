@@ -1,0 +1,9 @@
+one:
+  measure: two
+  user_id: 1
+  wait_for: 5
+
+two:
+  measure: two
+  user_id: 1
+  wait_for: 15

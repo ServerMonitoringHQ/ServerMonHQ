@@ -1,0 +1,36 @@
+.yui-u
+  .box
+    .inner
+      %h2 How does ServerPulse collect information ?
+      %p 
+        We SSH into your server on a regular basis and run a number of commands e.g. 
+        %code
+          cat /proc/loadavg. 
+        We don't run any commands that change anything on your server we only read information.  
+      %p
+        We 
+        %em
+          don't need a root 
+        account to collect information. A standard user account is sufficient, you can create an account for serverpulse e.g. 
+        %code
+          adduser serverpulse
+      %p
+        All passwords are encrypted and we also encrypt private key information and keep this secure for obvious reasons.
+  .box
+    .inner
+      %h2 Public Key Authentication
+      %p 
+        If you connect to your server using SSH with key authentication
+        You'll need to upload this servers ServerPulse public key to it.
+        You can view they key by clicking the button below.    
+      %p.button 
+        %a#public-key-button.awesome-black{ :href => '/key' }
+          View Public Key
+
+#public-key{ :style => 'display:none' }
+  %h2 Public Key
+  %p
+    This public key should be used to grant ServerPulse access to your server.
+    You'll need to add it to the  <em>authorized_keys</em> file.
+  %textarea{ :readonly => 'readonly', :style => 'height:120px;width:550px;font-size:90%' }
+    = @server.public_key

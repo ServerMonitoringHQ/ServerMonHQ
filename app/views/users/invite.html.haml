@@ -1,0 +1,18 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        Invitation for account access
+.inner-page
+  %p
+    Once the invitation is sent
+    = h @user.first_name
+    = h @user.last_name
+    Will have full access to your account.
+  - form_tag(send_invite_users_path, :html => { :class => 'edit-form' }) do |f|
+    %fieldset
+      = hidden_field_tag(:id, @user.id)
+    %fieldset
+      = submit_tag('Send Invitation')
+      or
+      = link_to('Cancel', users_path)

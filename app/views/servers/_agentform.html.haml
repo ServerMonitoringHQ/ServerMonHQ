@@ -1,0 +1,21 @@
+- if @server.errors.length > 0
+  %div.box
+    = f.error_messages
+%fieldset
+  %h3 URL
+  %p
+    Please enter the full URL to the agent script i.e. http://mydomain/agent/
+  %dd
+    %dl
+      = f.label :url, "Agent URL"
+      = f.text_field :url
+%fieldset
+  %h3 Display Name
+  %p
+    From now on I'd like you to refer to this server as
+    %dd
+      %dl
+        = f.label :name, "Display Name"
+        = f.text_field :name
+        = f.hidden_field :private_key
+        = f.hidden_field :public_key

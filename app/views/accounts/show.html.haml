@@ -1,0 +1,36 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        Upgrade
+      %p
+        = flash[:error]
+    .right-side
+.inner-page
+  %h2
+    Your current subscription plan is: 
+    = current_user.account.plan
+  = render :partial => 'marketing/plans'
+
+  %h2 Questions and Answers
+
+  %h3 What happens when I click the subscribe button ?
+
+  %p
+    You'll be directed to PayPal which we're using to take payments. It's very simple
+    and after you've made the payment PayPal automatically updates us and we apply
+    your subscription instantly.
+
+  %h3 How do I cancel my subscription ?
+
+  %p 
+    Easy. Just follow the 
+    %a{ :href => paypal_cancel_path } this link
+    and you'll be able to remove your subscription.
+
+  %h3 How do I upgrade/Downgrade my plan ?
+  
+  %p
+    Simply follow the steps above to cancel your current plan if you're not on the basic plan.
+
+    Then click the subscribe button for the plan you wish to be on.

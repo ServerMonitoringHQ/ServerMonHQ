@@ -1,0 +1,30 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        Commission Server
+    .right-side
+.yui-gc.inner-page
+  .yui-u.first
+    - form_for(@server, :html => { :class => 'data-entry'} ) do |f|
+      
+      = render :partial => 'agentform', :locals => { :f => f }
+
+      %fieldset
+        %h3 Start Monitoring Straight Away ?
+        %p
+          You can add monitoring now and then configure it later via the Monitors tab. 
+          We'll add the monitor to receive notification after 5 minutes 
+          (30 minutes for basic subscribers).
+        %dd
+          %dl
+            = check_box_tag :measure, {}, checked_value = @checked
+            Monitor this server with 
+            = collection_select(:monitor_server, :measure_id, @measures, :id, :name)
+
+      %fieldset.buttons
+        = f.submit 'Connect Now', :class => 'awesome'
+        or
+        = link_to 'Back to Servers', servers_path
+
+  = render :partial => 'agentsidebar', :locals => { :server => @server }

@@ -1,0 +1,19 @@
+.inner-page
+  %p.button
+    = link_to 'New log', new_server_log_path(@server), :class => 'awesome'
+  %table.data
+    %tr
+      %th
+        Path
+      %th
+        Action
+    - for log in @logs
+      %tr
+        %td.name
+          = h log.path
+        %td.action
+          = link_to 'Show', server_log_path(@server, log)
+          \&nbsp;|&nbsp;
+          = link_to 'Edit', edit_server_log_path(@server, log)
+          \&nbsp;|&nbsp;
+          = link_to 'Delete', server_log_path(@server, log), :confirm => 'Are you sure?', :method => :delete

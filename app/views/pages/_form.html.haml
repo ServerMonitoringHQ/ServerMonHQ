@@ -1,0 +1,22 @@
+- if @page.errors.length > 0
+  %div.box
+    = f.error_messages
+%fieldset
+  %h3 Page Title
+  %p
+    Give the page a recognisable title.
+  = f.label :title
+  = f.text_field :title
+%fieldset
+  %h3 Page URL
+  %p
+    The full URL of the page e.g. http://google.com
+  = f.label :url, 'URL'
+  = f.text_field :url
+%fieldset
+  %h3 Search Text
+  %p
+    As a seondary check ServerPulse can search for text on the page.
+  = f.label :search_text
+  = f.text_field :search_text
+

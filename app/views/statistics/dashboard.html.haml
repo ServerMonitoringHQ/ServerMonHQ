@@ -1,0 +1,27 @@
+
+!!! 5
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
+    %title
+      = @title || "Server Monitoring"
+    %link{ :rel => 'stylesheet', :type => 'text/css', :href => 'https://demo.geckoboard.com/css/dashboard.css' }
+    %script{ :type => 'text/javascript',
+      :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.js' }
+    = javascript_include_tag 'jquery-ui-1.8rc3.custom.min.js', 'facebox', 'jquery.labelify', 'jqueryprogressbar', 'application'
+
+  %body
+    #dashboard-container
+      #dashboard-wrapper
+        #w8494.b-widget.b-widget.w-time-with-title.loaded{ :style => 'top: 0px; left: 0px' }
+          %header
+            %section New York
+          %section.b-widget-time.h-12
+            %div.t-size-x60.t-main.t-left-block.time 6:31
+            %div.t-size-x30.t-main.t-left-block.prefix AM
+            %div.clear
+          %section.b-widget-body
+            %div.b-widget-inner
+              %div.t-size-x24.t-small.day Tuesday
+              %div.t-size-x24.t-muted.date 29 Mar 2011
+          %footer.b-public The Time (GMT -04.00)

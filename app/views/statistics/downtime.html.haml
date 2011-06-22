@@ -1,0 +1,88 @@
+- content_for :main_title do
+  Downtime 
+
+- content_for :title do
+  Downtime
+
+- content_for :head do
+  %script{:type => "text/javascript", :src => "http://google.com/jsapi"}
+  :javascript
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawCharts);
+    function drawCharts() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Downtime Over The Last 24 Hours');
+      data.addColumn('number', 'Downtime');
+      data.addRows(24);
+      #{@data_vis_24hr}
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_bandwidth_24hr'));
+      chart.draw(data, {width: 665, height: 400, 
+        chartArea: {left:50,top:20,width:"75%",height:"80%"} });
+
+      data = new google.visualization.DataTable();
+      data.addColumn('string', 'Downtime Over The Last Week');
+      data.addColumn('number', 'Downtime');
+      data.addRows(7);
+      #{@data_vis_7days}
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_bandwidth_7days'));
+      chart.draw(data, {width: 665, height: 400, 
+        chartArea: {left:50,top:20,width:"75%",height:"80%"} });
+
+      data = new google.visualization.DataTable();
+      data.addColumn('string', 'Downtime Over The Last Year');
+      data.addColumn('number', 'Downtime');
+      data.addRows(12);
+      #{@data_vis_year}
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_bandwidth_year'));
+      chart.draw(data, {width: 665, height: 400, 
+        chartArea: {left:50,top:20,width:"75%",height:"80%"} });
+    }
+
+.inner-page.add-space
+  .yui-ge
+    .yui-u.first
+      %h3.highlight
+        Downtime 24 Hours
+      %h4.highlight
+        Total minutes of downtime per hour over the last 24 hours.
+      #chart_bandwidth_24hr.chart
+      %h3.highlight
+        Downtime Last 7 Days
+      %h4.highlight
+        Total minutes of downtime per day over the last 7 days.
+      #chart_bandwidth_7days.chart
+      %h3.highlight
+        Downtime Last 12 Months
+      %h4.highlight
+        Total minutes of downtime per month over the last 12 months.
+      #chart_bandwidth_year.chart
+    .yui-u
+      .box
+        .inner
+          %h3
+            Downtime Totals
+          %table
+            %tr
+              %td
+              %th Mins
+            %tr
+              %th
+                Last 24 Hours
+              %td
+                = @total_24hr_down
+                mins
+            %tr
+              %th
+                Last Week
+              %td
+                = @total_1week_down
+                mins
+            %tr
+              %th
+                Last Year
+              %td
+                = @total_1year_down
+                mins

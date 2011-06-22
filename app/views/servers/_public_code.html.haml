@@ -1,0 +1,12 @@
+#code-view{ :style => 'display:none' }
+  %h2 
+    Create a Public Dashboard Link
+  %p
+    Please select the server you would like public dashboard for.
+  %p
+    - servers_array = servers.map { |server| [server.name, server.access_key] }
+    = select_tag(:external_id, options_for_select(servers_array))
+  %p
+    Cut and paste the link below and share it.
+  %textarea{ :readonly => 'readonly', :id => 'code-area', :style => 'height:120px;width:600px;font-size:90%' }
+    = public_code(servers)

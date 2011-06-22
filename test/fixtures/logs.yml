@@ -1,0 +1,14 @@
+one:
+  server: server_two
+  server_id: 4
+  path: "/etc/httpd/logs/error_log"
+
+two:
+  server: server_three
+  server_id: 4
+  path: "/var/log/apache2/error.log"
+
+three:
+  server: server_one
+  server_id: 4
+  path: "/var/log/apache2/error.log"

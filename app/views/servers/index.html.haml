@@ -1,0 +1,44 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        All Servers
+      %p
+        Server Status
+        %span#timer-text
+          Next update in 4 seconds.
+.yui-gc.inner-page
+  #server-list.yui-u.first
+    = render :partial => 'server_list', :locals => { :servers => @servers }
+  .yui-u
+    - if current_user.account.server_limit_reached?
+      .box
+        .inner
+          %h2 Monitor More servers ?
+          %p 
+            You'll need to upgrade your plan if you want to monitor any more servers.
+    - else
+      .box
+        .inner
+          %h2 Monitor a Server
+          %p 
+            There are 2 ways we can collect statistics from your server. We can connect directly via SSH 
+            or you can install our web based agent.
+          %p.button 
+            = link_to 'Collect Data via SSH', new_server_path, :class => 'awesome'
+          %p
+            or
+          %p.button 
+            = link_to 'Collect Data via Agent', newagent_servers_path, :class => 'awesome'
+
+    - if current_user.account.servers.count > 0
+      .box
+        .inner
+          %h2 Public Dashboard Link
+          %p 
+            Click the button to generate a link to a read only public dashboard.
+          %p.button
+            %a#code-view-button.awesome-black{ :href => '/lost' }
+              Get Code
+
+      = render :partial => 'public_code', :locals => { :servers => @servers }

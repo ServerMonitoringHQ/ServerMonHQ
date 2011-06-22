@@ -1,0 +1,19 @@
+%h1
+  History Info
+  = @access_key
+%p
+  Ports
+  = @ports.length
+%ul
+  - @ports.each do |port|
+    - p = @server.ports.find(port.elements['id'].text.to_i)
+    %li
+      = p.id
+      \-
+      = p.status
+    %li
+      = port.elements['id'].text.to_i
+      \-
+      = @server.ports.find(port.elements['id'].text.to_i).first
+    %li
+      = port.elements['status'].text

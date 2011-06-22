@@ -1,0 +1,14 @@
+one:
+  server_id: 4
+  name: MySQL
+  address: 3306
+  
+two:
+  server_id: 4
+  name: Memcache
+  address: 11211
+  
+three:
+  server_id: 4
+  name: Beanstalk
+  address: 11300

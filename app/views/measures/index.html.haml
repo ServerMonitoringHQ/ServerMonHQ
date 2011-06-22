@@ -1,0 +1,52 @@
+#context-header
+  .inner-page
+    .left-side
+      %h1
+        All Monitors
+      %p
+        Incidents are created when monitor thresholds are breached.
+.yui-gc.inner-page
+  .yui-u.first
+    %table.data
+      %caption
+        Monitors
+      %tr
+        %th
+          Name
+        %th
+          Memory Percentage
+        %th
+          Load Percentage
+        %th
+          Swap Percentage
+        %th
+          Disk Percentage
+        %th
+          Action
+      - for measure in @measures
+        %tr
+          %td.name
+            = link_to measure.name, measure
+          %td
+            = h measure.mem_perc
+            \%
+          %td
+            = h measure.load_perc
+            \%
+          %td
+            = h measure.swap_perc
+            \%
+          %td
+            = h measure.disk_perc
+            \%
+          %td.action
+            = link_to 'Edit', edit_measure_path(measure)
+            = link_to 'Destroy', measure, :confirm => 'Are you sure?', :method => :delete
+  .yui-u
+    .box
+      .inner
+        %h2 Create a New Monitor
+        %p 
+          Monitors set the criteria by which we measure server performance.
+        %p.button 
+          = link_to 'New Monitor', new_measure_path, :class => 'awesome'
