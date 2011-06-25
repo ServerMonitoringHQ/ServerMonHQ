@@ -3,7 +3,7 @@
   
 .yui-gc.inner-page.add-space
   .yui-u.first
-    - form_for(@page, :html => { :class => 'data-entry'}, :url => server_pages_path(@server)) do |f|
+    = form_for(@page, :html => { :class => 'data-entry'}, :url => server_pages_path(@server)) do |f|
       = render :partial => 'form', :locals => { :f => f }
       %fieldset
         = f.submit 'Create', :class => 'awesome'

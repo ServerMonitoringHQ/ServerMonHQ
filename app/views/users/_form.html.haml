@@ -1,7 +1,7 @@
 - @user.password = @user.password_confirmation = nil
 = error_messages_for :account
 = error_messages_for :user
-- form_for @user, :html => { :class => 'sign-up'} do |f|
+= form_for @user, :html => { :class => 'sign-up'} do |f|
   = render :partial => 'users/plan_form'
   %div.form-input
     = f.label :first_name

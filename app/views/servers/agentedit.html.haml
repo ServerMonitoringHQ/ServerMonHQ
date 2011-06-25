@@ -6,7 +6,7 @@
     .right-side
 .yui-gc.inner-page
   .yui-u.first
-    - form_for(@server, :html => { :class => 'data-entry'} ) do |f|
+    = form_for(@server, :html => { :class => 'data-entry'} ) do |f|
       
       = render :partial => 'agentform', :locals => { :f => f }
 

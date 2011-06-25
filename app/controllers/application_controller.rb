@@ -26,6 +26,17 @@ class ApplicationController < ActionController::Base
   end
 
   private
+ 
+  def login_required     
+    if session[:user_id]       
+      return true     
+    end     
+    
+    flash[:warning]='Please login to continue'     
+    session[:return_to]=request.fullpath     
+    redirect_to 'login'     
+    return false    
+  end
 
   def current_user       
     @current_user ||= User.find(session[:user_id]) if session[:user_id]     

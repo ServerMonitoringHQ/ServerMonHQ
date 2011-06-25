@@ -2,9 +2,9 @@ class Keychain < ActiveRecord::Base
   
   require 'encryptor'
   require 'base64'
-  require 'sha1'
+  require 'digest/sha1'
 
-  JAKE_KEY = 'Jake Purton, 18/8/2005'
+  JAKE_KEY = 'Jake Purton, 18/8/2006'
 
   belongs_to :server
 

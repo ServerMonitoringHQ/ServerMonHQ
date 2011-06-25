@@ -2,7 +2,7 @@
   Accept invitation
 - @user.password = @user.password_confirmation = nil
 = error_messages_for :user
-- form_for(@user, :url => { :action => 'accept_invitation', :id => @invite.code }) do |f|
+= form_for(@user, :url => { :action => 'accept_invitation', :id => @invite.code }) do |f|
   %fieldset
     %legend
       Personal Details

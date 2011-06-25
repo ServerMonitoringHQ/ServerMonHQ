@@ -27,7 +27,7 @@ class Measure < ActiveRecord::Base
   protected
 
   def clear_incidents
-    incidents = account.incidents.where(:measure_id => self.id])
+    incidents = account.incidents.where(:measure_id => self.id)
     incidents.each { |incident| incident.destroy }
   end
 

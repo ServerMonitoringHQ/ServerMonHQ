@@ -6,7 +6,7 @@
       %p
         They can receive alerts from ServerPulse
 .inner-page
-  - form_for :user, @user, :url => add_user_users_path, :html => { :class => 'data-entry' } do |f|
+  = form_for :user, @user, :url => add_user_users_path, :html => { :class => 'data-entry' } do |f|
     = f.error_messages
     %fieldset
       %h3

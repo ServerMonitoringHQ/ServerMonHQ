@@ -18,6 +18,10 @@ gem 'jquery-rails'
 gem 'execjs'
 gem 'therubyracer'
 gem 'haml'
+gem 'net-ssh'
+
+gem 'encryptor'
+gem 'hominid'
 
 gem "insight_rails", "0.2.0", :require => "insight"
 

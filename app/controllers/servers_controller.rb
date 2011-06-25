@@ -1,10 +1,8 @@
 class ServersController < ApplicationController
 
-  include ServerMaintance
-
   before_filter :login_required
   before_filter :check_account_expired
-  filter_parameter_logging :password, :private_key
+  config.filter_parameters :password, :private_key
 
   protect_from_forgery :except => [:history]
   

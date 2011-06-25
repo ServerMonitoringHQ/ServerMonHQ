@@ -7,7 +7,7 @@
 .inner-page
   .yui-ge
     .yui-u.first
-      - form_for(@measure, :html => { :class => 'data-entry'} ) do |f|
+      = form_for(@measure, :html => { :class => 'data-entry'} ) do |f|
         = render :partial => 'form', :locals => { :f => f }
         %p
           = f.submit 'Update', :class => 'awesome'

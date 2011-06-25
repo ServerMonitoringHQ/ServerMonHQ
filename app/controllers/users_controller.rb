@@ -108,7 +108,6 @@ class UsersController < ApplicationController
   end
  
   def create    
-    logout_keeping_session!
     @user = User.new(params[:user])
     @user.mobile_number = ''
     @account = Account.new(params[:account])
@@ -127,18 +126,18 @@ class UsersController < ApplicationController
       # protection if visitor resubmits an earlier form using back
       # button. Uncomment if you understand the tradeoffs.
       # reset session
-      self.current_user = @user # !! now logged in
+      session[:user_id] = @user.id
      
       begin
         # Save out to Fat Free
-        l = Api::Lead.new({ :first_name => @user.first_name, :last_name => @user.last_name, 
-          :email => @user.email, :user_id => 1})
-        l.save
+        #l = Api::Lead.new({ :first_name => @user.first_name, :last_name => @user.last_name, 
+        #  :email => @user.email, :user_id => 1})
+        #l.save
         
         # Add now to mailchimp
-        h = Hominid::Base.new({:api_key => '72c8ca6a7ea19fcb9dabf68ff38e360b-us1'})
-        h.subscribe(h.find_list_id_by_name("ServerPulse Signups"), @user.email, 
-          {:FNAME => @user.first_name, :LNAME => @user.last_name}, {:email_type => 'html'})
+        #h = Hominid::Base.new({:api_key => '72c8ca6a7ea19fcb9dabf68ff38e360b-us1'})
+        #h.subscribe(h.find_list_id_by_name("ServerPulse Signups"), @user.email, 
+        #  {:FNAME => @user.first_name, :LNAME => @user.last_name}, {:email_type => 'html'})
       rescue
         # Do nothing
       end

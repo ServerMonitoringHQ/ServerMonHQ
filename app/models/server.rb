@@ -6,7 +6,7 @@ class Server < ActiveRecord::Base
   require 'timeout'
   require 'encryptor'
   require 'base64'
-  require 'sha1'
+  require 'digest/sha1'
   require 'rexml/document'
   require 'keychain'
 
@@ -436,7 +436,7 @@ EOF
   end
 
   def clear_incidents
-    incidents = account.incidents.where(:server_id => self.id])
+    incidents = account.incidents.where(:server_id => self.id)
     incidents.each { |incident| incident.destroy }
   end
 

@@ -1,5 +1,5 @@
 .inner-page
-  - form_for(@log, :html => { :class => 'edit-form'}, :url => server_log_path(@server, @log)) do |f|
+  = form_for(@log, :html => { :class => 'edit-form'}, :url => server_log_path(@server, @log)) do |f|
     = f.error_messages
     %p
       = f.label :path

@@ -12,7 +12,7 @@
     .item-details.flash
       %h2
         = flash[:notice]
-  - form_for @user, :html => { :class => 'data-entry'}, :url => user_path(@user) do |f|
+  = form_for @user, :html => { :class => 'data-entry'}, :url => user_path(@user) do |f|
     %fieldset
       %h3
         First Name
