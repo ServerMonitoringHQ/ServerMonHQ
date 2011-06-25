@@ -12,9 +12,14 @@ gem 'sass-rails', "~> 3.1.0.rc"
 gem 'coffee-script'
 gem 'uglifier'
 
+gem 'sprockets', '= 2.0.0.beta.10'
+
 gem 'jquery-rails'
 gem 'execjs'
 gem 'therubyracer'
+gem 'haml'
+
+gem "insight_rails", "0.2.0", :require => "insight"
 
 # Use unicorn as the web server
 # gem 'unicorn'

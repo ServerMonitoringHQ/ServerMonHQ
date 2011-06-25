@@ -1,9 +1,9 @@
-Serverpulse::Application.routes.draw do
+Servermonitoringhq::Application.routes.draw do
+
   resources :ports
   resources :measures
   resource :account, :only => [:show, :create] do
     collection do
-  post :changed_on_spreedly
   end
   
   

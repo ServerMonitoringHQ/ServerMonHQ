@@ -3,11 +3,9 @@
   = yield(:title)
 
 %link{:rel => 'icon', :href => '/images/favicon.ico'} 
-= stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'marketing', 'awesome', 'pricing'
+= stylesheet_link_tag 'application'
 
 /[if IE]
   = javascript_include_tag  "http://html5shiv.googlecode.com/svn/trunk/html5.js"
 
-%script{ :type => 'text/javascript',
-  :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.js' }
-= javascript_include_tag 'marketing'
+= javascript_include_tag 'application'
