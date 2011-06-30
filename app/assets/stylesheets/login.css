@@ -5,5 +5,5 @@
  *= require_self
  *= require base-min.css
  *= require reset-fonts-grids.css
- *= require application.sass
+ *= require session.sass
  */

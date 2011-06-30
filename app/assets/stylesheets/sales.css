@@ -5,5 +5,7 @@
  *= require_self
  *= require base-min.css
  *= require reset-fonts-grids.css
- *= require application.sass
+ *= require marketing.sass
+ *= require insight.sass
+ *= require pricing.sass
  */
