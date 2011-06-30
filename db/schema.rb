@@ -195,7 +195,6 @@ ActiveRecord::Schema.define(:version => 20110215121510) do
     t.string   "last_name",                 :limit => 100, :default => ""
     t.string   "email",                     :limit => 100
     t.string   "password_digest",           :limit => 40
-    t.string   "salt",                      :limit => 40
     t.boolean  "admin",                                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"

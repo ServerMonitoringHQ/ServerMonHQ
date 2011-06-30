@@ -8,7 +8,6 @@ class CreateUsers < ActiveRecord::Migration
       t.column :last_name,                      :string, :limit => 100, :default => '', :null => true
       t.column :email,                     :string, :limit => 100
       t.column :password_digest,           :string, :limit => 40
-      t.column :salt,                      :string, :limit => 40
       t.column :admin,                     :boolean, :default => false
       t.column :created_at,                :datetime
       t.column :updated_at,                :datetime
