@@ -4,10 +4,8 @@
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
     %title
       = yield :main_title
-    = stylesheet_link_tag 'reset-fonts-grids', 'base-min', 'application', 'facebox', 'jquery.ui', 'awesome'
-    %script{ :type => 'text/javascript',
-      :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.js' }
-    = javascript_include_tag 'jquery.labelify.js', 'jquery-ui-1.8rc3.custom.min.js', 'facebox', 'jqueryprogressbar', 'application'
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
     = yield :head
     = render :partial => "layouts/analytics"
   %body

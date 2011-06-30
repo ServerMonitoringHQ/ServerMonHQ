@@ -3,9 +3,9 @@
 %nav
   %ul#tabs
     %li= link_to "Home", '/', :class => @selected_nav == :home ? "nav-highlight" : ""
-    %li= link_to  "Tour &amp; Features", tour_path , :class => @selected_nav == :tour ? "nav-highlight" : ""
-    %li= link_to  "Pricing &amp; Signup", buy_path, :class => @selected_nav == :pricing ? "nav-highlight" : ""
-    %li= link_to  "Help &amp; Support", '/help', :class => @selected_nav == nil ? "nav-highlight" : ""
+    %li= link_to  "Tour & Features", tour_path , :class => @selected_nav == :tour ? "nav-highlight" : ""
+    %li= link_to  "Pricing & Signup", buy_path, :class => @selected_nav == :pricing ? "nav-highlight" : ""
+    %li= link_to  "Help & Support", '/help', :class => @selected_nav == nil ? "nav-highlight" : ""
     %li= link_to  "Blog", 'http://blog.servermonitoringhq.com'
     %li
       = link_to_unless(current_user, "Login", login_path, :class => "login") { link_to("Servers", servers_path) }
