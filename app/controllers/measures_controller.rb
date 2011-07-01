@@ -20,7 +20,7 @@ class MeasuresController < ApplicationController
   # GET /measures/1
   # GET /measures/1.xml
   def show
-    @measure = current_user.account.measures.find.all.include(:users, :servers)
+    @measure = current_user.account.measures.find(params[:id])
 
     @users = current_user.account.users
 

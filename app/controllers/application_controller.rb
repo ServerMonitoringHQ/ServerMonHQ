@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    (authorized? && current_user.admin?) || access_denied
+    current_user.admin?
   end
 
 end

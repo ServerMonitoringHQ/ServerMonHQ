@@ -9,8 +9,7 @@ class IncidentsController < ApplicationController
   # GET /incidents.xml
   def index
 
-    @incidents = current_user.account.incidents.paginate :page => params[:page], 
-      :order => 'created_at DESC'
+    @incidents = current_user.account.incidents.order('created_at DESC').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
