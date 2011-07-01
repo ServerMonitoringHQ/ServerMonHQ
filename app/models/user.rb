@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
   
   belongs_to :account
 
+  validates_presence_of     :password,                   :if => :password_required?
+  validates_presence_of     :password_confirmation,      :if => :password_required?
+  validates_confirmation_of :password,                   :if => :password_required?
+  validates_length_of       :password, :within => 6..40, :if => :password_required?
   validates_presence_of     :password, :on => :create 
   validates_presence_of     :login, :unless => Proc.new { |user| user.login.nil? }
   validates_length_of       :login, :within => 3..40, :unless => Proc.new { |user| user.login.nil? }
@@ -36,7 +40,7 @@ class User < ActiveRecord::Base
   def self.authenticate(login, password)
     return nil if login.blank? || password.blank?
     u = find_by_login(login.downcase) # need to get the salt
-    u && u.authenticated?(password) ? u : nil
+    u && u.authenticate(password) ? u : nil
   end
 
   def login=(value)
@@ -63,6 +67,57 @@ class User < ActiveRecord::Base
 
   def delete_reset_code
     self.attributes = {:reset_code => nil}
-    save(false)
+    save(:validate => false)      
+  end
+
+  def remember_token?
+    (!remember_token.blank?) && 
+      remember_token_expires_at && (Time.now.utc < remember_token_expires_at.utc)
+  end
+
+  # These create and unset the fields required for remembering users between browser closes
+  def remember_me
+    remember_me_for 2.weeks
+  end
+
+  def remember_me_for(time)
+    remember_me_until time.from_now.utc
+  end
+
+  def remember_me_until(time)
+    self.remember_token_expires_at = time
+    self.remember_token            = self.make_token
+    save(:validate => false)      
+  end
+
+  # refresh token (keeping same expires_at) if it exists
+  def refresh_token
+    if remember_token?
+      self.remember_token = self.class.make_token 
+      save(:validate => false)      
+    end
+  end
+
+  # 
+  # Deletes the server-side record of the authentication token.  The
+  # client-side (browser cookie) and server-side (this remember_token) must
+  # always be deleted together.
+  #
+  def forget_me
+    self.remember_token_expires_at = nil
+    self.remember_token            = nil
+    save(:validate => false)      
+  end
+
+  def secure_digest(*args)
+    Digest::SHA1.hexdigest(args.flatten.join('--'))
+  end
+
+  def make_token
+    secure_digest(Time.now, (1..10).map{ rand.to_s })
+  end
+
+  def password_required?
+    password_digest.blank? || !password.blank?
   end
 end

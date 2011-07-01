@@ -27,6 +27,8 @@ class Server < ActiveRecord::Base
   validates_presence_of :username, :if => :ssh_connection?
   validates_presence_of :url, :unless => :ssh_connection?
 
+  after_initialize :do_after_initialize
+
   scope :active,
               :include => :account,
               :conditions => ['accounts.active = ? OR accounts.trial_end >= ?', true, Date.today]
@@ -52,7 +54,7 @@ class Server < ActiveRecord::Base
     end
   end
 
-  def after_initialize
+  def do_after_initialize
     if self.private_key == nil
       generate_keys(self.account_id)
     end

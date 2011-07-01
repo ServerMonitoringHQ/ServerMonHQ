@@ -10,7 +10,7 @@
     %li
       = link_to_unless(current_user, "Login", login_path, :class => "login") { link_to("Servers", servers_path) }
 .login-form
-  - form_tag session_path do
+  = form_tag session_path do
     #normal_login.inner{:style => 'display:block'}
       #loginUsernameField
         %label{:for => 'loginUsername'}= :username

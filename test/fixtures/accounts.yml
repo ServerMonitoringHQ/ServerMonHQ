@@ -1,4 +1,5 @@
 one:
+  id: 6
   name: Ian Purton
   trial_end: <%= 30.days.from_now.to_s %>
   plan_id: 1

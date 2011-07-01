@@ -70,7 +70,7 @@ class MonitorcronController < ApplicationController
       ports = [ports] unless ports.is_a?(Array)
       ports.each { |port|
         p = Port.where(:address => port[:address].to_i, 
-          :server_id = > params[:ports][:id].to_i]).first
+          :server_id => params[:ports][:id].to_i).first
         p.status = port[:status].to_i
         p.save
       }
