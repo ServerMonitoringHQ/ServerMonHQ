@@ -20,4 +20,8 @@ class SessionsController < ApplicationController
     session[:user_id] = nil           
     redirect_to '/', :notice => "Logged out!"         
   end       
+
+  def logged_in?
+    !!current_user
+  end
 end  

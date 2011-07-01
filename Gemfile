@@ -37,4 +37,5 @@ gem "insight_rails", "0.2.0", :require => "insight"
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'assert_valid_markup'
 end
