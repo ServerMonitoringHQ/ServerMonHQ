@@ -35,6 +35,11 @@ gem "insight_rails", "0.2.0", :require => "insight"
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+group :production do 
+  gem 'therubyracer-heroku', '0.8.1.pre3' # you will need this too   
+  gem 'pg' 
+end
+
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
