@@ -26,13 +26,13 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   def test_should_remember_me
-    @request.cookies["auth_token"] = nil
+    request.cookies["auth_token"] = nil
     post :create, :login => 'ianpurton', :password => 'vja481x', :remember_me => "1"
     assert_not_nil @response.cookies["auth_token"]
   end
 
   def test_should_not_remember_me
-    @request.cookies["auth_token"] = nil
+    request.cookies["auth_token"] = nil
     post :create, :login => 'ianpurton', :password => 'vja481x', :remember_me => "0"
     assert @response.cookies["auth_token"].blank?
   end
@@ -45,7 +45,8 @@ class SessionsControllerTest < ActionController::TestCase
 
   def test_should_login_with_cookie
     users(:ianpurton).remember_me
-    @request.cookies["auth_token"] = cookie_for(:ianpurton)
+    request.cookies["auth_token"] = cookie_for(:ianpurton)
+    @controller.send(:current_user)
     get :new
     assert @controller.send(:logged_in?)
   end
@@ -60,7 +61,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   def test_should_fail_cookie_login
     users(:ianpurton).remember_me
-    @request.cookies["auth_token"] = auth_token('invalid_auth_token')
+    request.cookies["auth_token"] = auth_token('invalid_auth_token')
     get :new
     assert !@controller.send(:logged_in?)
   end

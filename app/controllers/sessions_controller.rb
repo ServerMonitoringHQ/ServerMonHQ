@@ -2,26 +2,33 @@ class SessionsController < ApplicationController
 
   layout 'session'
 
+  def create
+    logout_keeping_session!
+    user = User.authenticate(params[:login], params[:password])
+    if user
+      # Protects against session fixation attacks, causes request forgery
+      # protection if user resubmits an earlier form using back
+      # button. Uncomment if you understand the tradeoffs.
+      # reset_session
+      self.current_user = user
+      new_cookie_flag = (params[:remember_me] == "1")
+      handle_remember_cookie! new_cookie_flag
+      redirect_back_or_default(servers_path)
+    else
+      note_failed_signin
+      @login       = params[:login]
+      @remember_me = params[:remember_me]
+      render :action => 'new'
+    end
+  end
+
+  def destroy
+    logout_killing_session!
+    flash[:notice] = "You have been logged out."
+    redirect_back_or_default('/')
+  end
+
   def new         
   end
   
-  def create           
-    user = User.find_by_login(params[:login])
-    if user && user.authenticate(params[:password])             
-      session[:user_id] = user.id             
-      redirect_to servers_url, :notice => "Logged in!"           
-    else             
-      flash.now.alert = "Invalid email or password"             
-      render "new"           
-    end         
-  end                
-  
-  def destroy           
-    session[:user_id] = nil           
-    redirect_to '/', :notice => "Logged out!"         
-  end       
-
-  def logged_in?
-    !!current_user
-  end
 end  

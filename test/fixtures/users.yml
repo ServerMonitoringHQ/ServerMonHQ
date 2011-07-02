@@ -18,7 +18,7 @@ aaron:
   account: two
   login:                     aaron
   email:                     aaron@example.com
-  password_digest:          5d82937fde43a121a346f1e4d1c1ce5cf951c41e # 'monkey'
+  password_digest:           $2a$10$1DLbAIsLM6pxWJUVAMB6FOJjzpoDBHceJ83FgB9nucEe7urYoq4Qy
   created_at:                <%= 1.days.ago.to_s :db %>
   remember_token_expires_at: 
   admin: true
@@ -31,12 +31,13 @@ old_password_holder:
   account: expired
   login:                     old_password_holder
   email:                     salty_dog@example.com
-  password_digest:          00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   created_at:                <%= 1.days.ago.to_s :db %>
+  password_digest:           $2a$10$1DLbAIsLM6pxWJUVAMB6FOJjzpoDBHceJ83FgB9nucEe7urYoq4Qy
 
 regular:
   account: two
   login: bob
+  password_digest:           $2a$10$1DLbAIsLM6pxWJUVAMB6FOJjzpoDBHceJ83FgB9nucEe7urYoq4Qy
   admin: false
   first_name: Bob
   last_name: Smith
