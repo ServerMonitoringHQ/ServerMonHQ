@@ -8,7 +8,9 @@ class Keychain < ActiveRecord::Base
 
   belongs_to :server
 
-  def after_initialize
+  after_initialize :do_after_initialize
+
+  def do_after_initialize
     if self.private_key == nil 
       self.private_key = Base64.encode64(Encryptor.encrypt(:value =>
         generate_private_key, :key => JAKE_KEY))
@@ -32,7 +34,7 @@ class Keychain < ActiveRecord::Base
 
   def get_public_key(private_key_pem)
 
-    digest = Base64.encode64(SHA1.digest(private_key_pem)).gsub(/\n/, '')
+    digest = Base64.encode64(Digest::SHA1.digest(private_key_pem)).gsub(/\n/, '')
 
     the_key = Rails.cache.fetch("#{digest}") do
       name = "#{Rails.root}/tmp/key_file_#{Process.pid}#{rand(100)}"
