@@ -5,8 +5,8 @@
 // the compiled file.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
-//= require jquery-ui-1.8rc3.custom.min.js
 //= require jquery.labelify.js
 //= require jqueryprogressbar.js
 //= require facebox.js
