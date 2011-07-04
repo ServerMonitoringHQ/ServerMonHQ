@@ -25,16 +25,3 @@ two:
   notify_pages: true
   notify_ports: true
   paused: false
-
-three:
-  name: "You Shouldn't See This"
-  account: two
-  mem_perc: 1
-  load_perc: 1
-  swap_perc: 1
-  heartbeat: 1
-  disk_perc: 1
-  bandwidth: 10
-  notify_pages: true
-  notify_ports: true
-  paused: false
