@@ -23,6 +23,7 @@ gem 'net-ssh'
 gem 'encryptor'
 gem 'hominid'
 gem 'kaminari'
+gem 'twilio'
 
 gem "insight_rails", "0.2.0", :require => "insight"
 

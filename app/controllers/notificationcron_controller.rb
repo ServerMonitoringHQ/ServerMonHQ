@@ -34,7 +34,7 @@ class NotificationcronController < ApplicationController
 
     # If we have new incidents send an email
     if resolved_incidents.length > 0
-      Notifier.deliver_alert_service_restored(um, resolved_incidents)
+      NotificationMailer.alert_service_restored(um, resolved_incidents)
     end
   end
 
@@ -62,7 +62,7 @@ class NotificationcronController < ApplicationController
     end
     # If we have new incidents send an email
     if new_incidents.length > 0
-      Notifier.deliver_alert_service_down(um, new_incidents)
+      NotificationMailer.alert_service_down(um, new_incidents)
     end
   end
 
