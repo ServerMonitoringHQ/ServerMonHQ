@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     
     invite = Invite.create(:user_id => @user.id)
     
-    NotificationMailer.send_invitation(@user, current_user, invite.code)
+    NotificationMailer.send_invitation(@user, current_user, invite.code).deliver
     
     flash[:notice] = "Invite successfully sent"
     
@@ -170,7 +170,7 @@ class UsersController < ApplicationController
       if user
         user.create_reset_code
 
-        NotificationMailer.reset_notification(user)
+        NotificationMailer.reset_notification(user).deliver
         flash[:notice] = "Reset code sent to #{user.email}"
       else
         flash[:notice] = "#{params[:user][:email]} does not exist in system"
