@@ -6,24 +6,12 @@
       %p
         They can receive alerts from ServerPulse
 .inner-page
-  = form_for :user, @user, :url => add_user_users_path, :html => { :class => 'data-entry' } do |f|
+  = form_for @user, :html => { :class => 'data-entry'} do |f|
     = f.error_messages
     %fieldset
       %h3
         Add the details of the person you'd like to make a contact
-      %dd
-        %dl
-          = f.label :first_name
-          = f.text_field :first_name
-        %dl
-          = f.label :last_name
-          = f.text_field :last_name
-        %dl
-          = f.label :email
-          = f.text_field :email
-        %dl
-          = f.label :mobile_number
-          = f.text_field :mobile_number
+    = render :partial => 'users/contactform', :locals => {:f => f}
     %fieldset.buttons
       = f.submit 'Add Contact', :class => 'awesome'
       or
