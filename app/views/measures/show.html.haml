@@ -117,7 +117,12 @@
               = h user.user.first_name 
               = h user.user.last_name
             %td
-              Notify by email after
+              - if user.notify_type == 0
+                Notify by Email after
+              - elsif user.notify_type == 1
+                Notify by SMS after
+              -else
+                Notify by Email and SMS after
               = h user.wait_for
               minutes
             %td.action
@@ -129,9 +134,12 @@
         %form#adduser-form{ :onsubmit => "return add_user()", :action => "#" }
           %label
             Contact
+          %br
           = collection_select(nil, :user_id, @users, :id, :name)
+          %br
           %label
             How long to wait before sending an alert
+          %br
           %select.wait_for{ :name => "wait_for" }
             %option{ :value => "5" }
               5 Minutes
@@ -145,6 +153,17 @@
               30 Minutes
             %option{ :value => "60" }
               1 hour
+          %br
+          %label
+            What type of alert ?
+          %br
+          %select.notify_type{ :name => 'notify_type' }
+            %option{ :value => "0" }
+              Email
+            %option{ :value => "1" }
+              SMS
+            %option{ :value => "2" }
+              Both
           %input.add-user-button{ :type => "submit", :value => "Add" }
           %input.measure_id{ :name => "measure_id", :type => "hidden", :value => @measure.id }
       %table#servers-table.data

@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20110215121510) do
     t.integer  "user_id"
     t.integer  "measure_id"
     t.integer  "wait_for"
+    t.integer  "notify_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

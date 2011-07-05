@@ -5,6 +5,7 @@ class CreateMonitorUsers < ActiveRecord::Migration
       t.integer :user_id
       t.integer :measure_id
       t.integer :wait_for
+      t.integer :notify_type
 
       t.timestamps
     end

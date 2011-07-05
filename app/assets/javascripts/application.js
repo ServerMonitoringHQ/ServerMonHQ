@@ -126,10 +126,16 @@ function add_user()
 {
 	var wait_for  = $('#facebox .wait_for:first').val();
 	var measure_id  = $('#facebox .measure_id:first').val();
+	var type  = $('#facebox .notify_type:first').val();
 	var user_id = $('#facebox select:first').val();
 	var user_name = $('#facebox select:first :selected').text();
-	var dataString = 'user_id=' + user_id + '&wait_for=' + wait_for;
+	var dataString = 'user_id=' + user_id + '&notify_type=' + type + '&wait_for=' + wait_for;
 	var url = '/measures/' + measure_id + '/adduser';
+  var msg = 'Email';
+  if(type == '1')
+    msg = 'SMS';
+  if(type == '2')
+    msg = 'Email and SMS';
 
 	$.ajax({
 		type: "POST",
@@ -139,7 +145,7 @@ function add_user()
 		{ 
 			id = $(xml).find('id').text();
 			$('#users-table').append('<tr><td>' + user_name +
-				'</td><td>Notify by email after ' + wait_for +  ' minutes</td>'
+				'</td><td>Notify by ' + msg + ' after ' + wait_for +  ' minutes</td>'
 				+ '<td class="action"><a href="/measures/' + measure_id 
 				+ '/mu/' + id + '">Delete</a></td></tr>');
 		}

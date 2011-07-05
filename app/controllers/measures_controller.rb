@@ -123,6 +123,7 @@ class MeasuresController < ApplicationController
     mu = MonitorUser.new
     mu.measure_id = @measure.id
     mu.wait_for = params[:wait_for].to_i 
+    mu.notify_type = params[:notify_type].to_i
     mu.user_id = params[:user_id].to_i
     mu.save
 
