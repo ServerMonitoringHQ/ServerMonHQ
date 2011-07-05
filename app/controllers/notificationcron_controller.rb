@@ -34,7 +34,14 @@ class NotificationcronController < ApplicationController
 
     # If we have new incidents send an email
     if resolved_incidents.length > 0
-      NotificationMailer.alert_service_restored(um, resolved_incidents).deliver
+      if um.notify_type == 0 or um.notify_type == 2
+        NotificationMailer.alert_service_restored(um, resolved_incidents).deliver
+      end
+      if um.notify_type == 1 or um.notify_type == 2
+        Twilio.connect('AC1d6be5fe338cad384648a39aa2354f0f', 'bf0aebbd2c61e00829508cc5ffa17d10')
+        Twilio::Sms.send('123456778', um.user.mobile_number, 
+          'Message from ServerMonitoringHQ.com #{resolved_incidents.length} incident(s) resolved.')
+      end
     end
   end
 
@@ -62,7 +69,14 @@ class NotificationcronController < ApplicationController
     end
     # If we have new incidents send an email
     if new_incidents.length > 0
-      NotificationMailer.alert_service_down(um, new_incidents).deliver
+      if um.notify_type == 0 or um.notify_type == 2
+        NotificationMailer.alert_service_down(um, new_incidents).deliver
+      end
+      if um.notify_type == 1 or um.notify_type == 2
+        Twilio.connect('AC1d6be5fe338cad384648a39aa2354f0f', 'bf0aebbd2c61e00829508cc5ffa17d10')
+        Twilio::Sms.send('123456778', um.user.mobile_number, 
+          'Message from ServerMonitoringHQ.com we have #{new_incidents.length} new incident(s)')
+      end
     end
   end
 
