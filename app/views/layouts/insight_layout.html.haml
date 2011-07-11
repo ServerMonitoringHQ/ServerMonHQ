@@ -28,7 +28,7 @@
         .latest.discussions
           %h3 Latest Discussions
           %ul
-          - Issue.where(:from => :latest).each do |issue| 
+          - Issue.find(:all, :from => :latest).each do |issue| 
             %li
               %span
                 = issue.created_at.strftime("%d %b %H:%M") 
@@ -37,7 +37,7 @@
         .latest.articles
           %h3 Latest Knowledge Base Articles
           %ul
-          - Article.where(:from => :latest).each do |article| 
+          - Article.find(:all, :from => :latest).each do |article| 
             %li
               = link_to(article.title, knowledge_article_path(article)) 
 

@@ -66,5 +66,5 @@ Servermonitoringhq::Application.routes.draw do
   end
 
   match '/' => 'Marketing#index'
-  match '/:controller(/:action(/:id))'
+#match '/:controller(/:action(/:id))'
 end

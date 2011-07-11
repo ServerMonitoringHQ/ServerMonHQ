@@ -205,13 +205,18 @@ class StatisticsController < ApplicationController
 
     Rails.cache.fetch("#{type}-#{params[:id]}", :expires_in => 10.seconds) {
 
-      send_to_queue(:default, {:type => type, :hostname => @server.hostname,
+      args = {:type => type, :hostname => @server.hostname,
         :env => Rails.env,
-        :url => @server.url,
         :username => @server.username,
         :password => @server.password,
         :private_key => @server.private_key,
-        :port => @server.ssh_port, :id => @server.id})
+        :port => @server.ssh_port, :id => @server.id}
+
+      if @server.url != nil
+        args[:url] = @server.url
+      end
+
+      send_to_queue(:default, args)
     }
 
   end

@@ -1,4 +1,4 @@
 %h1
   Delete Server
-= form_for :server, @server, :url => { :action => 'removed' } do |f|
+= form_for @server, :url => { :action => 'removed' } do |f|
   = submit_tag 'Delete'

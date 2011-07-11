@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   # refresh token (keeping same expires_at) if it exists
   def refresh_token
     if remember_token?
-      self.remember_token = self.class.make_token 
+      self.remember_token = make_token 
       save(:validate => false)      
     end
   end

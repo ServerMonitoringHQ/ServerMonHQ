@@ -38,7 +38,7 @@ class Server < ActiveRecord::Base
   CMD_LOG = "tail -n 20 [path] 2>&1"
   CMD_NETSTAT = "netstat -ln"
   CMD_LOAD_AVG = "cat /proc/loadavg"
-  JAKE_KEY = 'Jake Purton, 18/8/2005'
+  JAKE_KEY = 'Jake Purton, 18/8/2006'
 
   def ssh_connection?
     return @ssh_connection

@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   def send_to_queue(queue, message)
     
     message[:timestamp] = Time.now.gmtime.to_s
+    message[:return_url] = request.protocol + request.host_with_port
     yml = YAML::dump(message)
     params = { :target => yml }
     x = Net::HTTP.post_form(URI.parse("http://pulse-resque.heroku.com/enqueue/#{queue}/"), 
@@ -147,7 +148,7 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !!current_user
   end
-
+  helper_method :logged_in?
   # Accesses the current user from the session.
   # Future calls avoid the database because nil is not equal to false.
   def current_user

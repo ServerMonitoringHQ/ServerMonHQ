@@ -25,7 +25,7 @@ gem 'hominid'
 gem 'kaminari'
 gem 'twilio'
 
-gem "insight_rails", "0.2.0", :require => "insight"
+gem "insight_rails", "0.3.1", :require => "insight"
 
 # Use unicorn as the web server
 # gem 'unicorn'
