@@ -55,6 +55,7 @@ Servermonitoringhq::Application.routes.draw do
   post :renamed
   get :configure
   get :agentedit
+  get :statistics
   get :remove
   get :download
   get :rename
@@ -66,5 +67,5 @@ Servermonitoringhq::Application.routes.draw do
   end
 
   match '/' => 'Marketing#index'
-#match '/:controller(/:action(/:id))'
+match '/:controller(/:action(/:id))'
 end
