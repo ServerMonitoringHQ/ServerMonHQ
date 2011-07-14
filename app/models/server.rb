@@ -301,7 +301,7 @@ EOF
         doc = REXML::Document.new(body)
 
         if doc.root.elements['processing'] == nil
-          errors.add_to_base 'Unable to parse results from agent'
+          errors[:base] << 'Unable to parse results from agent'
         else
           #process data from agent
           self.usedswap = doc.root.elements['*/swapused'].to_s
@@ -323,11 +323,11 @@ EOF
           self.uptime = doc.root.elements['uptime'].to_s
         end
       else
-        errors.add_to_base 'Could not access URL'
+        errors[:base] << 'Could not access URL'
       end
 
     rescue Exception => e
-      errors.add_to_base 'Unable to connect ' + e.to_s
+      errors[:base] << 'Unable to connect ' + e.to_s
     end
 
     return errors.empty?
@@ -341,7 +341,7 @@ EOF
     results = execute_ssh(commands, decrypt_pass)
    
     if results.kind_of? String
-      errors.add_to_base results
+      errors[:base] << results
     else
       load_data = Server.load_info results['cat /proc/loadavg']
       memory_data = Server.memory_info results['cat /proc/meminfo']
