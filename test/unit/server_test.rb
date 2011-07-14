@@ -1,6 +1,16 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class ServerTest < ActiveSupport::TestCase
+
+  def test_password_gets_encrypted
+
+    s = Server.new(:account_id => 6)
+
+    key = Keychain.find(1).private_key
+
+    assert (s.send :decode_private_key) == key, 'Should decode private key'
+
+  end
 
   def test_private_key_should_only_change_when_saved
 

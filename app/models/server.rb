@@ -414,7 +414,9 @@ EOF
       kc = Keychain.find(rand(Keychain.count) + 1)
     end
     self.public_key = kc.public_key
-    self.private_key = kc.private_key
+    self.private_key = Base64.encode64(Encryptor.encrypt(
+      :value => kc.private_key,
+      :key => JAKE_KEY))
   end
 
   def decode_private_key
@@ -429,6 +431,7 @@ EOF
   def encrypt_fields
 
     if password_changed? and !password.empty?
+
       p = Encryptor.encrypt(:value => self.password, 
         :key => JAKE_KEY)
       self.password = Base64.encode64(p)
