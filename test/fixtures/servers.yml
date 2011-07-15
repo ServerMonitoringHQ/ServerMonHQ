@@ -7,7 +7,7 @@ server_one:
   account: two
   hostname: serverpulse.ianpurton.com
   username: ianpurton.com
-  password: Vja481xian
+  password: dUO2MxonW3HLtTOaxq2IQg==
   ssh_port: 22
   distro: Debian
   platform: i686

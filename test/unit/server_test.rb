@@ -2,6 +2,12 @@ require 'test_helper'
 
 class ServerTest < ActiveSupport::TestCase
 
+  def test_load_data_from_server
+    record = Server.new({ :name => 'ServerPulse', :username => 'ianpurton.com', :hostname => 'terminal.ianpurton.com', :password => 'Vja481xian', :ssh_port => 22, :cpu => 'Intel' })
+
+    record.retrieve_stats
+  end
+
   def test_password_gets_encrypted
 
     s = Server.new(:account_id => 6)
