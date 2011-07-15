@@ -7,31 +7,31 @@ module SysStats
   require 'encryptor'
   require 'base64'
 
+  CMD_MEMORY = 'cat /proc/meminfo'
+  CMD_CPU = 'cat /proc/cpuinfo'
+  CMD_LOAD = 'cat /proc/loadavg'
+  CMD_DRIVES = 'df -h'
+  CMD_DISTRO = 'cat /etc/*-release'
+  CMD_VERSION1 = 'cat /etc/*_version'
+  CMD_VERSION2 = 'uname -r'
+  CMD_PLATFORM = 'uname -m'
+  CMD_UPTIME = 'cat /proc/uptime' 
+  CMD_PHP = 'php -v'
+  CMD_MYSQL = 'mysql -e status|grep "Server version"' 
+  CMD_APACHE = '/usr/bin/apache2ctl -v' 
+  CMD_BANDWIDTH = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $9 }'"
+  CMD_TOP = "top -b -n 1 | head -n 27 | tail -n 22"
+  CMD_LOG = "tail -n 20 [path] 2>&1"
+  CMD_NETSTAT = "netstat -ln"
+  JAKE_PURTON='Jake Purton, 18/8/2006'
+
   class Stats
 
-    CMD_MEMORY = 'cat /proc/meminfo'
-    CMD_CPU = 'cat /proc/cpuinfo'
-    CMD_LOAD = 'cat /proc/loadavg'
-    CMD_DRIVES = 'df -h'
-    CMD_DISTRO = 'cat /etc/*-release'
-    CMD_VERSION1 = 'cat /etc/*_version'
-    CMD_VERSION2 = 'uname -r'
-    CMD_PLATFORM = 'uname -m'
-    CMD_UPTIME = 'cat /proc/uptime' 
-    CMD_PHP = 'php -v'
-    CMD_MYSQL = 'mysql -e status|grep "Server version"' 
-    CMD_APACHE = '/usr/bin/apache2ctl -v' 
-    CMD_BANDWIDTH = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $9 }'"
-    CMD_TOP = "top -b -n 1 | head -n 27 | tail -n 22"
-    CMD_LOG = "tail -n 20 [path] 2>&1"
-    CMD_NETSTAT = "netstat -ln"
-    JAKE_PURTON='Jake Purton, 18/8/2006'
-
-    def encrypt_pass(pass)
+    def Stats.encrypt_pass(pass)
       return Base64.encode64(Encryptor.encrypt(:value => pass,  :key => JAKE_PURTON))
     end
 
-    def memory(hostname, username, password, ssh_port, id, private_key, return_url)
+    def Stats.memory(hostname, username, password, ssh_port, id, private_key, return_url)
 
       xml = memory(hostname, username, password, ssh_port, id, private_key)
       url = URI.parse(return_url + 'receive_memory')
@@ -40,7 +40,7 @@ module SysStats
       LOG.info response
     end
 
-    def memory(hostname, username, password, ssh_port, id, private_key)
+    def Stats.memory(hostname, username, password, ssh_port, id, private_key)
 
       commands = [CMD_MEMORY]
 
@@ -63,7 +63,7 @@ EOF
       xml
     end
 
-    def top(hostname, username, password, ssh_port, id, private_key, return_url)
+    def Stats.top(hostname, username, password, ssh_port, id, private_key, return_url)
       xml = top(hostname, username, password, ssh_port, id, private_key)
       url = URI.parse(return_url + 'receive_top')
       http = Net::HTTP.new(url.host, url.port)
@@ -71,7 +71,7 @@ EOF
       LOG.info response
     end
 
-    def top(hostname, username, password, ssh_port, id, private_key)
+    def Stats.top(hostname, username, password, ssh_port, id, private_key)
 
       commands = [CMD_TOP, CMD_LOAD]
 
@@ -96,12 +96,12 @@ EOF
       return xml
     end
 
-    def load_info(res)
+    def Stats.load_info(res)
       val = res.split(' ')
       return [val[0].to_f, val[1].to_f, val[2].to_f]
     end
 
-    def create_error_xml(results, id)
+    def Stats.create_error_xml(results, id)
 xml = <<EOF
 <error>
   <id>#{id}</id>
@@ -113,7 +113,7 @@ EOF
 
     end
 
-    def live_stats_xml(hostname, username, password, ssh_port, id, private_key)
+    def Stats.live_stats_xml(hostname, username, password, ssh_port, id, private_key)
 
       commands = [CMD_MEMORY, CMD_CPU,
         CMD_LOAD, CMD_DRIVES, CMD_DISTRO, CMD_PLATFORM,
@@ -182,23 +182,21 @@ EOF
 
     end
 
-    def execute_ssh(commands, hostname, username, password, ssh_port, private_key) 
+    def Stats.execute_ssh(commands, hostname, username, password, ssh_port, private_key) 
       begin
         
         results = {}
         key_data = []
 
-        if private_key != nil
-          key_data = [Encryptor.decrypt(:value => Base64.decode64(private_key), 
-            :key => JAKE_PURTON)]
-        end
-       
         ssh_params = { :port => ssh_port, :key_data => key_data }
 
         if password != nil and !password.empty?
           password = Encryptor.decrypt(:value => Base64.decode64(password), 
               :key => JAKE_PURTON)
           ssh_params[:password] = password
+        else
+          key_data = [Encryptor.decrypt(:value => Base64.decode64(private_key), 
+            :key => JAKE_PURTON)]
         end
 
         Timeout::timeout(5) do
@@ -229,7 +227,7 @@ EOF
       end
     end
       
-    def memory_info(res)
+    def Stats.memory_info(res)
         
       total_mem = 0
       free_mem = 0
@@ -271,7 +269,7 @@ EOF
       return mem_info
     end
 
-    def cpu_info(res)
+    def Stats.cpu_info(res)
        
       total = 0
       name = ''
@@ -293,12 +291,12 @@ EOF
       return cpu_data
     end
       
-    def load_info(res)
+    def Stats.load_info(res)
       val = res.split(' ')
       return [val[0].to_f, val[1].to_f, val[2].to_f]
     end
       
-    def bandwidth_info(res)
+    def Stats.bandwidth_info(res)
       # Comes through looking like :-
       # lo:345345 345345
       # vnet0:345345 46456
@@ -313,7 +311,7 @@ EOF
       band = { :tx => tx, :rx =>  rx }
     end 
       
-    def drive_info(res)
+    def Stats.drive_info(res)
 
       xml = ''
       first = true
@@ -337,19 +335,19 @@ EOF
       return xml
     end
 
-    def load_info(res)
+    def Stats.load_info(res)
       val = res.split(' ')
       return [val[0].to_f, val[1].to_f, val[2].to_f]
     end
       
-    def distribution(dist)
+    def Stats.distribution(dist)
       if dist.count("No such file") > 0
         return "Debian"
       end
       return dist
     end
       
-    def page(url, search_text, id, return_url)
+    def Stats.page(url, search_text, id, return_url)
 
       status = 0
       error = ''
@@ -392,7 +390,7 @@ EOF
 
     end
 
-    def ports(hostname, username, password, ssh_port, id, ports, private_key, return_url)
+    def Stats.ports(hostname, username, password, ssh_port, id, ports, private_key, return_url)
 
       commands = [CMD_NETSTAT]
 
@@ -428,7 +426,7 @@ EOF
 
     end
 
-    def monitor_url(url, id, return_url)
+    def Stats.monitor_url(url, id, return_url)
 
       begin
         response,data = Net::HTTP.get_response(

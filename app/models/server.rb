@@ -9,6 +9,7 @@ class Server < ActiveRecord::Base
   require 'digest/sha1'
   require 'rexml/document'
   require 'keychain'
+  require 'systats'
 
   before_save :encrypt_fields
   before_destroy :clear_incidents
@@ -32,13 +33,6 @@ class Server < ActiveRecord::Base
   scope :active,
               :include => :account,
               :conditions => ['accounts.active = ? OR accounts.trial_end >= ?', true, Date.today]
-
-  CMD_BANDWIDTH = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $9 }'"
-  CMD_TOP = "top -b -n 1 | head -n 27 | tail -n 22"
-  CMD_LOG = "tail -n 20 [path] 2>&1"
-  CMD_NETSTAT = "netstat -ln"
-  CMD_LOAD_AVG = "cat /proc/loadavg"
-  JAKE_KEY = 'Jake Purton, 18/8/2006'
 
   def ssh_connection?
     return @ssh_connection
@@ -171,239 +165,56 @@ EOF
     return 0
   end
 
-  def Server.memory_info(res)
-    
-    total_mem = 0
-    free_mem = 0
-    total_swap = 0
-    free_swap = 0
-    buffer_mem = 0
-    cache_mem = 0
-    shared_mem = 0
-
-    res.each { |memitem|
-      val = memitem.split(':')
-      s = val[1]
-      s = s['kB']= '' unless s['kB'] == nil
-      s.strip!
-
-      total_mem = val[1].strip.to_i if val[0] == 'MemTotal'
-      free_mem = val[1].strip.to_i if val[0] == 'MemFree'
-      total_swap = val[1].strip.to_i if val[0] == 'SwapTotal'
-      free_swap = val[1].strip.to_i if val[0] == 'SwapFree'
-      buffer_mem = val[1].strip.to_i if val[0] == 'Buffers'
-      cache_mem = val[1].strip.to_i if val[0] == 'Cached'
-      shared_mem = val[1].strip.to_i if val[0] == 'MemShared'
-    }
-
-    memused = total_mem - free_mem - cache_mem - buffer_mem
-    swapused = total_swap - free_swap
-
-    mem_info = {}
-    mem_info[:swapused] = swapused / 1024
-    mem_info[:swaptotal] = total_swap / 1024
-    mem_info[:used] = memused / 1024
-    mem_info[:total] = total_mem / 1024
-
-    return mem_info
-  end
-
-  def Server.cpu_info(res)
-    
-    total = 0
-    name = ''
-    mhz = ''
-
-    res.each { |memitem|
-      val = memitem.split(':')
-      s = val[1]
-      val[0].strip!
-      total = total + 1 if val[0] == 'processor'
-      name = val[1].strip if val[0] == 'model name'
-      mhz = val[1].strip if val[0] == 'cpu MHz' 
-    }
-
-    cpu_data = {}
-    cpu_data[:total] = total
-    cpu_data[:name] = name.squeeze(' ')
-    cpu_data[:mhz] = mhz
-    return cpu_data
-  end
-  
-  def Server.drive_info(res)
-
-    xml = ''
-    first = true
-
-    res.each { |drive|
-      entry = drive.split(' ')
-xml += <<EOF
-    <drive>
-      <path>#{entry[5]}</path>
-      <totalspace>#{entry[1]}</totalspace>
-      <usedspace>#{entry[2]}</usedspace>
-      <percent>#{entry[4]}</percent>
-    </drive>
-EOF
-      if first # Skip the first line
-        first = false
-        xml = ''
-      end
-    }
-
-    return xml
-  end
-
-  def Server.load_info(res)
-    val = res.split(' ')
-    return [val[0].to_f, val[1].to_f, val[2].to_f]
-  end
-  
-  def Server.distribution(dist)
-    if dist.count("No such file") > 0
-      return "Debian"
-    end
-    return dist
-  end
-  
-  def Server.bandwidth_info(res)
-    # Comes through looking like :-
-    # lo:345345 345345
-    # vnet0:345345 46456
-    
-    tx = 0
-    rx = 0
-    res.each { |bandwidth|
-      tx = tx + bandwidth.split(" ")[1].to_i
-      rx = rx + bandwidth.split(" ")[0].split(":")[1].to_i
-    }
-    
-    band = { :tx => tx, :rx =>  rx }
-  end
-
   def retrieve_stats(decrypt_pass = false)
-    if ssh_connection? or self.url == nil
-      return retrieve_stats_ssh(decrypt_pass)
-    else
-      return retrieve_stats_agent
-    end
-  end
-
-  def retrieve_stats_agent
 
     begin
 
-      response,body = xml_data = Net::HTTP.get_response(
-        URI.parse(self.url + '?cmd=stats'))
-
-      if response.kind_of? Net::HTTPSuccess
-
-        doc = REXML::Document.new(body)
-
-        if doc.root.elements['processing'] == nil
-          errors[:base] << 'Unable to parse results from agent'
-        else
-          #process data from agent
-          self.usedswap = doc.root.elements['*/swapused'].to_s
-          self.totalswap = doc.root.elements['*/swaptotal'].to_s
-
-          self.usedmem = doc.root.elements['*/used'].to_s
-          self.totalmem = doc.root.elements['*/total'].to_s
-
-          self.cpuload = doc.root.elements['uptime'].to_s
-          self.cpumhz = doc.root.elements['cpuinfo/cpumhz'].to_s
-          self.cpu = doc.root.elements['cpuinfo/cpu'].to_s
-          self.cpucount = doc.root.elements['cpuinfo/cpucount'].to_s
-
-          self.apacheversion = doc.root.elements['apacheversion'].to_s
-          self.platform = doc.root.elements['release'].to_s
-          self.distro = doc.root.elements['uptime'].to_s
-          self.phpversion = doc.root.elements['phpversion'].to_s
-          self.kernelver = doc.root.elements['version'].to_s
-          self.uptime = doc.root.elements['uptime'].to_s
-        end
+      xml = ''
+      if ssh_connection? or self.url == nil
+        xml = SysStats::Stats.live_stats_xml(hostname,
+          username, password, ssh_port, id, private_key)
       else
-        errors[:base] << 'Could not access URL'
+        xml = retrieve_stats_agent
+        response,body = xml_data = Net::HTTP.get_response(
+          URI.parse(self.url + '?cmd=stats'))
+
+        if response.kind_of? Net::HTTPSuccess
+          xml = response.body
+        end
       end
+
+      process_stats_xml(xml)
 
     rescue Exception => e
       errors[:base] << 'Unable to connect ' + e.to_s
     end
-
-    return errors.empty?
   end
 
-  def retrieve_stats_ssh(decrypt_pass = false)
-    commands = ['cat /etc/*-release', CMD_LOAD_AVG,
-      'cat /etc/*_version', 'uname -r', 'cat /proc/meminfo',
-      'cat /proc/cpuinfo', CMD_BANDWIDTH]
-      
-    results = execute_ssh(commands, decrypt_pass)
-   
-    if results.kind_of? String
-      errors[:base] << results
+  def process_stats_xml(xml)
+
+    doc = REXML::Document.new(xml)
+
+    if doc.root.elements['processing'] == nil
+      errors[:base] << 'Unable to parse results from agent'
     else
-      load_data = Server.load_info results['cat /proc/loadavg']
-      memory_data = Server.memory_info results['cat /proc/meminfo']
-      bandwidth_data = Server.bandwidth_info results[CMD_BANDWIDTH]
-      cpu_data = Server.cpu_info results['cat /proc/cpuinfo']
-      self.distro = Server.distribution results['cat /etc/*-release']
-      self.kernelver = results['uname -r']
-      self.platform = results['cat /etc/*_version']
-      self.cpuload = load_data[0]
-      self.usedmem = memory_data[:used]
-      self.totalmem = memory_data[:total]
-      self.usedswap = memory_data[:swapused]
-      self.totalswap = memory_data[:swaptotal]
-      self.last_tx = bandwidth_data[:tx]
-      self.last_rx = bandwidth_data[:rx]
-      self.cpucount = cpu_data[:total]
-      self.cpumhz = cpu_data[:mhz]
-      self.cpu =  cpu_data[:name]
-    end
-    
-    return errors.empty?
-  end
-  
-  def execute_ssh(commands, decrypt_pass = false) 
-    begin
-    
-      results = {}
-      key_data = []
-      if private_key != nil
-        key_data = [decode_private_key]
-      end
+      #process data from agent
+      self.usedswap = doc.root.elements['*/swapused'].to_s
+      self.totalswap = doc.root.elements['*/swaptotal'].to_s
 
-      pass = password
-      if decrypt_pass
-        pass = Encryptor.decrypt(:value => Base64.decode64(pass), 
-          :key => JAKE_KEY)
-      end
-    
-      Timeout::timeout(4) do
-        begin
-          Net::SSH.start( hostname, username, 
-            :key_data => key_data,
-            :password => pass, :port => ssh_port ) do |ssh|
-            
-            commands.each { |command|
-              results[command] = ssh.exec!(command)
-            }
-          end  
-        rescue Net::SSH::HostKeyMismatch => e
-          e.remember_host!
-          retry
-        rescue Net::SSH::AuthenticationFailed => e
-          return "Failed Authentication"
-        rescue StandardError => e
-          return e.to_s
-        end
-      end
-    
-      return results
-    
-    rescue Timeout::Error
-      return "Timed out trying to get a connection"
+      self.usedmem = doc.root.elements['*/used'].to_s
+      self.totalmem = doc.root.elements['*/total'].to_s
+
+      self.cpuload = doc.root.elements['uptime'].to_s
+      self.cpumhz = doc.root.elements['cpuinfo/cpumhz'].to_s
+      self.cpu = doc.root.elements['cpuinfo/cpu'].to_s
+      self.cpucount = doc.root.elements['cpuinfo/cpucount'].to_s
+
+      self.apacheversion = doc.root.elements['apacheversion'].to_s
+      self.platform = doc.root.elements['release'].to_s
+      self.distro = doc.root.elements['uptime'].to_s
+      self.phpversion = doc.root.elements['phpversion'].to_s
+      self.kernelver = doc.root.elements['version'].to_s
+      self.uptime = doc.root.elements['uptime'].to_s
     end
   end
 
@@ -416,12 +227,12 @@ EOF
     self.public_key = kc.public_key
     self.private_key = Base64.encode64(Encryptor.encrypt(
       :value => kc.private_key,
-      :key => JAKE_KEY))
+      :key => SysStats::JAKE_PURTON))
   end
 
   def decode_private_key
     return Encryptor.decrypt(:value => Base64.decode64(self.private_key),
-      :key => JAKE_KEY)
+      :key => SysStats::JAKE_PURTON)
   end
 
   def clear_private_key(id)
@@ -433,7 +244,7 @@ EOF
     if password_changed? and !password.empty?
 
       p = Encryptor.encrypt(:value => self.password, 
-        :key => JAKE_KEY)
+        :key => SysStats::JAKE_PURTON)
       self.password = Base64.encode64(p)
     end
     clear_private_key(self.account_id)
