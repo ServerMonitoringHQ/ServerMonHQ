@@ -165,15 +165,25 @@ EOF
     return 0
   end
 
-  def retrieve_stats(decrypt_pass = false)
+  def retrieve_stats(encrypt_pass = false)
 
     begin
 
       xml = ''
+      agent = false
       if ssh_connection? or self.url == nil
+
+        pass = password
+        if encrypt_pass == true
+          pass = Base64.encode64(Encryptor.encrypt(:value => self.password, 
+            :key => SysStats::JAKE_PURTON))
+        end
+
         xml = SysStats::Stats.live_stats_xml(hostname,
-          username, password, ssh_port, id, private_key)
+          username, pass, ssh_port, id, private_key)
+
       else
+        agent = true
         xml = retrieve_stats_agent
         response,body = xml_data = Net::HTTP.get_response(
           URI.parse(self.url + '?cmd=stats'))
@@ -186,35 +196,60 @@ EOF
       process_stats_xml(xml)
 
     rescue Exception => e
-      errors[:base] << 'Unable to connect ' + e.to_s
+      if agent
+        errors[:base] << 'Unable to connect via agent ' + e.to_s
+      else
+        errors[:base] << 'Unable to connect ' + e.to_s
+      end
+      return false
     end
+
+    if errors[:base].length > 0
+      return false
+    end
+    return true
   end
 
   def process_stats_xml(xml)
 
     doc = REXML::Document.new(xml)
 
-    if doc.root.elements['processing'] == nil
-      errors[:base] << 'Unable to parse results from agent'
+    if doc.root.elements['*/cpucount'] == nil
+      errors[:base] << 'Unable to parse results'
     else
       #process data from agent
-      self.usedswap = doc.root.elements['*/swapused'].to_s
-      self.totalswap = doc.root.elements['*/swaptotal'].to_s
+      self.usedswap = doc.root.elements['*/swapused'].text.to_f
+      self.totalswap = doc.root.elements['*/swaptotal'].text.to_f
 
-      self.usedmem = doc.root.elements['*/used'].to_s
-      self.totalmem = doc.root.elements['*/total'].to_s
+      self.usedmem = doc.root.elements['*/used'].text.to_f
+      self.totalmem = doc.root.elements['*/total'].text.to_f
 
-      self.cpuload = doc.root.elements['uptime'].to_s
-      self.cpumhz = doc.root.elements['cpuinfo/cpumhz'].to_s
-      self.cpu = doc.root.elements['cpuinfo/cpu'].to_s
-      self.cpucount = doc.root.elements['cpuinfo/cpucount'].to_s
+      self.cpuload = doc.root.elements['*/load1'].text.to_f
+      self.load2 = doc.root.elements['*/load2'].text.to_f
+      self.load3 = doc.root.elements['*/load3'].text.to_f
+      self.cpumhz = doc.root.elements['*/cpumhz'].text
+      self.cpu = doc.root.elements['*/cpu'].text
+      self.cpucount = doc.root.elements['*/cpucount'].text.to_i
 
-      self.apacheversion = doc.root.elements['apacheversion'].to_s
-      self.platform = doc.root.elements['release'].to_s
-      self.distro = doc.root.elements['uptime'].to_s
-      self.phpversion = doc.root.elements['phpversion'].to_s
-      self.kernelver = doc.root.elements['version'].to_s
-      self.uptime = doc.root.elements['uptime'].to_s
+      self.last_tx = doc.root.elements['*/tx'].text.to_i
+      self.last_rx = doc.root.elements['*/rx'].text.to_i
+
+      self.apacheversion = doc.root.elements['apacheversion'].text
+      self.platform = doc.root.elements['release'].text
+      self.mysql = doc.root.elements['mysql'].text
+      self.phpversion = doc.root.elements['phpversion'].text
+      self.kernelver = doc.root.elements['version'].text
+      self.uptime = doc.root.elements['uptime'].text
+
+      doc.elements.each("*/drives/drive") { |drive| 
+        continue if drive.elements[1].text == ''
+        d = self.disks.new
+        d.path = drive.elements[1].text
+        d.usedspace = drive.elements[2].text
+        d.totalspace = drive.elements[3].text
+        d.percent = drive.elements[4].text
+        d.save
+      }
     end
   end
 

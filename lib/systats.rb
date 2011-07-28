@@ -37,7 +37,7 @@ module SysStats
       url = URI.parse(return_url + 'receive_memory')
       http = Net::HTTP.new(url.host, url.port)
       response,body = http.post(url.path, xml, {'Content-type'=>'text/xml;charset=utf-8'})
-      LOG.info response
+      #LOG.info response
     end
 
     def Stats.memory(hostname, username, password, ssh_port, id, private_key)
@@ -68,7 +68,7 @@ EOF
       url = URI.parse(return_url + 'receive_top')
       http = Net::HTTP.new(url.host, url.port)
       response,body = http.post(url.path, xml, {'Content-type'=>'text/xml;charset=utf-8'})
-      LOG.info response
+      #LOG.info response
     end
 
     def Stats.top(hostname, username, password, ssh_port, id, private_key)
@@ -120,11 +120,7 @@ EOF
         CMD_VERSION1, CMD_VERSION2, CMD_UPTIME,
         CMD_PHP, CMD_MYSQL, CMD_APACHE, CMD_BANDWIDTH]
         
-      begin
-        results = execute_ssh(commands, hostname, username, password, ssh_port, private_key)
-      rescue Exception => e
-        LOG.error 'SSH error ' + e.to_s
-      end
+      results = execute_ssh(commands, hostname, username, password, ssh_port, private_key)
         
       if results.kind_of? String
         return create_error_xml(results, id)
@@ -214,15 +210,15 @@ EOF
           rescue Net::SSH::AuthenticationFailed => e
             return "Failed Authentication"
           rescue StandardError => e
-            LOG.info e.to_s
-            LOG.info e.backtrace
+            #LOG.info e.to_s
+            #LOG.info e.backtrace
             return "Error " + e.to_s + ' ' + username + '@' + hostname +  ':' + ssh_port
           end
         end
         return results
         
       rescue Timeout::Error
-        LOG.error "Timed out trying to get a connection " + hostname
+        #LOG.error "Timed out trying to get a connection " + hostname
         return "Timed out trying to get a connection"
       end
     end
@@ -369,11 +365,11 @@ EOF
       end
       rescue Timeout::Error
         error = 'Timed out trying to retrieve page.'
-        LOG.error error
+        #LOG.error error
         status = 0
       end
 
-      LOG.info url + ' ' + status.to_s
+      #LOG.info url + ' ' + status.to_s
       xml = ''
 
 xml += <<EOF
@@ -386,7 +382,7 @@ EOF
       url = URI.parse(return_url + 'receive_page')
       http = Net::HTTP.new(url.host, url.port)
       response,body = http.post(url.path, xml, {'Content-type'=>'text/xml;charset=utf-8'})
-      LOG.info response
+      #LOG.info response
 
     end
 
@@ -422,7 +418,7 @@ EOF
       url = URI.parse(return_url + 'receive_ports')
       http = Net::HTTP.new(url.host, url.port)
       response,body = http.post(url.path, xml, {'Content-type'=>'text/xml;charset=utf-8'})
-      LOG.info response
+      #LOG.info response
 
     end
 
@@ -432,7 +428,7 @@ EOF
         response,data = Net::HTTP.get_response(
           URI.parse(url + '?cmd=stats'))
 
-        LOG.info 'Agent = ' + url
+        #LOG.info 'Agent = ' + url
 
         data.gsub!(/THE_ID/, id.to_s)
 
@@ -440,11 +436,11 @@ EOF
           url = URI.parse(return_url + 'receive_monitor')
           http = Net::HTTP.new(url.host, url.port)
           response,body = http.post(url.path, data, {'Content-type'=>'text/xml;charset=utf-8'})
-          LOG.info response
+          #LOG.info response
         end
 
       rescue Exception => e
-        LOG.info 'Unable to connect (monitor_url) ' + e.to_s
+        #LOG.info 'Unable to connect (monitor_url) ' + e.to_s
       end
     end
 

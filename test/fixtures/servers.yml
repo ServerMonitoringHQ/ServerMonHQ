@@ -5,8 +5,8 @@ server_one:
   name: Status2K Server
   access_key: 19c43c5b2fb598cae8c4f079e9a5edddcccac598
   account: two
-  hostname: serverpulse.ianpurton.com
-  username: ianpurton.com
+  hostname: status2k.com
+  username: status2k.com
   password: dUO2MxonW3HLtTOaxq2IQg==
   ssh_port: 22
   distro: Debian

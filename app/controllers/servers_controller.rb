@@ -138,7 +138,7 @@ class ServersController < ApplicationController
     end
 
     respond_to do |format|
-      if @server.valid? and @server.retrieve_stats and @server.save
+      if @server.valid? and @server.retrieve_stats(true) and @server.save
 
         if @checked
           @monitor_server.server_id = @server.id
@@ -180,7 +180,7 @@ class ServersController < ApplicationController
     update = @server.update_attributes(params[:server])
 
     respond_to do |format|
-      if update and @server.retrieve_stats(true)
+      if update and @server.retrieve_stats
         flash[:notice] = 'Server was successfully updated.'
         format.html { redirect_to(:controller => :statistics, :id => @server.id) }
         format.xml  { head :ok }
