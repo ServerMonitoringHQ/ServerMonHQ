@@ -7,12 +7,12 @@ class CreateUsers < ActiveRecord::Migration
       t.column :first_name,                      :string, :limit => 100, :default => '', :null => true
       t.column :last_name,                      :string, :limit => 100, :default => '', :null => true
       t.column :email,                     :string, :limit => 100
-      t.column :password_digest,           :string, :limit => 40
+      t.column :password_digest,           :string, :limit => 80
       t.column :admin,                     :boolean, :default => false
       t.column :created_at,                :datetime
       t.column :updated_at,                :datetime
-      t.column :remember_token,            :string, :limit => 40
-      t.column :reset_code,            :string, :limit => 40
+      t.column :remember_token,            :string, :limit => 80
+      t.column :reset_code,            :string, :limit => 80
       t.column :remember_token_expires_at, :datetime
 
     end
