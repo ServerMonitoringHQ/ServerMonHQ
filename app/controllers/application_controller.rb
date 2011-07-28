@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def send_to_queue(queue, message)
     
     message[:timestamp] = Time.now.gmtime.to_s
-    message[:return_url] = request.protocol + request.host_with_port
+    message[:return_url] = request.protocol + request.host_with_port + '/'
     yml = YAML::dump(message)
     params = { :target => yml }
     x = Net::HTTP.post_form(URI.parse("http://pulse-resque.heroku.com/enqueue/#{queue}/"), 
