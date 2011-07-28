@@ -41,7 +41,7 @@
           = Disk
         %td.tiny
           = @server.disks[i].path
-        = '<td><div id="drive-graph' + i.to_s + '" class="progressbar"></div></td>'
+        != '<td><div id="drive-graph' + i.to_s + '" class="progressbar"></div></td>'
         %td.tiny
           = @server.disks[i].usedspace
           \/
