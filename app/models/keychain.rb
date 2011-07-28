@@ -21,6 +21,12 @@ class Keychain < ActiveRecord::Base
     true
   end
 
+  def Keychain.random
+    if (c = count) != 0
+      find(:first, :offset =>rand(c))       
+    end
+  end
+
   private
 
   def generate_private_key

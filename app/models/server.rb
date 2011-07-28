@@ -257,7 +257,7 @@ EOF
 
   def generate_keys(account_id)
     kc = Rails.cache.fetch("next_private_key#{account_id}") do
-      kc = Keychain.find(rand(Keychain.count) + 1)
+      kc = Keychain.random
     end
     self.public_key = kc.public_key
     self.private_key = Base64.encode64(Encryptor.encrypt(
