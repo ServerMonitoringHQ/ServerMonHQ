@@ -4,7 +4,7 @@ module ServerMonitoringHQ
     
     class Monitor < BasicJob
 
-      @queue = :default
+      @queue = :servermonitoringhq
       
       def self.perform(server, return_url, timestamp, env=production)
         check_job_age(timestamp)

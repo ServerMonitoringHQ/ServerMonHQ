@@ -4,7 +4,7 @@ module ServerMonitoringHQ
 
     class Page < BasicJob
 
-      @queue = :default
+      @queue = :servermonitoringhq
 
       def self.perform(url, search, page_id, return_url, timestamp, env=production)
         check_job_age(timestamp)
