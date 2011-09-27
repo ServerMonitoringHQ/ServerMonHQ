@@ -184,7 +184,8 @@ EOF
         results = {}
         key_data = []
 
-        ssh_params = { :port => ssh_port, :key_data => key_data }
+        # ssh_params = { :port => ssh_port, :key_data => key_data }
+        ssh_params = { :port => ssh_port }
 
         if password != nil and !password.empty?
           password = Encryptor.decrypt(:value => Base64.decode64(password), 
@@ -193,6 +194,7 @@ EOF
         else
           key_data = [Encryptor.decrypt(:value => Base64.decode64(private_key), 
             :key => JAKE_PURTON)]
+          ssh_params[:key_data] = key_data
         end
 
         Timeout::timeout(5) do
