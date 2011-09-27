@@ -34,6 +34,20 @@ class Server < ActiveRecord::Base
               :include => :account,
               :conditions => ['accounts.active = ? OR accounts.trial_end >= ?', true, Date.today]
 
+  def to_hash
+    @server_hash ||= begin
+      {
+        :id          => id,
+        :hostname    => hostname,
+        :username    => username,
+        :password    => password,
+        :port        => ssh_port, 
+        :private_key => private_key,
+        :url         => url
+      }
+    end
+  end
+
   def ssh_connection?
     return @ssh_connection
   end

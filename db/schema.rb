@@ -195,12 +195,12 @@ ActiveRecord::Schema.define(:version => 20110215121510) do
     t.string   "first_name",                :limit => 100, :default => ""
     t.string   "last_name",                 :limit => 100, :default => ""
     t.string   "email",                     :limit => 100
-    t.string   "password_digest",           :limit => 40
+    t.string   "password_digest",           :limit => 80
     t.boolean  "admin",                                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_token",            :limit => 40
-    t.string   "reset_code",                :limit => 40
+    t.string   "remember_token",            :limit => 80
+    t.string   "reset_code",                :limit => 80
     t.datetime "remember_token_expires_at"
     t.string   "mobile_number",             :limit => 20,  :default => "",    :null => false
     t.integer  "crm_id"

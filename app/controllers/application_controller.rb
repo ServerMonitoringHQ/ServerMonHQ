@@ -14,16 +14,8 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
 
-  # Convert a hash to yml and send to resque
-  def send_to_queue(queue, message)
-    
-    message[:timestamp] = Time.now.gmtime.to_s
-    message[:return_url] = request.protocol + request.host_with_port + '/'
-    yml = YAML::dump(message)
-    params = { :target => yml }
-    x = Net::HTTP.post_form(URI.parse("http://pulse-resque.heroku.com/enqueue/#{queue}/"), 
-      params) 
-
+  def return_url
+    request.protocol + request.host_with_port + '/'
   end
 
   protected

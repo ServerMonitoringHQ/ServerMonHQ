@@ -14,7 +14,7 @@ class StatisticsController < ApplicationController
     
     @server = current_user.account.servers.find(params[:id])
  
-    send_job :monitor
+    send_job ServerMonitoringHQ::Jobs::Monitor
     
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class StatisticsController < ApplicationController
 
     @server = Server.find_by_access_key(params[:id])
  
-    send_job :monitor
+    send_job ServerMonitoringHQ::Jobs::Monitor
 
     respond_to do |format|
       format.html # show.html.erb
@@ -48,7 +48,7 @@ class StatisticsController < ApplicationController
 
     xml = @server.stats_xml
 
-    send_job :monitor
+    send_job ServerMonitoringHQ::Jobs::Monitor
 
     respond_to do |format|
       format.xml  { render :text => xml }
@@ -60,7 +60,7 @@ class StatisticsController < ApplicationController
     @server = current_user.account.servers.find(params[:id])
     xml = @server.top_xml
 
-    send_job :top
+    send_job ServerMonitoringHQ::Jobs::Top
 
     respond_to do |format|
       format.xml  { render :text => xml }
@@ -171,7 +171,7 @@ class StatisticsController < ApplicationController
   def memory
     @server = current_user.account.servers.find(params[:id])
     
-    send_job(:memory)
+    send_job ServerMonitoringHQ::Jobs::Memory
 
     criteria = ['mem_lo', 'mem_hi']
      
@@ -192,7 +192,7 @@ class StatisticsController < ApplicationController
     @server = current_user.account.servers.find(params[:id])
     xml = @server.memory_xml
 
-    send_job(:memory)
+    send_job ServerMonitoringHQ::Jobs::Memory
 
     respond_to do |format|
       format.xml  { render :text => xml }
@@ -201,24 +201,10 @@ class StatisticsController < ApplicationController
 
   private
 
-  def send_job(type)
-
-    Rails.cache.fetch("#{type}-#{params[:id]}", :expires_in => 10.seconds) {
-
-      args = {:type => type, :hostname => @server.hostname,
-        :env => Rails.env,
-        :username => @server.username,
-        :password => @server.password,
-        :private_key => @server.private_key,
-        :port => @server.ssh_port, :id => @server.id}
-
-      if @server.url != nil
-        args[:url] = @server.url
-      end
-
-      send_to_queue(:default, args)
-    }
-
+  def send_job(job_type)
+    Rails.cache.fetch("#{job_type}-#{params[:id]}", :expires_in => 10.seconds) do
+      Resque.enqueue(job_type, @server.to_hash, return_url, Time.now.gmtime, Rails.env)
+    end
   end
    
 end

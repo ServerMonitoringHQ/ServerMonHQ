@@ -12,7 +12,7 @@ gem 'sass-rails', "~> 3.1.0.rc"
 gem 'coffee-script'
 gem 'uglifier'
 
-gem 'sprockets', '= 2.0.0.beta.10'
+gem 'sprockets', :git => 'git://github.com/sstephenson/sprockets.git', :tag => 'v2.0.0.beta.10'
 
 gem 'jquery-rails'
 gem 'execjs'
@@ -24,6 +24,7 @@ gem 'encryptor'
 gem 'hominid'
 gem 'kaminari'
 gem 'twilio'
+gem 'resque'
 
 gem "insight_rails", "0.3.1", :require => "insight"
 

@@ -7,44 +7,35 @@ class MonitorcronController < ApplicationController
     time = Time.new
 
     @servers.each do |server|
-
-      send_to_queue(:default, {:type => :monitor, :hostname => server.hostname,
-        :env => Rails.env,
-        :url => server.url,
-        :username => server.username,
-        :password => server.password,
-        :private_key => server.private_key,
-        :port => server.ssh_port, :id => server.id}) 
+      Resque.enqueue(ServerMonitoringHQ::Jobs::Monitor,
+        server.to_hash,
+        return_url,
+        Time.now.gmtime,
+        Rails.env
+      )
 
       server.pages.each do |page|
-        send_to_queue(:default, {:type => :page, :hostname => server.hostname,
-          :env => Rails.env,
-          :url => server.url,
-          :username => server.username,
-          :password => server.password,
-          :port => server.ssh_port, 
-          :page_id => page.id,
-          :url => page.url,
-          :search => page.search_text}) 
+        Resque.enqueue(ServerMonitoringHQ::Jobs::Page,
+          page.url,
+          page.search_text,
+          page.id,
+          return_url,
+          Time.now.gmtime,
+          Rails.env
+        )
       end
 
-      ports = ''
-      server.ports.each do |port|
-        ports = ports + port.address.to_s + ','
-      end
+      ports = server.ports.map(&:address).join(',')
 
       if ports != ''
-        send_to_queue(:default, {:type => :ports, :hostname => server.hostname,
-          :env => Rails.env,
-          :url => server.url,
-          :username => server.username,
-          :password => server.password,
-          :port => server.ssh_port, 
-          :id => server.id,
-          :private_key => server.private_key,
-          :ports => ports}) 
+        Resque.enqueue(ServerMonitoringHQ::Jobs::Ports,
+          server.to_hash,
+          ports,
+          return_url,
+          Time.now.gmtime,
+          Rails.env
+        ) 
       end
-    
     end
 
     render :layout => false
