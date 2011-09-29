@@ -8,7 +8,8 @@ module ServerMonitoringHQ
         age = Time.now.gmtime - Time.parse(timestamp)
         if age > 60
           Logger.info "Job too old, moving on."
-          Process.exit
+          # Process.exit
+          return false
         end
       end
 
