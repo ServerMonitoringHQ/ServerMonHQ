@@ -195,10 +195,8 @@ EOF
 
         xml = SysStats::Stats.live_stats_xml(hostname,
           username, pass, ssh_port, id, private_key)
-
       else
         agent = true
-        xml = retrieve_stats_agent
         response,body = xml_data = Net::HTTP.get_response(
           URI.parse(self.url + '?cmd=stats'))
 

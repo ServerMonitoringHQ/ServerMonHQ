@@ -12,6 +12,7 @@ server_one:
   distro: Debian
   platform: i686
   kernelver: 2.6.18-14-fza-686-bigmem
+  url: http://status2k.com
 
 server_four:
   name: foo

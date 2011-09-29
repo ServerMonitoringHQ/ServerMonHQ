@@ -18,7 +18,11 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should create server" do
     assert_difference('Server.count') do
-      post :create, :server => { :name => 'foo', :url => 'http://pulse-agent.ianpurton.com' }
+      attrs = { 
+        :name => 'foo',
+        :url => 'http://pulse-agent.ianpurton.com'
+      }
+      post :create, :server => attrs
     end
     assert_response :redirect
     assert_redirected_to :controller => :statistics, :id => assigns(:server).id
@@ -35,10 +39,9 @@ class ServersControllerTest < ActionController::TestCase
   end
 
   test "should update server" do
-    post :create, :server => { :name => 'foo', :url => 'http://pulse-agent.ianpurton.com' }
-    put :update, :id => assigns(:server).id, :server => { :name => 'foo2' }
+    put :update, :id => 4, :server => { :name => 'foo2' }
     assert_response :redirect
-    assert_redirected_to :controller => :statistics, :id => assigns(:server).id
+    assert_redirected_to :controller => :statistics, :id => 4
   end
 
   test "should destroy server" do

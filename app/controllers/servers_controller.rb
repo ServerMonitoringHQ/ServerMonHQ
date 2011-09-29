@@ -178,7 +178,7 @@ class ServersController < ApplicationController
     end
     
     update = @server.update_attributes(params[:server])
-
+    
     respond_to do |format|
       if update and @server.retrieve_stats
         flash[:notice] = 'Server was successfully updated.'
