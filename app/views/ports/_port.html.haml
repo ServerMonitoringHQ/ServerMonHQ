@@ -1,0 +1,11 @@
+%tr
+  %td.name
+    = h port.name
+  %td
+    = h port.address
+  %td
+    = h port.status_text
+  %td.action
+    = link_to 'Edit', edit_server_port_path(@server, port)
+    \|
+    = link_to 'Delete', server_port_path(@server, port), :confirm => 'Are you sure?', :method => :delete

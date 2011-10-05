@@ -1,0 +1,14 @@
+%tr
+  %td.name
+    = link_to user.name, user
+  %td
+    = user.login.blank? ? user.email : user.login
+  %td
+    = user.mobile_number
+  %td.action
+    = link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete
+    \|
+    = link_to 'Edit', edit_user_path(user)
+    - if user.login.blank?
+      \|
+      = link_to 'Invite', :controller => :users, :action => :invite, :id => user.id

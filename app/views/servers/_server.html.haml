@@ -1,0 +1,52 @@
+%h3
+  = link_to server.name, :controller => :statistics, :id => server.id
+
+%table.server-table
+  %tr
+    %td{:width => '30%'}
+      %ul.unstyled
+        %li
+          Distribution
+        %li
+          %strong
+            = h server.distro
+        %li
+          Kernel
+        %li
+          %strong
+            = h server.kernelver
+        %li.edit-links
+          = link_to 'Rename', rename_server_path(server), :rel => 'facebox'
+          = link_to 'Delete', remove_server_path(server)
+          - if server.url != nil
+            = link_to 'Edit', agentedit_server_path(server)
+          - else
+            = link_to 'Edit', edit_server_path(server)
+    %td.stats{ :nowrap => 'nowrap', :width => '17%' }
+      %h3
+        Load
+      %strong
+        = server.cpuload
+    %td.stats{ :nowrap => 'nowrap', :width => '17%' }
+      %h3
+        Memory
+      %strong
+        = number_to_percentage(server.mem_percentage, :precision => 2, :strip_insignificant_zeros => true)
+        
+    %td.stats{ :nowrap => 'nowrap', :width => '17%' }
+      %h3
+        Swap
+      %strong
+        = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
+    %td{:width => '19%'}
+      %ul.unstyled
+        %li
+          - cls = server.pages.any? { |page| page.status_text.eql? 'Down' } ? 'danger' : 'success'
+          = link_to 'Pages', server_pages_path(server), :class => "btn small #{cls}"
+        %li
+          - cls = server.ports.any? { |port| port.status_text.eql? 'Down' } ? 'danger' : 'success'
+          = link_to 'Ports', server_ports_path(server), :class => "btn small #{cls}"
+        %li
+          - cls = server.serverdown?  ? 'danger' : 'success'
+          %span{ :class => "btn small #{cls}" }
+            Connection

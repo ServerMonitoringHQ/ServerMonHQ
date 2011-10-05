@@ -1,0 +1,18 @@
+%tr
+  %td.name
+    = link_to measure.name, measure
+  %td
+    = h measure.mem_perc
+    \%
+  %td
+    = h measure.load_perc
+    \%
+  %td
+    = h measure.swap_perc
+    \%
+  %td
+    = h measure.disk_perc
+    \%
+  %td.action
+    = link_to 'Edit', edit_measure_path(measure)
+    = link_to 'Destroy', measure, :confirm => 'Are you sure?', :method => :delete

@@ -1,0 +1,20 @@
+%tr
+  %td.name
+    = link_to incident.server.name, :controller => :statistics, :id => incident.server.id
+  %td
+    = link_to incident.measure.name, measure_path(incident.measure)
+  %td
+    = h incident.type_to_text
+  %td
+    = h incident.description
+  %td
+    = h time_ago_in_words(incident.created_at)
+    ago
+  %td
+    - unless incident.open
+      = h distance_of_time_in_words(incident.created_at, incident.updated_at)
+  %td.action
+    - if incident.open
+      Open
+    - else
+      Resolved
