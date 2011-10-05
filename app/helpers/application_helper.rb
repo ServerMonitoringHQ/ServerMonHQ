@@ -97,42 +97,42 @@ module ApplicationHelper
   def distro_image(distro)
     
     if distro =~ /centos/i 
-      return image_tag('/images/distros/centos.gif', :alt => 'centOS')  
+      return image_tag('/assets/distros/centos.gif', :alt => 'centOS')  
     end        
 
     if distro =~ /debian/i   
-      return image_tag('/images/distros/debian.gif', :alt => 'Debian')   
+      return image_tag('/assets/distros/debian.gif', :alt => 'Debian')   
     end                            
 
     if distro =~ /fedora/i  
-      return image_tag('/images/distros/fedora.gif', :alt => 'Fedora')    
+      return image_tag('/assets/distros/fedora.gif', :alt => 'Fedora')    
     end            
 
     if distro =~ /freebsd/i 
-      return image_tag('/images/distros/freebsd.gif', :alt => 'FreeBSD')    
+      return image_tag('/assets/distros/freebsd.gif', :alt => 'FreeBSD')    
     end             
 
     if distro =~ /gentoo/i    
-      return image_tag('/images/distros/gentoo.gif', :alt => 'Gentoo')    
+      return image_tag('/assets/distros/gentoo.gif', :alt => 'Gentoo')    
     end          
 
     if distro =~ /mandrake/i   
-      return image_tag('/images/distros/mandrake.gif', :alt => 'Mandrake')    
+      return image_tag('/assets/distros/mandrake.gif', :alt => 'Mandrake')    
     end        
 
     if distro =~ /redhat/i 
-      return image_tag('/images/distros/redhat.gif', :alt => 'RedHat')     
+      return image_tag('/assets/distros/redhat.gif', :alt => 'RedHat')     
     end        
 
     if distro =~ /slackware/i   
-      return image_tag('/images/distros/slackware.gif', :alt => 'Slackware')   
+      return image_tag('/assets/distros/slackware.gif', :alt => 'Slackware')   
     end        
 
     if distro =~ /suse/i
-      return image_tag('/images/distros/suse.gif', :alt => 'Suse')   
+      return image_tag('/assets/distros/suse.gif', :alt => 'Suse')   
     end        
   
-    return image_tag('/images/distros/linux.gif', :alt => 'Linux')                              
+    return image_tag('/assets/distros/linux.gif', :alt => 'Linux')                              
   end
   
 end
