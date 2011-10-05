@@ -4,12 +4,11 @@
     %meta{ 'http-equiv' => 'content-type', :content => 'text/html;charset=UTF-8'}/
     %title
       = @title || "Server Monitoring"
-    %link{:rel => 'icon', :href => '/images/favicon.ico'} 
-    / = stylesheet_link_tag 'application'
+    %link{:rel => 'icon', :href => '/assets/favicon.ico'} 
     %link{:rel => "stylesheet", :href => "http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css"}
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'marketing'
-    / = render :partial => "layouts/analytics"
+    = render :partial => "layouts/analytics"
     %link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/cupertino/jquery-ui.css", :rel => "stylesheet", :type => "text/css"}
   %body
     .topbar
@@ -25,10 +24,6 @@
                 = link_to 'Tour & Features', tour_path
               %li
                 = link_to 'Pricing & Signup', buy_path
-              %li
-                = link_to 'Help & Support', '/help'
-              %li
-                = link_to 'Blog', 'http://blog.servermonitoringhq.com'
               %li
                 = link_to_unless(logged_in?, 'Login', login_path, :class => 'login') { link_to('Servers', servers_path) }
 
