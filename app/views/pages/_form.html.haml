@@ -1,22 +1,27 @@
+- content_for :page_title do
+  %h1 Web Page Monitoring
+  
 - if @page.errors.size > 0
   %div.box
     = f.error_messages
-%fieldset
-  %h3 Page Title
-  %p
-    Give the page a recognisable title.
-  = f.label :title
-  = f.text_field :title
-%fieldset
-  %h3 Page URL
-  %p
-    The full URL of the page e.g. http://google.com
-  = f.label :url, 'URL'
-  = f.text_field :url
-%fieldset
-  %h3 Search Text
-  %p
-    As a seondary check ServerPulse can search for text on the page.
-  = f.label :search_text
-  = f.text_field :search_text
 
+.clearfix
+  = f.label :title, 'Page Title'
+  .input
+    = f.text_field :title
+    %span.help-block
+      Give the page a recognisable title.
+
+.clearfix
+  = f.label :url, 'URL'
+  .input
+    = f.text_field :url
+    %span.help-block
+      The full URL of the page e.g. http://google.com
+
+.clearfix  
+  = f.label :search_text, 'Search Text'
+  .input
+    = f.text_field :search_text
+    %span.help-block
+      As a seondary check ServerPulse can search for text on the page.

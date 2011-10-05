@@ -1,41 +1,35 @@
 - content_for :title do
   Port Monitoring
-  
-.yui-gc.inner-page.add-space
-  .yui-u.first
-    %table.data
-      %caption
-        Ports
-      %tr
-        %th
-          Name
-        %th
-          Address
-        %th
-          Status
-        %th
-          Action
-      - for port in @ports
-        %tr
-          %td.name
-            = h port.name
-          %td
-            = h port.address
-          %td
-            = h port.status_text
-          %td.action
-            = link_to 'Edit', edit_server_port_path(@server, port)
-            \|
-            = link_to 'Delete', server_port_path(@server, port), :confirm => 'Are you sure?', :method => :delete
 
-  .yui-u
-    .box
-      .inner
-        %h2 Monitor a New Port
-        - if @server.port_limit_reached?
-          You are monitoring the maximum number of ports.
-        - else
-          %p 
-            ServerPulse can monitor TCP/IP ports on your server for availability.
-          %p.button 
-            = link_to 'Monitor New Port', new_server_port_path(@server), :class => 'awesome'
+- content_for :page_title do
+  %h1 Port Monitoring
+  
+.row
+  .span11
+    %h2 Ports
+
+    %table
+      %thead
+        %tr
+          %th
+            Name
+          %th
+            Address
+          %th
+            Status
+          %th
+            Action
+      %tbody
+        = render @ports
+
+  .span5
+    .well
+      %h2 Monitor a New Port
+
+      - if @server.port_limit_reached?
+        You are monitoring the maximum number of ports.
+      - else
+        %p 
+          ServerPulse can monitor TCP/IP ports on your server for availability.
+        %p
+          = link_to 'Monitor New Port', new_server_port_path(@server), :class => 'btn primary'

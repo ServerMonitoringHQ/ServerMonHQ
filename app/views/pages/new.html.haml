@@ -1,13 +1,15 @@
 - content_for :title do
   Web Page Monitoring
-  
-.yui-gc.inner-page.add-space
-  .yui-u.first
-    = form_for(@page, :html => { :class => 'data-entry'}, :url => server_pages_path(@server)) do |f|
-      = render :partial => 'form', :locals => { :f => f }
-      %fieldset
-        = f.submit 'Create', :class => 'awesome'
+
+.row
+  .span11
+    = form_for([@server, @page]) do |f|
+      = render 'form', :f => f
+
+      .actions
+        %button.btn.primary{:type => 'submit'} Create
         or
-        = link_to 'Back', server_pages_path(@server)
-  .yui-u
+        = link_to 'Back', server_pages_path(@server), :class => 'btn'
+
+  .span5
     = render :partial => 'example'

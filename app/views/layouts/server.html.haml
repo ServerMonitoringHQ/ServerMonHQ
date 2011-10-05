@@ -1,67 +1,84 @@
 !!!5
 %html
   %head
-    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
+    %meta{ 'http-equiv' => 'content-type', :content => 'text/html;charset=UTF-8'}/
     %title
-      = yield :main_title
-    = stylesheet_link_tag 'application'
+      = @title || "Server Monitoring"
+    %link{:rel => 'icon', :href => '/images/favicon.ico'} 
+    / = stylesheet_link_tag 'application'
+    %link{:rel => "stylesheet", :href => "http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css"}
+    = stylesheet_link_tag 'bootstrap'
     = javascript_include_tag 'application'
     = yield :head
-    = render :partial => "layouts/analytics"
+    / = render :partial => "layouts/analytics"
+    %link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/cupertino/jquery-ui.css", :rel => "stylesheet", :type => "text/css"}
   %body
-    #doc3
-      #hd
-        = render :partial => "layouts/header"
-        #nav
-          .inner-page
-            %h1
-              = h @server.account.name
-            %ul
-              %li#server-tab.selected
-                = link_to 'Servers', servers_path
+    .topbar
+      .topbar-inner
+        .container
+          = link_to('ServerMonitoring HQ', '/', :class => 'brand')
+
+          %ul.nav
+            = link_to 'All Servers', servers_path
+          %ul.nav.secondary-nav
+            - if ! current_user.account.active?
               %li
-                = link_to 'Monitors', measures_path
+                %p
+                  = time_ago_in_words(current_user.account.trial_end, Time.now)
+                  trial remaining
+            - if current_user.admin?
               %li
-                = link_to 'Incidents', incidents_path
-              %li
-                = link_to 'Contacts', users_path
-            %div{ :style => "clear:both" }
-        #breadcrumbs
-          .inner-page
-            %ul
-              %li
-                = link_to 'Servers', servers_path
-              %li
-                &raquo;
-              %li
-                = link_to @server.name, server_path(@server)
-            %p
-              = @small_notice
-            %div{ :style => "clear:both" }
-        #mini-nav
-          .inner-page
-            %ul
-              %li#live-stats-tab{ :class => select_tab(/index/) }
-                = link_to 'Live Stats', :action => 'index', :controller => 'statistics', :id => @server
-              %li#memory-tab{ :class => select_tab(/memory/) }
-                = link_to 'Memory', :action => 'memory', :controller => 'statistics', :id => @server
-              %li#processes-tab{ :class => select_tab(/processes/) }
-                = link_to 'CPU / Load', :action => 'processes', :controller => 'statistics', :id => @server
-              %li#downtime-tab{ :class => select_tab(/downtime/) }
-                = link_to 'Downtime', :action => 'downtime', :controller => 'statistics', :id => @server
-              %li#bandwidth-tab{ :class => select_tab(/bandwidth/) }
-                = link_to 'Bandwidth', :action => 'bandwidth', :controller => 'statistics', :id => @server
-              %li#ports-tab{ :class => select_tab(/ports/) }
-                = link_to 'Ports', server_ports_path(@server)
-              %li#pages-tab{ :class => select_tab(/pages/) }
-                = link_to 'Pages', server_pages_path(@server)
-              -# %li#logs-tab{ :class => select_tab(/logs/) }
-              -#  = link_to 'Logs', server_logs_path(@server)
-            %h2
-              = yield :title
-            %div{ :style => "clear:both" }
-      #bd
-        = yield :layout
-      #ft
-        .inner-page
-          = render :partial => "layouts/footer"
+                = link_to 'Account', account_path
+            %li
+              = link_to 'My Profile', edit_user_path(current_user)
+            %li
+              = link_to 'Logout', logout_path
+    .container
+      .row
+        %ul.tabs
+          %li#server-tab{ :class => select_tab(/servers/) }
+            = link_to 'Servers', servers_path
+          %li#monitor-tab{ :class => select_tab(/measures/) }
+            = link_to 'Monitors', measures_path
+          %li#incidents-tab{ :class => select_tab(/incidents/) }
+            = link_to 'Incidents', incidents_path
+          %li#contacts-tab{ :class => select_tab(/users/) }
+            = link_to 'Contacts', users_path
+      
+      .row
+        .span16
+          .page-info
+            = yield :page_title
+
+            / start servers
+            .row
+              %ul.breadcrumb.pull-left
+                %li
+                  = link_to 'Servers', servers_path
+                  %span.divider /
+                %li
+                  = link_to @server.name, server_path(@server)
+
+              %ul.tabs.pull-right.servers-nav
+                %li#live-stats-tab{ :class => select_tab(/index/) }
+                  = link_to 'Live Stats', :action => 'index', :controller => 'statistics', :id => @server
+                %li#memory-tab{ :class => select_tab(/memory/) }
+                  = link_to 'Memory', :action => 'memory', :controller => 'statistics', :id => @server
+                %li#processes-tab{ :class => select_tab(/processes/) }
+                  = link_to 'CPU / Load', :action => 'processes', :controller => 'statistics', :id => @server
+                %li#downtime-tab{ :class => select_tab(/downtime/) }
+                  = link_to 'Downtime', :action => 'downtime', :controller => 'statistics', :id => @server
+                %li#bandwidth-tab{ :class => select_tab(/bandwidth/) }
+                  = link_to 'Bandwidth', :action => 'bandwidth', :controller => 'statistics', :id => @server
+                %li#ports-tab{ :class => select_tab(/ports/) }
+                  = link_to 'Ports', server_ports_path(@server)
+                %li#pages-tab{ :class => select_tab(/pages/) }
+                  = link_to 'Pages', server_pages_path(@server)
+            / end servers
+            
+      / .alert-message.alert
+      /   = raw(next_steps)
+
+      = yield
+      
+    = render :partial => "layouts/footer"

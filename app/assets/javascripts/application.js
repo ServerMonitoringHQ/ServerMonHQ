@@ -9,11 +9,17 @@
 //= require jquery_ujs
 //= require jquery.labelify.js
 //= require jqueryprogressbar.js
-//= require facebox.js
+//= require bootstrap-modal.js
+//= require facebox
+
 var myTimer = null;
 var TOTAL_SECONDS = 0;
 
 $(document).ready(function() {
+
+  $('.close').live('click', function() {
+    $(document).trigger('close.facebox');
+  });
 
   $(".data-entry input").labelify(
     {text: "label", labelledClass: "labelHighlight"});

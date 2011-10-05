@@ -1,16 +1,67 @@
-- yield(:navigation)
-!!! 5
+!!!5
 %html
   %head
+    %meta{ 'http-equiv' => 'content-type', :content => 'text/html;charset=UTF-8'}/
+    %title
+      = @title || "Server Monitoring"
+    %link{:rel => 'icon', :href => '/images/favicon.ico'} 
+    / = stylesheet_link_tag 'application'
+    %link{:rel => "stylesheet", :href => "http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css"}
+    = stylesheet_link_tag 'bootstrap'
+    = javascript_include_tag 'marketing'
+    / = render :partial => "layouts/analytics"
+    %link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/cupertino/jquery-ui.css", :rel => "stylesheet", :type => "text/css"}
+  %body
+    .topbar
+      .topbar-inner
+        .container
+          = link_to('ServerMonitoring HQ', '/', :class => 'brand')
 
-    = render :partial => "layouts/marketing_header"
-    = render :partial => "layouts/analytics"
+          .pull-right
+            %ul.nav
+              %li
+                = link_to 'Home', '/'
+              %li
+                = link_to 'Tour & Features', tour_path
+              %li
+                = link_to 'Pricing & Signup', buy_path
+              %li
+                = link_to 'Help & Support', '/help'
+              %li
+                = link_to 'Blog', 'http://blog.servermonitoringhq.com'
+              %li
+                = link_to_unless(logged_in?, 'Login', login_path, :class => 'login') { link_to('Servers', servers_path) }
 
-  %body#doc
-    %header#hd
-      .page
-        = render :partial => "layouts/marketing_nav"
-    %section#bd.marketing
+    .container
+
       = yield
-    %footer#ft
-      = render :partial => "layouts/marketing_footer"
+      
+    = render :partial => "layouts/footer"
+
+
+#login-form.modal.hide.fade
+  = form_tag session_path do
+    .modal-header
+      = link_to 'x', '#', :class => 'close'
+      %h3 Login
+    .modal-body
+      #loginUsernameField.clearfix
+        %label{:for => 'loginUsername'}= :username
+        .input
+          != text_field_tag 'login', @login, :size => 30, :id => 'loginUsername', :class => 'medium'
+      #loginPasswordField.clearfix
+        %label{:for => 'loginPassword'}= :password
+        .input
+          != password_field_tag 'password', nil, :size => 30, :id => 'loginPassword', :class => 'medium'
+      #loginCustom.clearfix
+        %label.checkbox{:for => 'Remember_Me'}= 'Remember Me'
+        .input
+          = check_box_tag 'Remember Me', '1', @remember_me
+      .clearfix
+        .input
+          = link_to 'Forgot Password' , forgot_path
+          = link_to 'Create Account', signup_path
+
+    .modal-footer
+      %button.btn.primary{:type => 'submit'}= :login
+      

@@ -1,20 +1,18 @@
 = error_messages_for :user
-#container
-  .bubble
-    .rectangle
-      %h2
-        Request Password
-    .triangle-l
-    .triangle-r
-    .info
-      = form_for :user do |f|
-        %p
-          = f.label :password
-          %br
+
+.row
+  .span16
+    %h1 Request Password
+    
+    = form_for :user do |f|
+      .clearfix
+        = f.label :password
+        .input
           = f.password_field :password
-        %p
-          = f.label :password_confirmation
-          %br
+      .clearfix
+        = f.label :password_confirmation
+        .input
           = f.password_field :password_confirmation
-        %p
-          = submit_tag 'Reset'
+      
+      .actions
+        %button.btn.primary{:type => 'submit'} Reset

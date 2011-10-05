@@ -1,19 +1,27 @@
-= form_tag(session_path,{:class => "signup"}) do
-  %fieldset
-    %legend
-      Your details
-    %ul
-      %li
-        = label_tag 'login'
-        = text_field_tag 'login', @login
-      %li
-        = label_tag 'password'
-        = password_field_tag 'password', nil
-      %li
-        = label_tag 'remember_me', 'Remember me'
-        = check_box_tag 'remember_me', '1', @remember_me
-  %fieldset
-    %button{ :type => "submit" }
-      Login
-    or
-    = link_to 'Forgotten Password ?', forgot_path
+.modal.session
+  .modal-header
+    %h3 Login
+  
+  = form_tag(session_path,{:class => "signup"}) do
+    .modal-body
+        
+      %fieldset
+        %legend
+          Your Details
+        
+        .clearfix
+          = label_tag 'login'
+          .input
+            = text_field_tag 'login', @login
+        .clearfix
+          = label_tag 'password'
+          .input
+            = password_field_tag 'password', nil
+        .clearfix
+          = label_tag 'remember_me', 'Remember me'
+          .input
+            = check_box_tag 'remember_me', '1', @remember_me
+
+    .modal-footer
+      = link_to 'Forgotten Password ?', forgot_path, :class => 'btn'
+      %button.btn.primary{ :type => "submit" } Login

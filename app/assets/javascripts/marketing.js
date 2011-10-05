@@ -5,17 +5,22 @@
 // the compiled file.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
+//= require bootstrap-modal.js
+
 $(document).ready(function() {  
   
     $('.login').click(function(event) {
       event.preventDefault();
-      if ($('.login-form').is(':visible')) {
+      
+      if ($('#login-form').is(':visible')) {
         $('.login').removeClass('active');
-        $('.login-form').hide();
+        $('#login-form').modal('hide');
       } else {
         $(this).addClass('active');
-        $('.login-form').show().find(':text:first')[0].focus(); 
+        $('#login-form').modal('show');
+        $('#login-form').find(':text:first')[0].focus(); 
       }
     });
     

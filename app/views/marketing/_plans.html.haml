@@ -1,11 +1,11 @@
-.yui-g#pricing
-  .yui-u.first
-    .yui-u.first.basic
+.row
+  .span4.plan.basic
+    .well
       %h3 Basic
       %p
         %em $5/Month
       %p 1 Server
-      %ul
+      %ul.unstyled
         %li
           %strong Monitor Every Minute
         %li
@@ -14,21 +14,22 @@
           %strong 1 Page Per Server
       - if current_user
         - if current_user.account.plan_id > 0
-          = link_to("Disabled", '#', :class => 'awesome-black')
+          = link_to("Disabled", '#', :class => 'btn')
         - elsif current_user != nil and current_user.account.plan_id == 0
-          = link_to("Your Current Plan", '#', :class => 'awesome-black')
+          = link_to("Your Current Plan", '#', :class => 'btn')
         - else
-          = link_to("Upgrade", paypal_path(0), :class => 'awesome')
+          = link_to("Upgrade", paypal_path(0), :class => 'btn primary')
       - else
-        = link_to("Sign Up", signup_path(:plan_id => "0"), :class => 'awesome')
+        = link_to("Sign Up", signup_path(:plan_id => "0"), :class => 'btn primary')
           
       
-    .yui-u.plus
+  .span4.plan.plus
+    .well
       %h3 Plus
       %p
         %em $19/Month
       %p 5 Servers
-      %ul
+      %ul.unstyled
         %li 
           %strong Monitor Every Minute
         %li 
@@ -37,21 +38,21 @@
           %strong 5 Pages Per Server
       - if current_user
         - if current_user.account.plan_id > 1 and current_user.account.active?
-          = link_to("Disabled", '#', :class => 'awesome-black')
+          = link_to("Disabled", '#', :class => 'btn')
         - elsif current_user.account.plan_id == 1 and current_user.account.active?
-          = link_to("Your Current Plan", '#', :class => 'awesome-black')
+          = link_to("Your Current Plan", '#', :class => 'btn')
         - else
-          = link_to("Upgrade", paypal_path(1), :class => 'awesome')
+          = link_to("Upgrade", paypal_path(1), :class => 'btn primary')
       - else
-        = link_to("Sign Up", signup_path(:plan_id => "1"), :class => 'awesome')
+        = link_to("Sign Up", signup_path(:plan_id => "1"), :class => 'btn primary')
 
-  .yui-u
-    .yui-u.first.premium
+  .span4.plan.premium
+    .well
       %h3 Premium
       %p
         %em $35/Month
       %p 10 Servers
-      %ul
+      %ul.unstyled
         %li
           %strong Monitor Every Minute
         %li
@@ -60,20 +61,21 @@
           %strong 5 Pages Per Server
       - if current_user
         - if current_user.account.plan_id > 2 and current_user.account.active?
-          = link_to("Disabled", '#', :class => 'awesome-black')
+          = link_to("Disabled", '#', :class => 'btn')
         - elsif current_user.account.plan_id == 2 and current_user.account.active?
-          = link_to("Your Current Plan", '#', :class => 'awesome-black')
+          = link_to("Your Current Plan", '#', :class => 'btn')
         - else
-          = link_to("Upgrade", paypal_path(2), :class => 'awesome')
+          = link_to("Upgrade", paypal_path(2), :class => 'btn primary')
       - else
-        = link_to("Sign Up", signup_path(:plan_id => "2"), :class => 'awesome')
+        = link_to("Sign Up", signup_path(:plan_id => "2"), :class => 'btn primary')
 
-    .yui-u.max
+  .span4.plan.max
+    .well
       %h3 Max
       %p
         %em $60/Month
       %p 20 Servers
-      %ul
+      %ul.unstyled
         %li
           %strong Monitor Every Minute
         %li
@@ -82,10 +84,10 @@
           %strong 5 Pages Per Server
       - if current_user
         - if current_user.account.plan_id > 3 and current_user.account.active?
-          = link_to("Disabled", '#', :class => 'awesome-black')
+          = link_to("Disabled", '#', :class => 'btn')
         - elsif current_user.account.plan_id == 3 and current_user.account.active?
-          = link_to("Your Current Plan", '#', :class => 'awesome-black')
+          = link_to("Your Current Plan", '#', :class => 'btn')
         - else
-          = link_to("Upgrade", paypal_path(3), :class => 'awesome')
+          = link_to("Upgrade", paypal_path(3), :class => 'btn primary')
       - else
-        = link_to("Sign Up", signup_path(:plan_id => "3"), :class => 'awesome')
+        = link_to("Sign Up", signup_path(:plan_id => "3"), :class => 'btn primary')

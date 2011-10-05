@@ -1,13 +1,15 @@
 - content_for :title do
   Port Monitoring
   
-.yui-gc.inner-page.add-space
-  .yui-u.first
-    = form_for(@port, :html => { :class => 'data-entry'}, :url => server_port_path(@server, @port)) do |f|
-      = render :partial => 'form', :locals => { :f => f }
-      %fieldset.buttons
-        = f.submit 'Update', :class => 'awesome'
+.row
+  .span11
+    = form_for([@server, @port]) do |f|
+      = render 'form', :f => f
+
+      .actions
+        %button.btn.primary{:type => 'submit'} Update
         or
-        = link_to 'Back', server_ports_path(@server)
-  .yui-u
+        = link_to 'Back', server_ports_path(@server), :class => 'btn'
+
+  .span5
     = render :partial => 'examples'

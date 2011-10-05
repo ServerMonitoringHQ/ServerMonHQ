@@ -1,7 +1,14 @@
-%h1
-  Rename
-= form_for :server, @server, :url => { :action => 'renamed' } do |f|
-  %p
-    = f.label :name
-    = f.text_field :name
-    = submit_tag 'Rename'
+.modal
+  .modal-header
+    = link_to 'x', '#', :class => 'close'
+    %h3 Rename
+  
+  = form_for(@server, :url => { :action => 'renamed' }) do |f|
+    .modal-body
+      .clearfix
+      = f.label 'Name'
+      .input
+        = f.text_field :name
+
+    .modal-footer
+      %button.btn.primary{:type => 'submit'} Rename

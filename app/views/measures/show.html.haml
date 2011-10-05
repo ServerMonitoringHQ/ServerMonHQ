@@ -1,26 +1,23 @@
-#context-header
-  .inner-page
-    .left-side
-      %h1
-        = h @measure.name
-      %p
-        This monitor is currently active.
-    .right-side
-.inner-page
-  .yui-ge
-    .yui-u.first
-      %table.data
-        %caption
-          1. Monitor Allowances
+- content_for :page_title do
+  %h1= @measure.name
+
+  %p
+    This monitor is currently active.
+
+.row
+  .span11
+
+    %h3 1. Monitor Allowances
+    %table.zebra-striped
+      %tbody
         %tr
-          %td{ :style => 'width:40%' } 
-            Memory
+          %td{:style => 'width: 40%'} Memory
           %td
-            - if ! @measure.notify_mem?
+            - if @measure.notify_mem?
               %strong Don't
             Create an incident if memory >
             %strong
-              = h @measure.mem_perc
+              =h @measure.mem_perc
               \ %
         %tr
           %td 
@@ -32,6 +29,7 @@
             %strong
               = h @measure.load_perc
               \ %
+
         %tr
           %td 
             Swap Space
@@ -99,11 +97,11 @@
               = h @measure.bandwidth_time
         %tr
           %td{ :colspan => '2'}
-            %a{ :href => edit_measure_path(@measure), :class => 'awesome' }  Edit Monitor
-
-      %table#users-table.data
-        %caption
-          2. Who will receive notifications
+            = link_to 'Edit Monitor', edit_measure_path(@measure), :class => 'btn primary'
+    
+    %h3 2. Who will receive notifications
+    %table#users-table.data.zebra-striped
+      %thead
         %tr
           %th{ :style => 'width:40%' }
             Name
@@ -111,6 +109,7 @@
             Period
           %th
             Action
+      %tbody
         - @measure.monitor_users.each do |user|
           %tr
             %td
@@ -127,53 +126,17 @@
               minutes
             %td.action
               = link_to 'Delete', remove_users_path(@measure.id, user.id), :class => 'remote-delete'
+    
+    %h3 3. Servers to monitor
 
-      #add-user-form{ :style => "display:none" }
-        %h1
-          Add a contact to notify
-        %form#adduser-form{ :onsubmit => "return add_user()", :action => "#" }
-          %label
-            Contact
-          %br
-          = collection_select(nil, :user_id, @users, :id, :name)
-          %br
-          %label
-            How long to wait before sending an alert
-          %br
-          %select.wait_for{ :name => "wait_for" }
-            %option{ :value => "5" }
-              5 Minutes
-            %option{ :value => "10" }
-              10 Minutes
-            %option{ :value => "15" }
-              15 Minutes
-            %option{ :value => "20" }
-              20 Minutes
-            %option{ :value => "30" }
-              30 Minutes
-            %option{ :value => "60" }
-              1 hour
-          %br
-          %label
-            What type of alert ?
-          %br
-          %select.notify_type{ :name => 'notify_type' }
-            %option{ :value => "0" }
-              Email
-            %option{ :value => "1" }
-              SMS
-            %option{ :value => "2" }
-              Both
-          %input.add-user-button{ :type => "submit", :value => "Add" }
-          %input.measure_id{ :name => "measure_id", :type => "hidden", :value => @measure.id }
-      %table#servers-table.data
-        %caption
-          3. Servers to monitor
+    %table#servers-table.data.zebra-striped
+      %thead
         %tr
           %th{ :style => "width:80%" }
             Server Name
           %th
             Action
+      %tbody
         - @measure.monitor_servers.each do |server|
           %tr
             %td
@@ -181,39 +144,93 @@
             %td.action
               = link_to 'Delete', remove_servers_path(@measure.id, server.id), :class => 'remote-delete'
 
-      #add-server-form{ :style => "display:none" }
-        %h1
-          Add a server to monitor
-        %form#addserver-form{ :onsubmit => "return add_server()", :action => "#" }
+  .span5
+    .well
+      %h3
+        Users that will receive alerts from this monitor
+      %ul.unstyled
+        - @measure.monitor_users.each do |user|
+          %li
+            = link_to h(user.user.name), user.user
+            after
+            = h user.wait_for
+            minutes
+
+      %a#add-user-link.btn.primary{ :href => "", }
+        Add User
+
+    .well
+      %h3
+        This monitor is effective for the following servers
+      %ul.unstyled
+        - @measure.monitor_servers.each do |server|
+          %li
+            = link_to h(server.server.name), :controller => :statistics, :id => server.server.id
+
+      %a#add-server-link.btn.primary{ :href => "" }
+        Monitor Another Server
+
+#add-user-form{ :style => "display:none" }
+  .modal
+    %form#adduser-form{ :onsubmit => "return add_user()", :action => "#" }
+      .modal-header
+        = link_to 'x', '#', :class => 'close'
+        %h3
+          Add a contact to notify
+      .modal-body
+        .clearfix
           %label
-            Server
-          = collection_select(nil, :server_id, @servers, :id, :name)
-          %input{ :type => "submit", :value => "Add" }
-          %input.measure_id{ :name => "measure_id", :type => "hidden", :value => @measure.id }
+            Contact
+          .input
+            = collection_select(nil, :user_id, @users, :id, :name)
+        .clearfix
+          %label
+            How long to wait before sending an alert
+          .input
+            %select.wait_for{ :name => "wait_for" }
+              %option{ :value => "5" }
+                5 Minutes
+              %option{ :value => "10" }
+                10 Minutes
+              %option{ :value => "15" }
+                15 Minutes
+              %option{ :value => "20" }
+                20 Minutes
+              %option{ :value => "30" }
+                30 Minutes
+              %option{ :value => "60" }
+                1 hour
+        .clearfix
+          %label
+            What type of alert ?
+          .input
+            %select.notify_type{ :name => 'notify_type' }
+              %option{ :value => "0" }
+                Email
+              %option{ :value => "1" }
+                SMS
+              %option{ :value => "2" }
+                Both
+          
+        %input.measure_id{ :name => "measure_id", :type => "hidden", :value => @measure.id }
 
-    .yui-u
-      .box
-        .inner
-          %h3
-            Users that will receive alerts from this monitor
-          %ul
-            - @measure.monitor_users.each do |user|
-              %li
-                = link_to h(user.user.name), user.user
-                after
-                = h user.wait_for
-                minutes
+      .modal-footer
+        %button.add-user-button.btn.primary{ :type => "submit", :value => "Add" } Add
 
-          %a#add-user-link{ :href => "", :class => 'awesome' }
-            Add User
-      .box
-        .inner
-          %h3
-            This monitor is effective for the following servers
-          %ul
-            - @measure.monitor_servers.each do |server|
-              %li
-                = link_to h(server.server.name), :controller => :statistics, :id => server.server.id
+#add-server-form{ :style => "display:none" }
+  .modal
+    %form#addserver-form{ :onsubmit => "return add_server()", :action => "#" }
+      .modal-header
+        = link_to 'x', '#', :class => 'close'
+        %h3
+          Add a server to monitor
+      .modal-body
+        .clearfix
+          %label Server
+          .input
+            = collection_select(nil, :server_id, @servers, :id, :name)
+      
+        %input.measure_id{ :name => "measure_id", :type => "hidden", :value => @measure.id }
 
-          %a#add-server-link{ :href => "", :class => 'awesome' }
-            Monitor Another Server
+      .modal-footer
+        %button.btn.primary{ :type => "submit", :value => "Add" } Add

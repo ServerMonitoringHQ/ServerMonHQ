@@ -5,30 +5,53 @@
     %title
       = @title || "Server Monitoring"
     %link{:rel => 'icon', :href => '/images/favicon.ico'} 
+    %link{:rel => "stylesheet", :href => "http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css"}
+    %link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/cupertino/jquery-ui.css", :rel => "stylesheet", :type => "text/css"}
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
-    = render :partial => "layouts/analytics"
-    %link{:href => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/cupertino/jquery-ui.css", :rel => "stylesheet", :type => "text/css"}
+
+    / = render :partial => "layouts/analytics"
   %body
-    #doc3
-      #hd
-        = render :partial => "layouts/header"
-        #nav
-          .inner-page
-            %h1
-              = h current_user.account.name
-            %ul
-              %li#server-tab{ :class => select_tab(/servers/) }
-                = link_to 'Servers', servers_path
-              %li#monitor-tab{ :class => select_tab(/measures/) }
-                = link_to 'Monitors', measures_path
-              %li#incidents-tab{ :class => select_tab(/incidents/) }
-                = link_to 'Incidents', incidents_path
-              %li#contacts-tab{ :class => select_tab(/users/) }
-                = link_to 'Contacts', users_path
-            %div{ :style => "clear:both" }
-      #bd
-        = yield :layout
-      #ft
-        .inner-page
-          = render :partial => "layouts/footer"
+    .topbar
+      .topbar-inner
+        .container
+          = link_to('ServerMonitoring HQ', '/', :class => 'brand')
+
+          %ul.nav
+            = link_to 'All Servers', servers_path
+          %ul.nav.secondary-nav
+            - if ! current_user.account.active?
+              %li
+                %p
+                  = time_ago_in_words(current_user.account.trial_end, Time.now)
+                  trial remaining
+            - if current_user.admin?
+              %li
+                = link_to 'Account', account_path
+            %li
+              = link_to 'My Profile', edit_user_path(current_user)
+            %li
+              = link_to 'Logout', logout_path
+    .container
+      .row
+        - if next_steps
+          .alert-message.alert
+            = raw(next_steps)
+      .row
+        %ul.tabs
+          %li#server-tab{ :class => select_tab(/servers/) }
+            = link_to 'Servers', servers_path
+          %li#monitor-tab{ :class => select_tab(/measures/) }
+            = link_to 'Monitors', measures_path
+          %li#incidents-tab{ :class => select_tab(/incidents/) }
+            = link_to 'Incidents', incidents_path
+          %li#contacts-tab{ :class => select_tab(/users/) }
+            = link_to 'Contacts', users_path
+      .row
+        .span16
+          .page-info
+            = yield :page_title
+
+      = yield
+      
+    = render :partial => "layouts/footer"

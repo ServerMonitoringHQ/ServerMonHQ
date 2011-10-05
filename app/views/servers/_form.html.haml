@@ -1,47 +1,42 @@
 - if @server.errors
   %div.box
     = f.error_messages
-%fieldset
-  %h3 The Hostname or IP address
-  %p
-    The hostname e.g. hostname.com or an IP address e.g. 127.8.9.252
-  %dd
-    %dl
-      = f.label :hostname, 'Hostname'
-      = f.text_field :hostname
-%fieldset
-  %h3 SSH login credentials
-  %p
-    Provide a username you have created for ServerPulse or a standard username.
-  %dd
-    %dl
-      = f.label :username, 'Username'
-      = f.text_field :username, :autocomplete => 'off'
-%fieldset
-  %h3 SSH Password
-  %p
-    If you are using SSH key authentication you don't need
-    to supply a password.
-  %dd
-    %dl 
-      = f.password_field :password, :autocomplete => 'off'
-%fieldset
-  %h3 SSH Port
-  %p
-    The SSH process defaults to port 22 but if you have SSH running
-    on a different port then please enter it here.
-  %dd
-    %dl
-      = f.label :ssh_port, "Port"
-      = f.text_field :ssh_port
-%fieldset
-  %h3 Display Name
-  %p
-    From now on I'd like you to refer to this server as
-    %dd
-      %dl
-        = f.label :name, "Display Name"
-        = f.text_field :name
-        = f.hidden_field :private_key
-        = f.hidden_field :public_key
-    %input{ :type => 'hidden', :name => 'ssh' }
+
+.clearfix
+  = f.label 'Hostname'
+  .input
+    = f.text_field :hostname
+    %span.help-block
+      The hostname e.g. hostname.com or an IP address e.g. 127.8.9.252
+
+.clearfix
+  = f.label 'SSH Username'
+  .input
+    = f.text_field :username, :autocomplete => 'off'
+    %span.help-block
+      Provide a username you have created for ServerPulse or a standard username.
+
+.clearfix
+  = f.label 'SSH Password'
+  .input
+    = f.password_field :password, :autocomplete => 'off'
+    %span.help-block
+      If you are using SSH key authentication you don't need to supply a password.
+
+.clearfix
+  = f.label 'Port'
+  .input
+    = f.text_field :ssh_port
+    %span.help-block
+      The SSH process defaults to port 22 but if you have SSH running on a different port then please enter it here.
+
+.clearfix
+  = f.label :name, "Display Name"
+  .input
+    = f.text_field :name
+    %span.help-block
+      From now on I'd like you to refer to this server as
+
+= f.hidden_field :private_key
+= f.hidden_field :public_key
+%input{ :type => 'hidden', :name => 'ssh' }

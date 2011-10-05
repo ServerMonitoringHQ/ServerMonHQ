@@ -1,21 +1,25 @@
-#context-header
-  .inner-page
-    .left-side
-      %h1
-        Add a contact
-      %p
-        They can receive alerts from ServerPulse
-.inner-page
-  = form_for @user, :html => { :class => 'data-entry'} do |f|
-    = f.error_messages
-    %fieldset
-      %h3
-        Add the details of the person you'd like to make a contact
-    = render :partial => 'users/contactform', :locals => {:f => f}
-    %fieldset.buttons
-      = f.submit 'Add Contact', :class => 'awesome'
-      or
-      = link_to('Cancel', users_path)
+- content_for :page_title do
+  %h1
+    Add a contact
+  %p
+    They can receive alerts from ServerPulse
+    
+.row
+  .span16
+    = form_for(@user) do |f|
+      
+      = f.error_messages
 
-  :javascript
-    document.getElementById('user_first_name').focus();
+      %fieldset
+        %h4
+          Add the details of the person you'd like to make a contact
+
+      = render 'users/contactform', :f => f
+
+      .actions
+        %button.btn.primary{:type => 'submit'} Add Contact
+        or
+        = link_to('Cancel', users_path, :class => 'btn')
+
+    :javascript
+      document.getElementById('user_first_name').focus();

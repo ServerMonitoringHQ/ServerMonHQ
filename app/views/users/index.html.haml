@@ -1,65 +1,44 @@
-#context-header
-  .inner-page
-    .left-side
-      %h1
-        People
-.yui-gc.inner-page
-  .yui-u.first
-    %table.data
-      %caption
-        Contacts (with account access)
-      %tr
-        %th{ :style => 'width:25%' }
-          Name
-        %th{ :style => 'width:25%' }
-          Login
-        %th{ :style => 'width:25%' }
-          Mobile Number
-        %th
-          Action
-      - for user in @users
+- content_for :page_title do
+  %h1 People
+  
+.row
+  .span11
+    %h3 Contacts (with account access)
+
+    %table.zebra-striped
+      %thead
         %tr
-          %td.name
-            = link_to user.name, user
-          %td
-            = user.login
-          %td
-            = user.mobile_number
-          %td.action
-            = link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete
-            \|
-            = link_to 'Edit', edit_user_path(user)
-    %table.data
-      %caption
-        Contacts
-      %tr
-        %th{ :style => 'width:25%' }
-          Name
-        %th{ :style => 'width:25%' }
-          Email
-        %th{ :style => 'width:25%' }
-          Mobile Number
-        %th
-          Action
-      - for user in @people
+          %th{ :style => 'width:25%' }
+            Name
+          %th{ :style => 'width:25%' }
+            Login
+          %th{ :style => 'width:25%' }
+            Mobile Number
+          %th
+            Action
+      %tbody
+        = render @users
+      
+    %h3 Contacts
+
+    %table.zebra-striped
+      %thead
         %tr
-          %td.name
-            = link_to user.name, user
-          %td
-            = user.email
-          %td
-            = user.mobile_number
-          %td.action
-            = link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete
-            \|
-            = link_to 'Edit', edit_user_path(user)
-            \|
-            = link_to 'Invite', :controller => :users, :action => :invite, :id => user.id
-  .yui-u
-    .box
-      .inner
-        %h2 Create a New Contact
-        %p 
-          Monitors set the criteria by which we measure server performance.
-        %p.button 
-          = link_to 'New Contact', add_users_path, :class => 'awesome'
+          %th{ :style => 'width:25%' }
+            Name
+          %th{ :style => 'width:25%' }
+            Email
+          %th{ :style => 'width:25%' }
+            Mobile Number
+          %th
+            Action
+      = render @people
+
+  .span5
+    .well
+      %h2 Create a New Contact
+
+      %p 
+        Monitors set the criteria by which we measure server performance.
+      %p
+        = link_to 'New Contact', add_users_path, :class => 'btn primary'

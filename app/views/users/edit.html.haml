@@ -1,20 +1,22 @@
-#context-header
-  .inner-page
-    .left-side
-      %h1
-        - if current_user.id == @user.id
-          = "#{current_user.name}'s Profile"
-        - else
-          Edit
-          = @user.name
-.inner-page
-  - if flash[:notice]
-    .item-details.flash
-      %h2
-        = flash[:notice]
-  = form_for @user, :html => { :class => 'data-entry'}, :url => user_path(@user) do |f|
-    = render :partial => 'users/contactform', :locals => {:f => f}
-    %fieldset.buttons
-      = f.submit 'Update Profile', :class => 'awesome'
-      or
-      = link_to('Cancel', :back)
+- content_for :page_title do
+  %h1
+    - if current_user.id == @user.id
+      = "#{current_user.name}'s Profile"
+    - else
+      Edit
+      = @user.name
+        
+.row
+  .span11
+    - if flash[:notice]
+      .item-details.flash
+        %h2
+          = flash[:notice]
+          
+    = form_for(@user) do |f|
+      = render 'users/contactform', :f => f
+
+      .actions
+        %button.btn.primary{:type => 'submit'} Update Profile
+        or
+        = link_to('Cancel', :back, :class => 'btn')

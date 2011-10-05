@@ -1,11 +1,13 @@
 - content_for :main_title do
   Live Statistics 
 
-- content_for :title do
-  Live Statistics 
-  %span#timer-text 
-    Next update in 4 seconds.
+- content_for :page_title do
+  %h1
+    Live Statistics 
+    %small#timer-text 
+      Next update in 4 seconds.
 
-.inner-page
-  = render :partial => 'stats_display'
-  = render :partial => 'live_stats_form'
+.row
+  .span16
+    = render :partial => 'stats_display'
+    = render :partial => 'live_stats_form'

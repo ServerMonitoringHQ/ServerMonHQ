@@ -23,14 +23,18 @@
         If you connect to your server using SSH with key authentication
         You'll need to upload this servers ServerPulse public key to it.
         You can view they key by clicking the button below.    
-      %p.button 
-        %a#public-key-button.awesome-black{ :href => '/key' }
+      %p 
+        %a#public-key-button.btn.primary{ :href => '/key' }
           View Public Key
 
 #public-key{ :style => 'display:none' }
-  %h2 Public Key
-  %p
-    This public key should be used to grant ServerPulse access to your server.
-    You'll need to add it to the  <em>authorized_keys</em> file.
-  %textarea{ :readonly => 'readonly', :style => 'height:120px;width:550px;font-size:90%' }
-    = @server.public_key
+  .modal
+    .modal-header
+      = link_to 'x', '#', :class => 'close'
+      %h3 Public Key
+    .modal-body
+      %p
+        This public key should be used to grant ServerPulse access to your server.
+        You'll need to add it to the  <em>authorized_keys</em> file.
+      %textarea{ :readonly => 'readonly', :style => 'height:120px;width:520px;font-size:90%' }
+        = @server.public_key

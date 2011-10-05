@@ -1,20 +1,14 @@
-#context-header
-  .inner-page
-    .left-side
-      %h1
-        Edit Server
-    .right-side
-.yui-gc.inner-page
-  .yui-u.first
-    = form_for(@server, :html => { :class => 'data-entry'} ) do |f|
-      
-      = render :partial => 'form', :locals => { :f => f }
+.row
+  .span11
+    %h1 Edit Server
 
-      %fieldset.buttons
-        = f.submit 'Connect Now', :class => 'awesome'
+    = form_for(@server) do |f|
+      = render 'form', { :f => f }
+
+      .actions
+        %button.btn.primary{:type => 'submit', :name => 'connect'} Connect Now
         or
-        = link_to 'Back to Servers', servers_path
-    :javascript
-      document.getElementById('server_hostname').focus();
+        = link_to 'Back to Servers', servers_path, :class => 'btn'
 
-  = render :partial => 'sidebar', :locals => { :server => @server }
+  .span5
+    = render 'sidebar'#, :server => @server

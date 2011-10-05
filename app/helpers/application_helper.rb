@@ -82,7 +82,7 @@ module ApplicationHelper
 
   def select_tab(lookup)
     if request.fullpath =~ lookup
-      return "selected"
+      return "active"
     end
     return "normal"
   end

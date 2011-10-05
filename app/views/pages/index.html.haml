@@ -1,45 +1,39 @@
 - content_for :title do
   Web Page Monitoring
-  
-.yui-gc.inner-page.add-space
-  .yui-u.first
-    %table.data
-      %caption
-        Pages Monitored
-      %tr
-        %th
-          Title
-        %th
-          URL
-        %th
-          Status
-        %th
-          Search Text
-        %th
-          Action
-      - for page in @pages
-        %tr
-          %td.name
-            = h page.title
-          %td
-            = h page.url
-          %td
-            = h page.status_text
-          %td
-            = h page.search_text
-          %td.action
-            = link_to 'Edit', edit_server_page_path(@server, page)
-            \|
-            = link_to 'Delete', server_page_path(@server, page), :confirm => 'Are you sure?', :method => :delete
 
-  .yui-u
-    .box
-      .inner
-        %h2 Monitor a new Web Page
-        - if @server.page_limit_reached?
-          You are monitoring the maximum number of web pages.
-        - else
-          %p 
-            ServerPulse can monitor web pages for availability. 
-          %p.button 
-            = link_to 'Monitor New Page', new_server_page_path(@server), :class => 'awesome'
+- content_for :page_title do
+  %h1 Web Page Monitoring
+  
+.row
+  .span11
+    %h2 Pages Monitored
+    %table
+      %thead
+        %tr
+          %th
+            Title
+          %th
+            URL
+          %th
+            Status
+          %th
+            Search Text
+          %th
+            Action
+      %tbody
+        = render @pages
+
+  .span5
+    .well
+      %h2 
+        Monitor a new
+        %br
+        Web Page
+
+      - if @server.page_limit_reached?
+        You are monitoring the maximum number of web pages.
+      - else
+        %p 
+          ServerPulse can monitor web pages for availability. 
+        %p
+          = link_to 'Monitor New Page', new_server_page_path(@server), :class => 'btn primary'

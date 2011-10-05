@@ -1,17 +1,20 @@
+- content_for :page_title do
+  %h1 Port Monitoring
+  
 - if @port.errors.size > 0
   %div.box
     = f.error_messages
-%fieldset
-  %h3 The Name of this port
-  %p
-    Give the Port a name so you can easily recognise it. e.g. MySQL
-  = f.label :name
-  %br
-  = f.text_field :name
-%fieldset
-  %h3 The Address of the Port
-  %p
-    The address is the port number e.g. 3306
-  = f.label :address
-  %br
-  = f.text_field :address
+
+.clearfix
+  = f.label :name, 'Name'
+  .input
+    = f.text_field :name
+    %span.help-block
+      Give the Port a name so you can easily recognise it. e.g. MySQL
+  
+.clearfix
+  = f.label :address, 'Port'
+  .input
+    = f.text_field :address
+    %span.help-block
+      The address is the port number e.g. 3306

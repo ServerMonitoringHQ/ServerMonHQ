@@ -1,14 +1,12 @@
-#context-header
-  .inner-page
-    .left-side
-      %h1
-        Edit Monitor
-    .right-side
-.inner-page
-  .yui-ge
-    .yui-u.first
-      = form_for(@measure, :html => { :class => 'data-entry'} ) do |f|
-        = render :partial => 'form', :locals => { :f => f }
-        %p
-          = f.submit 'Update', :class => 'awesome'
-    .yui-u
+- content_for :page_title do
+  %h1 Edit Monitor
+
+.row
+  .span16    
+    = form_for(@measure) do |f|
+      = render 'form', :f => f
+
+      .actions
+        %button.btn.primary{:type => 'submit'} Update
+        or
+        = link_to 'Cancel', measures_path, :class => 'btn'
