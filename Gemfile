@@ -40,6 +40,7 @@ gem "insight_rails", "0.3.1", :require => "insight"
 group :production do 
   gem 'therubyracer-heroku', '0.8.1.pre3' # you will need this too   
   gem 'pg' 
+  gem 'thin'
 end
 
 group :test do
