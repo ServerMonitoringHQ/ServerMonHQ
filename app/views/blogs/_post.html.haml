@@ -1,0 +1,5 @@
+%li
+  %span
+    = post.created_at.strftime('%d %b %y')
+  &raquo;
+  = link_to post.title, blog_path(post)

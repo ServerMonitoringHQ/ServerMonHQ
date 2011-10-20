@@ -25,6 +25,8 @@
               %li
                 = link_to 'Pricing & Signup', buy_path
               %li
+                = link_to 'Blog', blog_index_path
+              %li
                 = link_to_unless(logged_in?, 'Login', login_path, :class => 'login') { link_to('Servers', servers_path) }
 
     .container

@@ -1,0 +1,13 @@
+.container
+  .row
+    .span12.columns
+        
+      %h1{ :style => 'margin-top: 40px; font-size: 20px' }
+        = @post.title
+      %p.meta
+        = @post.created_at.strftime('%d %B %y')
+
+      = render :file => 'blogs/post_' + @post.id
+      
+    .span4.columns
+      = render 'sidebar'

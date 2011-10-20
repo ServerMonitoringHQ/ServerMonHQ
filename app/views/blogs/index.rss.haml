@@ -1,0 +1,24 @@
+!!! xml
+
+%rss{ "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" }
+  %channel 
+    %title "ServermonitoringHQ Posts"    
+    %link        
+      = url_for :only_path => false, :controller => 'blogs'    
+    
+    %description "ServermonitoringHQ Posts"     
+    
+    - @posts.each do |post|      
+      %item         
+        %title       
+          = post.title        
+        %link        
+          = url_for :only_path => false, :controller => 'blogs', :action => 'show', :id => post.id        
+        %description 
+          = render :file => 'blogs/post_' + post.id + '.html.haml'
+        %guid        
+          = url_for :only_path => false, :controller => 'blogs', :action => 'show', :id => post.id      
+      end    
+    end   
+  end 
+end

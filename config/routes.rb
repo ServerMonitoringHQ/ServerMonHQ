@@ -4,10 +4,14 @@ Servermonitoringhq::Application.routes.draw do
   resources :measures
   resource :account, :only => [:show, :create] do
     collection do
+    end
   end
   
+  match '/blog/rss' => 'blogs#index', :format => :rss
   
-  end
+  resources :blog,
+    :controller => 'blogs',
+    :only => [ :index, :show ]
 
   resources :incidents, :only => [:index, :show]
   match '/measures/:measure_id/mu/:id' => 'measures#remove_user', :as => :remove_users

@@ -1,0 +1,10 @@
+.alert-message.block-message{ :style => 'margin-top: 50px' }
+  %h4 Recent Posts
+  
+  %ul
+    - @posts.each do |post|
+      = render 'blogs/post', :post => post
+      
+
+  %br
+  = link_to image_tag('rss.png'), blog_path(:format => :rss)
