@@ -38,6 +38,5 @@ module Servermonitoringhq
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.sass.preferred_syntax = :sass
   end
 end
