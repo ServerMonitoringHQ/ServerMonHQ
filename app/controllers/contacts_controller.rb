@@ -12,8 +12,9 @@ class ContactsController < ApplicationController
   
   def create
     @contact = Contact.new(params[:contact])     
-    if @contact.save       
-      redirect_to('/', :notice => "Support was successfully sent.")     
+    if @contact.save
+      flash.now[:notice] = "Support was successfully sent."
+      render :action => 'show'
     else       
       flash[:alert] = "You must fill all fields."       
       render :action => 'show'     

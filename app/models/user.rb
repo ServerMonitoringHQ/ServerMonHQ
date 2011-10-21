@@ -1,7 +1,6 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  # include Insight::CRM::Callbacks::User
 
   has_secure_password
   

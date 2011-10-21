@@ -3,7 +3,11 @@
     .span12
       %h1{ :style => 'margin-top: 40px; margin-bottom: 20px' }
         Contact Us
-
+        
+      - if flash[:notice]
+        .alert-message
+          %h4= flash[:notice]
+        
       = form_for @contact, :url => { :action => "create" }, :html => { :method => :post,
         :class => 'form-stacked'} do |f|
         - if @contact.errors.any?

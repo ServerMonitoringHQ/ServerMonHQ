@@ -24,8 +24,6 @@ gem 'kaminari'
 gem 'twilio'
 gem 'resque'
 
-gem "insight_rails", "0.3.1", :require => "insight"
-
 group :development do
   gem 'sqlite3'
 end

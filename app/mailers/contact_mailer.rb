@@ -5,7 +5,7 @@ class ContactMailer < ActionMailer::Base
     @type        = type
     @sender_name = sender_name
     @detail      = detail
-    mail(:from => email, :to => 'ian.purton@gmail.com', :subject => "Support Email")   
+    mail(:from => email, :to => 'ian.purton@gmail.com', :subject => 'Support Email')   
   end
   
 end
