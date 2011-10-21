@@ -6,7 +6,7 @@
   %h2.subheading We monitor CPU, Load, Memory, Bandwidth, Disks and notify you when critical levels are reached.
 
 %p{:style => "text-align: center; margin: 0"}
-  %img{:alt => 'Screenshot', :width => "900", :height => "250", :class => 'screenshot', :src => "/assets/marketing/ServerPulseNewLook.png"}
+  = image_tag("marketing/ServerPulseNewLook.png", :alt => 'Screenshot', :width => "900", :height => "250", :class => 'screenshot')
   
 #signup-call
   %a{:href => '/buy'} Sign up now for a free 30 day trial &mdash; 30 second signup &mdash; no credit card required &gt;&gt;
@@ -54,23 +54,23 @@
 
   .row.screengrabs
     .span4
-      %img{ :src => "/assets/marketing/front-screen1.png", :width => "210", :height => "90", :alt => "Bar Graph" }
+      = image_tag("marketing/front-screen1.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3 Alert Escalation
       %p
         Configure alert escalations. e.g. Contact support after 5 mins, managers after 1 hour of downtime.
     .span4
-      %img{ :src => "/assets/marketing/front-screen2.png", :width => "210", :height => "90", :alt => "Bar Graph" }
+      = image_tag("marketing/front-screen2.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3 Monitor Granularity
       %p
         Only want to monitor disk space ? ServerMonitoringHQ allows you to configure each monitor.
     .span4
-      %img{ :src => "/assets/marketing/front-screen3.png", :width => "210", :height => "90", :alt => "Bar Graph" }
+      = image_tag("marketing/front-screen3.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3 Public Key Authentication
       %p
         We can generate a public key for each server you configure for maximum security.
 
     .span4
-      %img{ :src => "/assets/marketing/front-screen4.png", :width => "210", :height => "90", :alt => "Bar Graph" }
+      = image_tag("marketing/front-screen4.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3 1 Minute Granularity
       %p
         We can monitor server down to 1 minute resolution so you see issues as soon as they happen.
