@@ -12,6 +12,9 @@ Servermonitoringhq::Application.routes.draw do
   resources :blog,
     :controller => 'blogs',
     :only => [ :index, :show ]
+    
+  resource :contact,
+    :only => [ :show, :create ]
 
   resources :incidents, :only => [:index, :show]
   match '/measures/:measure_id/mu/:id' => 'measures#remove_user', :as => :remove_users

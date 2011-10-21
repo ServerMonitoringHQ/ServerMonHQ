@@ -27,6 +27,8 @@
               %li
                 = link_to 'Blog', blog_index_path
               %li
+                = link_to 'Contact Us', contact_path
+              %li
                 = link_to_unless(logged_in?, 'Login', login_path, :class => 'login') { link_to('Servers', servers_path) }
 
     .container
