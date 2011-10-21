@@ -1,5 +1,6 @@
 %ul.nav
-  = link_to 'All Servers', servers_path
+  %li
+    = link_to 'All Servers', servers_path
 %ul.nav.secondary-nav
   - if ! current_user.account.active?
     %li

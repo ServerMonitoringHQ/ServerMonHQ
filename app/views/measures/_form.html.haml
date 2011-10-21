@@ -3,7 +3,7 @@
     = f.error_messages
 
 .clearfix
-  = f.label 'Display Name'
+  = f.label :name, 'Display Name'
   .input
     = f.text_field :name
     %span.help-block
@@ -108,6 +108,8 @@
     .input-prepend
       %label.add-on
         = f.check_box :notify_bandwidth
+      
       = f.text_field :bandwidth, :class => 'mini'
+      
       = f.select(:bandwidth_scale, [['MB', 'MB'], ['GB', 'GB'], ['TB', 'TB']])
       = f.select(:bandwidth_time, [['1 Day', '1 Day'], ['1 Week', '1 Week'], ['1 Month', '1 Month']])

@@ -3,8 +3,8 @@ require 'test_helper'
 class ServerTest < ActiveSupport::TestCase
 
   def test_load_data_from_server
-    record = Server.new({ :name => 'ServerPulse', :username => 'status2k.com', :hostname => 'status2k.com', :password => 'vja481xsta', :ssh_port => 443, :cpu => 'Intel' })
-
+    # record = Server.new({ :name => 'ServerPulse', :username => 'status2k.com', :hostname => 'status2k.com', :password => 'vja481xsta', :ssh_port => 443, :cpu => 'Intel' })
+    record = Server.new({:name => 'foo', :url => 'http://pulse-agent.ianpurton.com'})
     a = record.retrieve_stats(true)
 
     assert a == true, "Stats not retrieved::" + record.errors[:base][0].to_s

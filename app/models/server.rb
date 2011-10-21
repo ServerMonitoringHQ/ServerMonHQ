@@ -182,31 +182,31 @@ EOF
   def retrieve_stats(encrypt_pass = false)
 
     begin
-
+    
       xml = ''
       agent = false
       if ssh_connection? or self.url == nil
-
+    
         pass = password
         if encrypt_pass == true
           pass = Base64.encode64(Encryptor.encrypt(:value => self.password, 
             :key => SysStats::JAKE_PURTON))
         end
-
+    
         xml = SysStats::Stats.live_stats_xml(hostname,
           username, pass, ssh_port, id, private_key)
       else
         agent = true
-        response,body = xml_data = Net::HTTP.get_response(
+        response = Net::HTTP.get_response(
           URI.parse(self.url + '?cmd=stats'))
 
         if response.kind_of? Net::HTTPSuccess
           xml = response.body
         end
       end
-
+    
       process_stats_xml(xml)
-
+    
     rescue Exception => e
       if agent
         errors[:base] << 'Unable to connect via agent ' + e.to_s
@@ -215,7 +215,7 @@ EOF
       end
       return false
     end
-
+    
     if errors[:base].length > 0
       return false
     end

@@ -14,6 +14,12 @@ server_one:
   kernelver: 2.6.18-14-fza-686-bigmem
   url: http://status2k.com
 
+server_two:
+  id: 5
+  name: foo
+  url: http://pulse-agent.ianpurton.com
+  account: two
+    
 server_four:
   name: foo
   account: expired
