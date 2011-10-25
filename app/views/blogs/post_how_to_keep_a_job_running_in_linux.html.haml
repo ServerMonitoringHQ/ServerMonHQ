@@ -1,0 +1,50 @@
+%p There are many ways to keep a process running on linux but I haven't seen any that are as easy to implement as the script below.
+
+%p 
+  Basically the script does a
+  %code ps ax
+  and then a
+  %code grep 
+  for your process. If it's not running it will re-start the process.
+
+%p 
+  You install the script into your crontab i.e.
+  %code crontab -e
+  
+%p As a bonus this mechanism will re-start your process after a re-boot.
+
+
+
+%h3 Edit your crontab
+
+%p 
+  Cut and paste the following code into your crontab.
+
+%pre
+  */5 * * * * /home/path_to_the_script/make-run.sh
+
+%p
+  Make sure the cron entry is pointing to where your make-run.sh is located.
+
+%h3 The Bash script
+
+%pre
+  :preserve
+    #!/bin/bash 
+    # make-run.sh 
+    # make sure a process is always running.  
+    # Add the following to the crontab (i.e. crontab -e)
+    # */5 * * * * /home/path_to_make_run/make-run.sh
+
+    process=servermonitoringhq 
+    makerun="/home/path_to_the_job_you_want_running/runjob.sh"  
+
+    if ps ax | grep -v grep | grep $process > /dev/null         
+    then                 
+      exit         
+    else         
+      $makerun &         
+    fi 
+
+%p
+  Test the script on it's own first to make sure it starts your job.
