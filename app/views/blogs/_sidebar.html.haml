@@ -6,11 +6,12 @@
   %p{ :style => 'margin-top: 10px' }
     Spot server issues before your servers go down.
 
-  %h4 Recent Posts
-  
-  %ul{ :style => 'margin-left: 0; margin-right: 0' }
-    - @posts.each do |post|
-      = render 'blogs/post', :post => post
+  - if @posts
+    %h4 Recent Posts
+    
+    %ul{ :style => 'margin-left: 0; margin-right: 0' }
+      - @posts.each do |post|
+        = render 'blogs/post', :post => post
 
-  %br
-  = link_to image_tag('marketing/rss.png'), blog_rss_path
+    %br
+    = link_to image_tag('marketing/rss.png'), blog_rss_path
