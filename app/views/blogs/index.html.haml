@@ -2,11 +2,15 @@
   .row
     .span12.columns
       %h1{ :style => 'margin-top: 40px; font-size: 20px' }
-        Blog
+        The ServerMonitoringHQ Blog
 
-      %ul.posts
-        - @front_posts.each do |post|
-          = render 'post', :post => post
-        
+      %ul.posts{ :style => 'margin-left: 0; font-size: 16px' }
+        - for post in @front_posts do
+          %li{ :style => 'list-style-type: none' }
+            %span
+              = post.created_at.strftime('%d %b %y')
+            &raquo;
+            = link_to post.title, 'blog/' + post.to_s
+
     .span4.columns
-      / = render 'sidebar'
+      = render 'sidebar'

@@ -1,10 +1,17 @@
 .alert-message.block-message{ :style => 'margin-top: 50px' }
-  %h4 Recent Posts
-  
-  %ul
-    - @posts.each do |post|
-      = render 'blogs/post', :post => post
-      
+  %h4 ServerMonitoringHQ 
+  %p{ :style => 'margin-bottom: 10px' }
+    ServerMonitoringHQ monitors your server load, memory and disk usage.
+  = image_tag("marketing/ServerPulseNewLook.png", :alt => 'Screenshot', :width => "165", :height => "75")
+  %p{ :style => 'margin-top: 10px' }
+    Spot server issues before your servers go down.
 
-  %br
-  = link_to image_tag('rss.png'), blog_path(:format => :rss)
+  - if @posts
+    %h4 Recent Posts
+    
+    %ul{ :style => 'margin-left: 0; margin-right: 0' }
+      - @posts.each do |post|
+        = render 'blogs/post', :post => post
+
+    %br
+    = link_to image_tag('marketing/rss.png'), blog_rss_path

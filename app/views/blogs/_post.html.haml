@@ -1,5 +1,2 @@
-%li
-  %span
-    = post.created_at.strftime('%d %b %y')
-  &raquo;
+%li{ :style => 'list-style-type: none; margin-bottom: 15px' }
   = link_to post.title, blog_path(post)

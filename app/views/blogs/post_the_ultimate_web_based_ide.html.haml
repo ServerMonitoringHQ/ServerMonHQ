@@ -1,0 +1,53 @@
+.kicker
+  %p 
+    For those pressed for time the ultimate 
+    %strong online web IDE 
+    is a combination of 
+    %a{ :href => 'http://code.google.com/p/shellinabox/' } Shellinabox
+    ,
+    %a{ :href => 'http://en.wikipedia.org/wiki/GNU_Screen' } GNU Screen
+    and 
+    %a{ :href => 'http://en.wikipedia.org/wiki/Vim_%28text_editor%29' } Vim
+    \.
+  %p
+    If you've got a bit more time read on, find out why a solution for quick fixes has turned into to my favourite way to code.
+
+%p
+  = image_tag("blog/shellinabox.png", :alt => 'shellinabox', :width => "650", :height => "587")
+
+%h2 A basic development iteration
+
+%p
+  I'm usually developing the following repeatedly through development/maintenace of a Ruby on Rails application.
+
+%ol
+  %li Have 1 tab open in firefox with shellinabox and make file edits using Vim.
+  %li Have another open tab in firefox with my application running and test the changes.
+  %li Repeat the first 2 steps until the fix is ready.
+  %li Run the unit tests
+  %li If all is OK commit changes to git.
+  %li Push changes to production which in my case is Heroku.
+
+%p
+  Using Vim, screen and shellinabox I can run through this cycle quickly. After a while I realised that coding through the browser was no slower than coding in an IDE.
+
+%p
+  I also like the idea of being able to pick up from where I left off whilst moving from one computer to another.
+
+%p 
+  I now code exclusively in VIM through shellinabox.
+
+
+%h3 Setting up the IDE
+
+Install shellinabox. I'm on debian so I used
+%a{ :href => 'http://code.google.com/p/shellinabox/source/browse/trunk/INSTALL.Debian' }
+  Install shellinaox on debian.
+I then point a subdomain to the shellinabox localhost url and port.
+
+%br
+%br
+
+%script{ :src => "https://gist.github.com/864001.js?file=gistfile1.txt" }
+
+Install screen - sudo apt-get install screen

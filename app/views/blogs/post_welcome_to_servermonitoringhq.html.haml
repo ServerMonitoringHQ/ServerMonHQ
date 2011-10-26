@@ -1,0 +1,59 @@
+.kicker
+  %p After 18months development I'm proud to announce ServerMonitoringHQ to the world. A hosted software as a service tool for monitoring servers.
+
+%h2 Why did I create ServerMonitoringHQ.
+
+%p
+  %span.drop-cap> A
+  fter running 
+  %a{ :href => 'http://status2k.com' } Status2K.com 
+  (a PHP script for server monitoring) for a few months I ran into a few issues. Mainly that it's hard to maintain and spot errors with a script running on someone else's servers.  And also that it's fustrasting to see copies of your script pirated on numerous file sharing sites.
+
+%p 
+  So I wanted to create a hosted server monitoring and statistics solution. I looked at the other hosted solutions and most seem to concentrate on uptime, i.e. pinging servers or loading web pages. There are a few that gather statistics internally e.g. you install an agent on each of your servers. I decided to have an agent-less approach. So ServerMonitoringHQHQ can gather server statistics over SSH with nothing to install on your server. For those that don't want to give out SSH information you can also use the ServerMonitoringHQ agent script. The script gives a nice realtime web based statistics output. See the
+  %a{ :href => 'http://servermonitoringhq.com/agent/'} ServerMonitoringHQ Agent
+
+%h2 About Me
+
+%p
+  I've been programming professionally since 1994 mainly for investment banks in London. I started out doing C and C++ for satellite communications companies before progressing onto Java. I installed Linux for the first time in 1996 and have been using a mixture and Windows and Linux on the server side throughout my career.
+
+%p
+  I've had numerous side projects throughout the years but ServerMonitoringHQ is the most viable and I'm going to spend a lot of time marketing this site and hopefully making it the best monitoring solution out there.
+
+
+%h2 Technology
+
+%p 
+  ServerMonitoringHQ is a 
+  %a{ :href => 'http://rubyonrails.org/' } Ruby on Rails 
+  application. After building sites in Java and PHP I've found Rails to be the most productive platform currently available.
+
+%p
+  The ServerMonitoringHQ Agent is a PHP application. PHP I believe is the most widely available scripting language on Linux so hopefully most people should find installation of the script trivial.
+
+%p
+  The site is hosted at 
+  %a{ :href => 'http://heroku.com'} Heroku 
+  which provides me with the ability to scale the site if required quite quickly. I actually have 4 applications installed at heroku to support this site.  
+
+%ol
+  %li This blog which is a basic rack application where I edit the posts by hand coding HAML pages with Vim.  
+  %li 
+    The application itself, i.e. all the screens and data collection.
+    %a{ :href => 'http://servermonitoringhq.com' } ServerMonitoringHQ.com
+  %li 
+    %a{ :href => 'https://github.com/blog/542-introducing-resque' } Resque
+    A queue for background jobs with a nice front end with live statistics.
+  %li 
+    A customised version of
+    %a{ :href => 'http://fatfreecrm.com' } Fat Free CRM
+    with which I handle all customer interaction and which I'll extend to provide
+    a TenderApp style support channel.
+
+%h2 Credits
+
+%p
+  I'd like to give credit to the guys over at the
+  %a{ :href => 'http://www.micropreneur.com' } Micropreneur Academy
+  the information from there has shaped a lot of what you see here.
