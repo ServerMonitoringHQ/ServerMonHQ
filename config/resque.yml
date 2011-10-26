@@ -1,5 +1,5 @@
 development:
-  localhost:6379
+  redis://heroku:176ddfc90290ffa2c318f0c3ead5133a@filefish.redistogo.com:9045
   
 test:
   localhost:6379
