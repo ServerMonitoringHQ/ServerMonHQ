@@ -32,7 +32,7 @@ class StatisticsController < ApplicationController
   
   def external
 
-    @server = Server.find_by_access_key(params[:id])
+    @server = Server.by_access_key(params[:id]).first
  
     send_job ServerMonitoringHQ::Jobs::Monitor
 
@@ -44,7 +44,7 @@ class StatisticsController < ApplicationController
   
   def stats
 
-    @server = Server.find_by_access_key(params[:id])
+    @server = Server.by_access_key(params[:id]).first
 
     xml = @server.stats_xml
 

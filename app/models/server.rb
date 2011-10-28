@@ -29,7 +29,11 @@ class Server < ActiveRecord::Base
   validates_presence_of :url, :unless => :ssh_connection?
 
   after_initialize :do_after_initialize
-
+  
+  scope :by_access_key, lambda { |key|
+    { :conditions => [ "access_key LIKE ?", key ] }
+  }
+  
   scope :active,
               :include => :account,
               :conditions => ['accounts.active = ? OR accounts.trial_end >= ?', true, Date.today]
