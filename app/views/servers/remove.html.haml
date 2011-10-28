@@ -1,4 +1,10 @@
-%h1
-  Delete Server
-= form_for @server, :url => { :action => 'removed' } do |f|
-  = submit_tag 'Delete'
+.modal
+  .modal-header
+    = link_to 'x', '#', :class => 'close'
+    %h3 Delete Server
+  
+  = form_for @server, :url => { :action => 'removed' } do |f|
+    .modal-body
+      %p Are you sure?
+    .modal-footer
+      %button.btn.primary{:type => 'submit'} Delete

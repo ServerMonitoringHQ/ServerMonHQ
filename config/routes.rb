@@ -66,7 +66,7 @@ Servermonitoringhq::Application.routes.draw do
   get :remove
   get :download
   get :rename
-  post :removed
+  put :removed
   end
       resources :logs
     resources :pages

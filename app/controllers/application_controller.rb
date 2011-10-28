@@ -216,11 +216,11 @@ class ApplicationController < ActionController::Base
 
 
   def check_account_expired
-    return unless current_user
-    if current_user.account.expired?
-      flash[:error] = 'Your Account has expired'
-      redirect_to account_path
-    end
+    # return unless current_user
+    # if current_user.account.expired?
+    #   flash[:error] = 'Your Account has expired'
+    #   redirect_to account_path
+    # end
   end
 
   def require_admin

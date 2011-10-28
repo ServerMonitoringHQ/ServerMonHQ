@@ -13,4 +13,4 @@
       %p
         Cut and paste the link below and share it.
       %textarea{ :readonly => 'readonly', :id => 'code-area', :style => 'height:120px;width:520px;font-size:90%' }
-        = public_code(servers)
+        = public_code(servers) unless servers.empty?

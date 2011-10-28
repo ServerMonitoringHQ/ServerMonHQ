@@ -17,7 +17,7 @@
             = h server.kernelver
         %li.edit-links
           = link_to 'Rename', rename_server_path(server), :rel => 'facebox'
-          = link_to 'Delete', remove_server_path(server)
+          = link_to 'Delete', remove_server_path(server), :rel => 'facebox'
           - if server.url != nil
             = link_to 'Edit', agentedit_server_path(server)
           - else
