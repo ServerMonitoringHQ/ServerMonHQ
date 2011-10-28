@@ -39,4 +39,5 @@
           %a#code-view-button.btn.primary{ :href => '/lost' }
             Get Code
 
-= render 'servers/public_code', :servers => @servers
+- if @servers.length > 0
+  = render 'servers/public_code', :servers => @servers
