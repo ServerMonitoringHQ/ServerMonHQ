@@ -136,7 +136,7 @@ class UsersController < ApplicationController
         
         # Add now to mailchimp
         #h = Hominid::Base.new({:api_key => '72c8ca6a7ea19fcb9dabf68ff38e360b-us1'})
-        #h.subscribe(h.find_list_id_by_name("ServerPulse Signups"), @user.email, 
+        #h.subscribe(h.find_list_id_by_name("ServerMonitoringHQ Signups"), @user.email, 
         #  {:FNAME => @user.first_name, :LNAME => @user.last_name}, {:email_type => 'html'})
       rescue
         # Do nothing

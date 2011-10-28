@@ -1,7 +1,7 @@
 ActionMailer::Base.smtp_settings = { 
   :address => "smtp.sendgrid.net",  
   :port => 25,  
-  :domain => 'serverpulsehq.com',  
+  :domain => 'servermonitoringhq.com',  
   :user_name => 'ian.purton@gmail.com',
   :password => 'vja481xsen',
   :port => 587,  

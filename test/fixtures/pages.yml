@@ -7,7 +7,7 @@ one:
 
 two:
   server_id: 4
-  title: ServerPulseHQ Home Page
-  url: http://serverpulsehq.com/
+  title: ServerMonitoringHQ Home Page
+  url: http://servermonitoringhq.com/
   search_text: friendly interface
   follow_redirects: true

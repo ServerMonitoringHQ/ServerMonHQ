@@ -52,6 +52,6 @@ class Keychain < ActiveRecord::Base
       key.gsub!(/\s/, '')
       key = key.insert(7, ' ')
     end
-    return the_key + ' ServerPulse Key'
+    return the_key + ' ServerMonitoringHQ Key'
   end
 end

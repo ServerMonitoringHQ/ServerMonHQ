@@ -10,12 +10,13 @@
     = render :partial => "layouts/analytics"
 
   %body
-    .topbar
-      .topbar-inner
-        .container
-          = link_to('ServerMonitoring HQ', '/', :class => 'brand')
+    #wrapper
+      .topbar
+        .topbar-inner
+          .container
+            = link_to('ServerMonitoring HQ', '/', :class => 'brand')
 
-    .container
-      = yield
+      .container
+        = yield
       
-    = render :partial => "layouts/footer"
+      = render :partial => "layouts/footer"

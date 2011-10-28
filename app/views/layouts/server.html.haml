@@ -10,58 +10,59 @@
     = yield :head
     = render :partial => "layouts/analytics"
   %body
-    .topbar
-      .topbar-inner
-        .container
-          = link_to('ServerMonitoring HQ', '/', :class => 'brand')
+    #wrapper
+      .topbar
+        .topbar-inner
+          .container
+            = link_to('ServerMonitoring HQ', '/', :class => 'brand')
 
-          = render 'layouts/main_nav'
-    .container
-      .row
-        %ul.tabs
-          %li#server-tab{ :class => select_tab(/servers/) }
-            = link_to 'Servers', servers_path
-          %li#monitor-tab{ :class => select_tab(/measures/) }
-            = link_to 'Monitors', measures_path
-          %li#incidents-tab{ :class => select_tab(/incidents/) }
-            = link_to 'Incidents', incidents_path
-          %li#contacts-tab{ :class => select_tab(/users/) }
-            = link_to 'Contacts', users_path
+            = render 'layouts/main_nav'
+      #body.container
+        .row
+          %ul.tabs
+            %li#server-tab{ :class => select_tab(/servers/) }
+              = link_to 'Servers', servers_path
+            %li#monitor-tab{ :class => select_tab(/measures/) }
+              = link_to 'Monitors', measures_path
+            %li#incidents-tab{ :class => select_tab(/incidents/) }
+              = link_to 'Incidents', incidents_path
+            %li#contacts-tab{ :class => select_tab(/users/) }
+              = link_to 'Contacts', users_path
       
-      .row
-        .span16
-          .page-info
-            = yield :page_title
+        .row
+          .span16
+            .page-info
+              = yield :page_title
 
-            / start servers
-            .row
-              %ul.breadcrumb.pull-left
-                %li
-                  = link_to 'Servers', servers_path
-                  %span.divider /
-                %li
-                  = link_to @server.name, server_path(@server)
+              / start servers
+              .row
+                %ul.breadcrumb.pull-left
+                  %li
+                    = link_to 'Servers', servers_path
+                    %span.divider /
+                  %li
+                    = link_to @server.name, server_path(@server)
 
-              %ul.tabs.pull-right.servers-nav
-                %li#live-stats-tab{ :class => select_tab(/index/) }
-                  = link_to 'Live Stats', :action => 'index', :controller => 'statistics', :id => @server
-                %li#memory-tab{ :class => select_tab(/memory/) }
-                  = link_to 'Memory', :action => 'memory', :controller => 'statistics', :id => @server
-                %li#processes-tab{ :class => select_tab(/processes/) }
-                  = link_to 'CPU / Load', :action => 'processes', :controller => 'statistics', :id => @server
-                %li#downtime-tab{ :class => select_tab(/downtime/) }
-                  = link_to 'Downtime', :action => 'downtime', :controller => 'statistics', :id => @server
-                %li#bandwidth-tab{ :class => select_tab(/bandwidth/) }
-                  = link_to 'Bandwidth', :action => 'bandwidth', :controller => 'statistics', :id => @server
-                %li#ports-tab{ :class => select_tab(/ports/) }
-                  = link_to 'Ports', server_ports_path(@server)
-                %li#pages-tab{ :class => select_tab(/pages/) }
-                  = link_to 'Pages', server_pages_path(@server)
-            / end servers
+                %ul.tabs.pull-right.servers-nav
+                  %li#live-stats-tab{ :class => select_tab(/index/) }
+                    = link_to 'Live Stats', :action => 'index', :controller => 'statistics', :id => @server
+                  %li#memory-tab{ :class => select_tab(/memory/) }
+                    = link_to 'Memory', :action => 'memory', :controller => 'statistics', :id => @server
+                  %li#processes-tab{ :class => select_tab(/processes/) }
+                    = link_to 'CPU / Load', :action => 'processes', :controller => 'statistics', :id => @server
+                  %li#downtime-tab{ :class => select_tab(/downtime/) }
+                    = link_to 'Downtime', :action => 'downtime', :controller => 'statistics', :id => @server
+                  %li#bandwidth-tab{ :class => select_tab(/bandwidth/) }
+                    = link_to 'Bandwidth', :action => 'bandwidth', :controller => 'statistics', :id => @server
+                  %li#ports-tab{ :class => select_tab(/ports/) }
+                    = link_to 'Ports', server_ports_path(@server)
+                  %li#pages-tab{ :class => select_tab(/pages/) }
+                    = link_to 'Pages', server_pages_path(@server)
+              / end servers
             
-      / .alert-message.alert
-      /   = raw(next_steps)
+        / .alert-message.alert
+        /   = raw(next_steps)
 
-      = yield
+        = yield
       
-    = render :partial => "layouts/footer"
+      = render :partial => "layouts/footer"
