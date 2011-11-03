@@ -6,8 +6,8 @@ module ServerMonitoringHQ
 
       @queue = :servermonitoringhq
 
-      def self.perform(url, search, page_id, return_url, timestamp, env=production)
-        check_job_age(timestamp)
+      def self.perform(url, search, page_id, return_url, timestamp, env="production")
+        return if check_job_age(timestamp)
 
         Logger.info "Return URL (#{return_url})"
         Logger.info "Page: #{url} #{search}"

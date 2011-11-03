@@ -6,8 +6,8 @@ module ServerMonitoringHQ
 
       @queue = :servermonitoringhq
 
-      def self.perform(server, return_url, timestamp, env=production)
-        check_job_age(timestamp)
+      def self.perform(server, return_url, timestamp, env="production")
+        return if check_job_age(timestamp)
 
         Logger.info "Return URL (#{return_url})"
         Logger.info "Memory: #{server[:hostname]} #{server[:username]} #{server[:password]}"

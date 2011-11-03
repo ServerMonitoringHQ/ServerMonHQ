@@ -6,8 +6,8 @@ module ServerMonitoringHQ
 
       @queue = :servermonitoringhq
       
-      def self.perform(server, return_url, timestamp, env=production)
-        check_job_age(timestamp)
+      def self.perform(server, return_url, timestamp, env="production")
+        return if check_job_age(timestamp)
 
         puts "Return URL (#{return_url})"
 
@@ -16,7 +16,7 @@ module ServerMonitoringHQ
           SysStats::Stats.monitor_url(server[:url], server[:id], return_url)
         else
           puts "Monitor: #{server[:hostname]} #{server[:id]} #{server[:password]} #{server[:username]} #{env}"
-
+        
           time = Benchmark.measure do
             SysStats::Stats.monitor(server[:hostname], server[:username], server[:password], server[:port], server[:id], server[:private_key], return_url)
           end
