@@ -17,21 +17,24 @@
             = link_to('ServerMonitoring HQ', '/', :class => 'brand')
 
             = render 'layouts/main_nav'
-      #body.container
-        .row
-          %ul.tabs
-            %li#server-tab{ :class => select_tab(/servers/) }
-              = link_to 'Servers', servers_path
-            %li#monitor-tab{ :class => select_tab(/measures/) }
-              = link_to 'Monitors', measures_path
-            %li#incidents-tab{ :class => select_tab(/incidents/) }
-              = link_to 'Incidents', incidents_path
-            %li#contacts-tab{ :class => select_tab(/users/) }
-              = link_to 'Contacts', users_path
+      #body
+        .top-back
+        
+          .container
+            .row
+              %ul.tabs
+                %li#server-tab{ :class => select_tab(/servers/) }
+                  = link_to 'Servers', servers_path
+                %li#monitor-tab{ :class => select_tab(/measures/) }
+                  = link_to 'Monitors', measures_path
+                %li#incidents-tab{ :class => select_tab(/incidents/) }
+                  = link_to 'Incidents', incidents_path
+                %li#contacts-tab{ :class => select_tab(/users/) }
+                  = link_to 'Contacts', users_path
       
         .row
-          .span16
-            .page-info
+          .page-info
+            .container
               = yield :page_title
 
               / start servers
@@ -62,7 +65,7 @@
             
         / .alert-message.alert
         /   = raw(next_steps)
-
-        = yield
+        .container
+          = yield
       
       = render :partial => "layouts/footer"
