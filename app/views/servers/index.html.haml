@@ -1,10 +1,10 @@
 - content_for :page_title do
-  %h1
+  %h1.header
     All Servers
-    %small
-      Server Status
-      %span#timer-text
-        Next update in 4 seconds.
+  %p
+    Server Status
+    %span#timer-text
+      Next update in 4 seconds.
 .row
   .span11  
     %table.zebra-striped
@@ -19,14 +19,11 @@
           %td
             = link_to server.name, :controller => :statistics, :id => server.id
           %td
-            %h4
-              = server.cpuload
+            = server.cpuload
           %td
-            %h4
-              = number_to_percentage(server.mem_percentage, :precision => 2, :strip_insignificant_zeros => true)
+            = number_to_percentage(server.mem_percentage, :precision => 2, :strip_insignificant_zeros => true)
           %td
-            %h4
-              = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
+            = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
           %td
             = link_to 'Rename', rename_server_path(server), :rel => 'facebox'
             = link_to 'Delete', remove_server_path(server), :rel => 'facebox'
@@ -61,7 +58,8 @@
         %p 
           Click the button to generate a link to a read only public dashboard.
         %p
-          %a.btn.primary{ :href => '/lost' }
+          %br
+          %a.btn.primary{ :href => '/lost', :style => 'color: white' }
             Get Code
 
 - if @servers.length > 0

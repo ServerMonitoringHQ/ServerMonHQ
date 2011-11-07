@@ -165,7 +165,7 @@ class MonitorcronController < ApplicationController
       end
       server.last_rx = rx
 
-      server.save(false)
+      server.save(:validate=> false)
 
       receive_drives(params)
 
