@@ -4,8 +4,6 @@
 # Add the following to the crontab (i.e. crontab -e)
 # */5 * * * * /home/ianpurton.com/projects/worker-servermonhq/make-run.sh PASSWORD
 
-echo "Password : $1"
-
 process=servermonitoringhq 
 makerun="$HOME/projects/worker-servermonhq/bin/runjob.exp $1"  
 

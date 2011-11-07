@@ -449,8 +449,8 @@ EOF
   end
 
   def Stats.monitor(hostname, username, password, ssh_port, id, private_key, return_url)
-    puts "#{hostname}, #{username}, #{password}, #{private_key}"
     data = live_stats_xml(hostname, username, password, ssh_port, id, private_key) 
+puts return_url + 'receive_monitor'
     url = URI.parse(return_url + 'receive_monitor') 
     http = Net::HTTP.new(url.host, url.port) 
     response,body = http.post(url.path, data, {'Content-type'=>'text/xml;charset=utf-8'}) 
