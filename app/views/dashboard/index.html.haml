@@ -1,0 +1,25 @@
+%p
+  Signups Past 7 Days - 
+  = @regs.count
+  , Servers Commisioned -
+  = @servers.count
+  , Servers Updated
+  = @recv.count.to_s
+  of
+  = @total.to_s
+
+%table
+  %tr
+    %th First Name
+    %th Surname
+    %th Email
+    
+  - @regs.each do |account| 
+    - account.users.each do |user| 
+      %tr
+        %td
+          = user.first_name
+        %td
+          = user.last_name
+        %td
+          = user.email
