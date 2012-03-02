@@ -13,6 +13,11 @@ class ServersController < ApplicationController
   def index
     @servers = current_user.account.servers.includes(:ports, :pages)
 
+    if @servers.count == 0
+      redirect_to new_server_url
+      return
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.js { render(:partial => 'server_list', :locals => {:servers => @servers}) }
