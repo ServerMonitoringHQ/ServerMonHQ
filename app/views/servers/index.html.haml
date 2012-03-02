@@ -2,12 +2,12 @@
   %h1.header
     All Servers
   %p
-    Server Status
+    Summary of all your servers
     %span#timer-text
       Next update in 4 seconds.
 .row
   .span11  
-    %table.zebra-striped
+    %table#server-list.zebra-striped
       %tr
         %th Name
         %th Load
@@ -19,11 +19,14 @@
           %td
             = link_to server.name, :controller => :statistics, :id => server.id
           %td
-            = server.cpuload
+            %span.label.warning
+              = server.cpuload
           %td
-            = number_to_percentage(server.mem_percentage, :precision => 2, :strip_insignificant_zeros => true)
+            %span.label.warning
+              = number_to_percentage(server.mem_percentage, :precision => 2, :strip_insignificant_zeros => true)
           %td
-            = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
+            %span.label.warning
+              = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
           %td
             = link_to 'Rename', rename_server_path(server), :rel => 'facebox'
             = link_to 'Delete', remove_server_path(server), :rel => 'facebox'
@@ -39,28 +42,13 @@
         %p 
           You'll need to upgrade your plan if you want to monitor any more servers.
       - else
-        %h3 Monitor a Server
+        %h3 Add Another Server
 
         %p 
-          There are 2 ways we can collect statistics from your server. We can connect directly via SSH 
-          or you can install our web based agent.
+          You still have capacity to add more servers under your current plan.
+          
         %p
-          = link_to 'Collect Data via SSH', new_server_path, :class => 'btn info'
-        %p
-          or
-        %p
-          = link_to 'Collect Data via Agent', newagent_servers_path, :class => 'btn info'
-
-    - if current_user.account.servers.count > 0
-      .block-message.success.alert-message
-        %h3 Public Dashboard Link
-
-        %p 
-          Click the button to generate a link to a read only public dashboard.
-        %p
-          %br
-          %a.btn.primary{ :href => '/lost', :style => 'color: white' }
-            Get Code
+          = link_to 'Add Server', new_server_path, :class => 'btn info'
 
 - if @servers.length > 0
   = render 'servers/public_code', :servers => @servers
