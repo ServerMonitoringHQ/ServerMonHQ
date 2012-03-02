@@ -1,0 +1,20 @@
+- for server in @servers
+  %tr
+    %td
+      = link_to server.name, :controller => :statistics, :id => server.id
+    %td
+      %span.label.warning
+        = server.cpuload
+    %td
+      %span.label.warning
+        = number_to_percentage(server.mem_percentage, :precision => 2, :strip_insignificant_zeros => true)
+    %td
+      %span.label.warning
+        = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
+    %td
+      = link_to 'Rename', rename_server_path(server), :rel => 'facebox'
+      = link_to 'Delete', remove_server_path(server), :rel => 'facebox'
+      - if server.url != nil
+        = link_to 'Edit', agentedit_server_path(server)
+      - else
+        = link_to 'Edit', edit_server_path(server)

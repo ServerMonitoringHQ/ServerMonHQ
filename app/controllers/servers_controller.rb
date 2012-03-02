@@ -20,7 +20,8 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.js { render(:partial => 'server_list', :locals => {:servers => @servers}) }
+      format.js { render(:partial => 'server_list.html.haml', :layout => false, 
+        :locals => {:servers => @servers}) }
       format.xml  { render :xml => @servers }
     end
   end
