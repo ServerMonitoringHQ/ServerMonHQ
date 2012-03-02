@@ -1,6 +1,9 @@
+- content_for :page_title do
+  %h1.header Add a Server
+  %p Add a new server for us to monitor.
+
 .row
   .span11
-    %h1 Commission Server
 
     = form_for(@server) do |f|
       = render 'form', { :f => f }

@@ -1,31 +1,24 @@
-.yui-u
-  .box
-    .inner
-      %h2 How does ServerMonitoringHQ collect information ?
-      %p 
-        We SSH into your server on a regular basis and run a number of commands e.g. 
-        %code
-          cat /proc/loadavg. 
-        We don't run any commands that change anything on your server we only read information.  
-      %p
-        We 
-        %em
-          don't need a root 
-        account to collect information. A standard user account is sufficient, you can create an account for ServerMonitoringHQ e.g. 
-        %code
-          adduser servermonitoringhq
-      %p
-        All passwords are encrypted and we also encrypt private key information and keep this secure for obvious reasons.
-  .box
-    .inner
-      %h2 Public Key Authentication
-      %p 
-        If you connect to your server using SSH with key authentication
-        You'll need to upload this servers ServerMonitoringHQ public key to it.
-        You can view they key by clicking the button below.    
-      %p 
-        %a#public-key-button.btn.primary{ :href => '/key' }
-          View Public Key
+.block-message.alert-message.info
+  %h5 How does ServerMonitoringHQ collect information ?
+  %p 
+    A user account in Linux has 
+    %em read only access 
+    to server statistics. 
+    We can connect securely to a user account and run a few lightweight 
+    commands to retrieve the data we need via 
+    %strong SSH.
+  %p
+    All passwords are encrypted and we also encrypt private key information and keep this secure for obvious reasons.
+.block-message.alert-message.info
+  %h4 Public Key Authentication
+  %p 
+    If you connect to your server using SSH with key authentication
+    You'll need to upload a ServerMonitoringHQ public key.
+    You can view they key by clicking the button below.    
+  %p 
+    %br
+    %button#public-key-button.btn.primary{ :href => '/key' }
+      View Public Key
 
 #public-key{ :style => 'display:none' }
   .modal
