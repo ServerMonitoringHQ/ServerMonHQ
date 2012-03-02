@@ -8,12 +8,6 @@
 .row
   .span11  
     %table#server-list.zebra-striped
-      %tr
-        %th Name
-        %th Load
-        %th Memory
-        %th Swap
-        %th Action
       = render 'servers/server_list', :servers => @servers
 
   .span5
