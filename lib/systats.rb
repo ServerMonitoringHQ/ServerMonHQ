@@ -180,7 +180,7 @@ EOF
 
     def Stats.execute_ssh(commands, hostname, username, password, ssh_port, private_key) 
       begin
-        
+
         results = {}
         key_data = []
 

@@ -190,15 +190,18 @@ EOF
       xml = ''
       agent = false
       if ssh_connection? or self.url == nil
-    
+
         pass = password
-        if encrypt_pass == true
+        if encrypt_pass == true and password != nil and !password.empty?
           pass = Base64.encode64(Encryptor.encrypt(:value => self.password, 
             :key => SysStats::JAKE_PURTON))
         end
+
+        priv = Base64.encode64(Encryptor.encrypt(:value => self.private_key, 
+          :key => SysStats::JAKE_PURTON))
     
         xml = SysStats::Stats.live_stats_xml(hostname,
-          username, pass, ssh_port, id, private_key)
+          username, pass, ssh_port, id, priv)
       else
         agent = true
         response = Net::HTTP.get_response(
