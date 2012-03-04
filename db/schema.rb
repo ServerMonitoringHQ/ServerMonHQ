@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304150823) do
+ActiveRecord::Schema.define(:version => 20120304160603) do
 
   create_table "accounts", :force => true do |t|
     t.string    "name"
@@ -162,7 +162,6 @@ ActiveRecord::Schema.define(:version => 20120304150823) do
     t.text     "password"
     t.string   "ssh_port"
     t.string   "access_key"
-    t.text     "public_key"
     t.text     "top"
     t.float    "cpuload"
     t.float    "load2"
@@ -186,8 +185,8 @@ ActiveRecord::Schema.define(:version => 20120304150823) do
     t.integer  "cpucount",      :default => 0,   :null => false
     t.float    "cpumhz",        :default => 0.0, :null => false
     t.string   "cpu",           :default => "",  :null => false
-    t.text     "private_key"
     t.integer  "down_mins",     :default => 0
+    t.integer  "keychain_id"
   end
 
   create_table "users", :force => true do |t|

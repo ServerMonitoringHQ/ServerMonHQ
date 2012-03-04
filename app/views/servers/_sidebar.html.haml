@@ -30,4 +30,4 @@
         This public key should be used to grant ServerMonitoringHQ access to your server.
         You'll need to add it to the  <em>authorized_keys</em> file.
       %textarea{ :style => 'height:120px;width:520px;font-size:90%' }
-        = @server.public_key
+        = @server.keychain.public_key

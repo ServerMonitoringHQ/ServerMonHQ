@@ -20,6 +20,7 @@ class Server < ActiveRecord::Base
   has_many :pages, :dependent => :destroy
   has_many :disks, :dependent => :destroy
   belongs_to :account
+  belongs_to :keychain
   has_many :monitor_servers, :dependent => :destroy
 
   validates_presence_of :name
@@ -46,7 +47,6 @@ class Server < ActiveRecord::Base
         :username    => username,
         :password    => password,
         :port        => ssh_port, 
-        :private_key => private_key,
         :url         => url
       }
     end
@@ -67,9 +67,12 @@ class Server < ActiveRecord::Base
   end
 
   def do_after_initialize
-    if self.private_key == nil
-      generate_keys(self.account_id)
+
+    kc = Rails.cache.fetch("next_private_keychain#{account_id}") do
+      kc = Keychain.random
     end
+    self.keychain_id = kc.id
+
     if self.access_key == nil
       self.access_key = Digest::SHA1.hexdigest Time.now.to_s
     end
@@ -189,6 +192,8 @@ EOF
     
       xml = ''
       agent = false
+
+      puts "retrieve stats"
       if ssh_connection? or self.url == nil
 
         pass = password
@@ -197,11 +202,13 @@ EOF
             :key => SysStats::JAKE_PURTON))
         end
 
-        priv = Base64.encode64(Encryptor.encrypt(:value => self.private_key, 
+        priv = Base64.encode64(Encryptor.encrypt(:value => self.keychain.private_key, 
           :key => SysStats::JAKE_PURTON))
-    
+
         xml = SysStats::Stats.live_stats_xml(hostname,
           username, pass, ssh_port, id, priv)
+
+        puts "Heres the XML " + xml.to_s
       else
         agent = true
         response = Net::HTTP.get_response(
@@ -234,7 +241,11 @@ EOF
     doc = REXML::Document.new(xml)
 
     if doc.root.elements['*/cpucount'] == nil
-      errors[:base] << 'Unable to parse results'
+      if doc.root.elements['message'] == nil
+        errors[:base] << 'Unable to parse results'
+      else
+        errors[:base] <<  doc.root.elements['message'].text
+      end
     else
       #process data from agent
       self.usedswap = doc.root.elements['*/swapused'].text.to_f
@@ -273,16 +284,6 @@ EOF
   end
 
   private
-
-  def generate_keys(account_id)
-    kc = Rails.cache.fetch("next_private_key#{account_id}") do
-      kc = Keychain.random
-    end
-    self.public_key = kc.public_key
-    self.private_key = Base64.encode64(Encryptor.encrypt(
-      :value => kc.private_key,
-      :key => SysStats::JAKE_PURTON))
-  end
 
   def decode_private_key
     return Encryptor.decrypt(:value => Base64.decode64(self.private_key),
