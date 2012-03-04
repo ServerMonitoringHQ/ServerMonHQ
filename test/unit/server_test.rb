@@ -3,51 +3,22 @@ require 'test_helper'
 class ServerTest < ActiveSupport::TestCase
 
   def test_load_data_from_server
-    # record = Server.new({ :name => 'ServerPulse', :username => 'status2k.com', :hostname => 'status2k.com', :password => 'vja481xsta', :ssh_port => 443, :cpu => 'Intel' })
-    record = Server.new({:name => 'foo', :url => 'http://pulse-agent.ianpurton.com'})
+    record = Server.new({ :name => 'ServerPulse', :username => 'servermonhq', :hostname => 'dev.ianpurton.com', :password => 'vja481x', :ssh_port => 22, :cpu => 'Intel' })
     a = record.retrieve_stats(true)
 
     assert a == true, "Stats not retrieved::" + record.errors[:base][0].to_s
   end
 
-  def test_password_gets_encrypted
+  def test_keychin_id_should_only_change_when_saved
 
     s = Server.new(:account_id => 6)
-
-    key = Keychain.find(1).private_key
-
-    assert (s.send :decode_private_key) == key, 'Should decode private key'
-
-  end
-
-  def test_private_key_should_only_change_when_saved
-
+    key1 = s.keychain_id
     s = Server.new(:account_id => 6)
-    key1 = s.private_key
-    s = Server.new(:account_id => 6)
-    key2 = s.private_key
+    key2 = s.keychain_id
     assert key1 == key2, "Keys should be the same"
 
   end
 
-  def test_public_key_creation
-    s = Server.new(:account_id => 6)
-    key1 = s.private_key
-
-    assert_not_nil s.public_key
-
-    server = create_server(options = {:private_key => key1})
-    id = server.id
-
-    s = Server.find(id)
-    stored_key = s.private_key
-    assert key1 == stored_key, "They should be the same"
-  end
-
-#  def test_should_not_create_server_if_not_logging_in
-#    server = create_server(:password => '')
-#    assert !server.retrieve_stats
-#  end
 
   def test_should_create_server
     assert_difference 'Server.count' do
