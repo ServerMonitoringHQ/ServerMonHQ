@@ -193,7 +193,6 @@ EOF
       xml = ''
       agent = false
 
-      puts "retrieve stats"
       if ssh_connection? or self.url == nil
 
         pass = password
@@ -202,13 +201,9 @@ EOF
             :key => SysStats::JAKE_PURTON))
         end
 
-        priv = Base64.encode64(Encryptor.encrypt(:value => self.keychain.private_key, 
-          :key => SysStats::JAKE_PURTON))
-
         xml = SysStats::Stats.live_stats_xml(hostname,
-          username, pass, ssh_port, id, priv)
+          username, pass, ssh_port, id, self.keychain.private_key)
 
-        puts "Heres the XML " + xml.to_s
       else
         agent = true
         response = Net::HTTP.get_response(

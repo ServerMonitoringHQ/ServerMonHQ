@@ -1,3 +1,5 @@
+require '/home/ianpurton.com/projects/servermonhq/lib/systats.rb'
+
 desc "Pre-create all the secret ssh keys"
 task :create_ssh_keys => :environment do
   puts "Creating keys"

@@ -3,10 +3,45 @@ require 'test_helper'
 class ServerTest < ActiveSupport::TestCase
 
   def test_load_data_from_server
-    record = Server.new({ :name => 'ServerPulse', :username => 'servermonhq', :hostname => 'dev.ianpurton.com', :password => 'vja481x', :ssh_port => 22, :cpu => 'Intel' })
+    
+    record = Server.new({ :name => 'ServerPulse', :username => 'servermonhq', 
+      :hostname => 'dev.ianpurton.com', :password => 'vja481x', 
+      :ssh_port => 22, :cpu => 'Intel' })
     a = record.retrieve_stats(true)
 
     assert a == true, "Stats not retrieved::" + record.errors[:base][0].to_s
+  end
+
+  # To get this test to work you'll need to load the public key from the 
+  # keychains fixtures file to a server. 
+  # Run ‘tail -f /var/log/auth.log’ on the remotehost to help with debug. 
+  def test_load_data_from_server_ssh
+    
+    kc = Keychain.find(1)
+
+    record = Server.new({ :name => 'ServerPulse', :username => 'servermonhq', 
+      :hostname => 'dev.ianpurton.com', 
+      :ssh_port => 22, :cpu => 'Intel' })
+    a = record.retrieve_stats(true)
+
+    assert a == true, "Stats not retrieved::" + record.errors[:base][0].to_s
+  end
+
+  def test_decrypt_private_key
+
+    kc = Keychain.find(1)
+
+    record = Server.new({ :name => 'ServerPulse', :username => 'servermonhq', 
+      :hostname => 'dev.ianpurton.com', 
+      :ssh_port => 22, :cpu => 'Intel' })
+
+    record.keychain_id = kc.id
+
+    key_data = [Encryptor.decrypt(:value => Base64.decode64(record.keychain.private_key), 
+      :key => SysStats::JAKE_PURTON)]
+
+    puts key_data
+
   end
 
   def test_keychin_id_should_only_change_when_saved
@@ -36,7 +71,9 @@ class ServerTest < ActiveSupport::TestCase
 
 protected
   def create_server(options = {})
-    record = Server.new({ :name => 'ServerPulse', :username => 'ianpurton.com', :hostname => 'terminal.ianpurton.com', :password => 'Vja481xian', :ssh_port => 22, :cpu => 'Intel' }.merge(options))
+    record = Server.new({ :name => 'ServerPulse', :username => 'ianpurton.com', 
+      :hostname => 'terminal.ianpurton.com', :password => 'Vja481xian', 
+      :ssh_port => 22, :cpu => 'Intel' }.merge(options))
     record.ssh true
     a = Account.new
     a.save

@@ -17,6 +17,7 @@ gem "exception_notification",
 gem 'jquery-rails'
 gem 'haml'
 gem 'sprockets'
+gem 'sshkey'
 
 gem 'execjs'
 gem 'therubyracer'
