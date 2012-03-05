@@ -13,7 +13,7 @@ class Keychain < ActiveRecord::Base
       k = SSHKey.generate
       self.private_key = Base64.encode64(Encryptor.encrypt(:value =>
         k.private_key, :key => SysStats::JAKE_PURTON))
-      self.public_key = k.ssh_public_key + '== ServerMonitoringHQ.com Key'
+      self.public_key = k.ssh_public_key 
     end
     true
   end

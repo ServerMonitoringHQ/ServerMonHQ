@@ -68,7 +68,7 @@ class Server < ActiveRecord::Base
 
   def do_after_initialize
 
-    kc = Rails.cache.fetch("next_private_keychain#{account_id}") do
+    kc = Rails.cache.fetch("next_random_key#{account_id}") do
       kc = Keychain.random
     end
     self.keychain_id = kc.id
@@ -286,7 +286,7 @@ EOF
   end
 
   def clear_private_key(id)
-    Rails.cache.delete("next_private_key#{id}")
+    Rails.cache.delete("next_random_key#{id}")
   end
 
   def encrypt_fields
