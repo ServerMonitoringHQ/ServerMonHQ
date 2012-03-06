@@ -210,7 +210,8 @@ EOF
             e.remember_host!
             retry
           rescue Net::SSH::AuthenticationFailed => e
-            return "Failed Authentication"
+            return "Failed Authentication " + e.to_s + ' ' + username + '@' + 
+              hostname +  ':' + ssh_port.to_s + ">>" + ssh_params.to_s 
           rescue StandardError => e
             puts e.to_s
             puts e.backtrace
@@ -450,7 +451,8 @@ EOF
 
   def Stats.monitor(hostname, username, password, ssh_port, id, private_key, return_url)
     data = live_stats_xml(hostname, username, password, ssh_port, id, private_key) 
-puts return_url + 'receive_monitor'
+    puts data
+    puts return_url + 'receive_monitor'
     url = URI.parse(return_url + 'receive_monitor') 
     http = Net::HTTP.new(url.host, url.port) 
     response,body = http.post(url.path, data, {'Content-type'=>'text/xml;charset=utf-8'}) 
