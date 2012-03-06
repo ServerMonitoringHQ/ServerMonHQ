@@ -47,7 +47,8 @@ class Server < ActiveRecord::Base
         :username    => username,
         :password    => password,
         :port        => ssh_port, 
-        :url         => url
+        :url         => url,
+        :private_key => keychain.private_key
       }
     end
   end
