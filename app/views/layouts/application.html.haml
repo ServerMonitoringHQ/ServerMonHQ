@@ -14,14 +14,13 @@
       .topbar
         .topbar-inner
           .container
-            = link_to('ServerMonitoring HQ', '/', :class => 'brand')
 
             = render 'layouts/main_nav'
       #body
         .top-back
         
           .container
-            %ul.tabs.sm
+            %ul.nav.nav-tabs.sm
               %li#server-tab{ :class => select_tab(/servers/) }
                 = link_to 'Servers', servers_path
               %li#monitor-tab{ :class => select_tab(/measures/) }

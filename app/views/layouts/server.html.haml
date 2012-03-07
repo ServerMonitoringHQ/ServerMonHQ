@@ -14,23 +14,21 @@
       .topbar
         .topbar-inner
           .container
-            = link_to('ServerMonitoring HQ', '/', :class => 'brand')
 
             = render 'layouts/main_nav'
       #body
         .top-back
         
           .container
-            .row
-              %ul.tabs
-                %li#server-tab{ :class => select_tab(/servers/) }
-                  = link_to 'Servers', servers_path
-                %li#monitor-tab{ :class => select_tab(/measures/) }
-                  = link_to 'Monitors', measures_path
-                %li#incidents-tab{ :class => select_tab(/incidents/) }
-                  = link_to 'Incidents', incidents_path
-                %li#contacts-tab{ :class => select_tab(/users/) }
-                  = link_to 'Contacts', users_path
+            %ul.nav.nav-tabs.sm
+              %li#server-tab.active
+                = link_to 'Servers', servers_path
+              %li#monitor-tab.normal
+                = link_to 'Monitors', measures_path
+              %li#incidents-tab.normal
+                = link_to 'Incidents', incidents_path
+              %li#contacts-tab.normal
+                = link_to 'Contacts', users_path
       
         .row
           .page-info
@@ -46,9 +44,9 @@
                   %li
                     = link_to @server.name, server_path(@server)
 
-                %ul.tabs.pull-right.servers-nav
+                %ul.nav.nav-tabs.pull-right.servers-nav{ :style => 'margin-bottom: -1px' }
                   %li#live-stats-tab{ :class => select_tab(/index/) }
-                    = link_to 'Live Stats', :action => 'index', :controller => 'statistics', :id => @server
+                    = link_to 'Summary', :action => 'index', :controller => 'statistics', :id => @server
                   %li#memory-tab{ :class => select_tab(/memory/) }
                     = link_to 'Memory', :action => 'memory', :controller => 'statistics', :id => @server
                   %li#processes-tab{ :class => select_tab(/processes/) }

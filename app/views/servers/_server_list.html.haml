@@ -3,11 +3,14 @@
   %th Load
   %th Memory
   %th Swap
+  %th Ports
+  %th Pages
   %th Action
 - for server in @servers
   %tr
     %td
-      = link_to server.name, :controller => :statistics, :id => server.id
+      %strong
+        = link_to server.name, :controller => :statistics, :id => server.id
     %td
       %span.label.warning
         = server.cpuload
@@ -18,9 +21,21 @@
       %span.label.warning
         = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
     %td
-      = link_to 'Rename', rename_server_path(server), :rel => 'facebox'
-      = link_to 'Delete', remove_server_path(server), :rel => 'facebox'
+      %span.label.label-success
+        UP
+    %td
+      %span.label.label-important
+        DOWN
+    %td
+      %a{ :href => rename_server_path(server), :rel => 'facebox', 
+          :title => 'Rename Server' }
+        %i.icon-retweet
+      %a{ :href => remove_server_path(server), :rel => 'facebox', 
+          :title => 'Delete Server' }
+        %i.icon-trash
       - if server.url != nil
-        = link_to 'Edit', agentedit_server_path(server)
+        %a{ :href => agentedit_server_path(server), :title => 'Edit Server' }
+          %i.icon-pencil
       - else
-        = link_to 'Edit', edit_server_path(server)
+        %a{ :href => edit_server_path(server), :title => 'Edit Server'}
+          %i.icon-pencil

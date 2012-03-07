@@ -3,27 +3,27 @@
   %p Add a new server for us to monitor.
 
 .row
-  .span11
+  .span8
 
-    = form_for(@server) do |f|
+    = form_for(@server, :html => { :class => 'form-horizontal' }) do |f|
       = render 'form', { :f => f }
 
       %fieldset
-        %h3 Start Monitoring Straight Away ?
+        %legend Start Monitoring Straight Away ?
         %p
           You can add monitoring now and then configure it later via the Monitors tab. 
           We'll add the monitor to receive notification after 5 minutes 
           (30 minutes for basic subscribers).
 
-        .clearfix
+        .control-group
           = check_box_tag :measure, {}, checked_value = @checked
           Monitor this server with 
           = collection_select(:monitor_server, :measure_id, @measures, :id, :name)
 
-      .actions
-        %button.btn.primary{:type => 'submit', :name => 'connect'} Connect Now
+      .form-actions
+        %button.btn.btn-primary{:type => 'submit', :name => 'connect'} Connect Now
         or
         = link_to 'Back to Servers', servers_path, :class => 'btn'
 
-  .span5
+  .span4
     = render 'sidebar'#, :server => @server

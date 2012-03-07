@@ -3,11 +3,11 @@
 
 - content_for :page_title do
   %h1
-    Live Statistics 
+    Server Summary 
     %small#timer-text 
       Next update in 4 seconds.
 
 .row
-  .span16
+  .span12
     = render :partial => 'stats_display'
     = render :partial => 'live_stats_form'

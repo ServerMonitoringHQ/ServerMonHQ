@@ -2,37 +2,37 @@
   %div.box
     = f.error_messages
 
-.clearfix
-  = f.label 'Hostname'
-  .input
+.control-group
+  = f.label 'Hostname', :class => 'control-label'
+  .controls
     = f.text_field :hostname
     %span.help-block
       The hostname e.g. hostname.com or an IP address e.g. 127.8.9.252
 
-.clearfix
-  = f.label 'SSH Username'
-  .input
+.control-group
+  = f.label 'SSH Username', :class => 'control-label'
+  .controls
     = f.text_field :username, :autocomplete => 'off'
     %span.help-block
       Provide a username you have created for ServerMonitoringHQ or a standard username.
 
-.clearfix
-  = f.label 'SSH Password'
-  .input
+.control-group
+  = f.label 'SSH Password', :class => 'control-label'
+  .controls
     = f.password_field :password, :autocomplete => 'off'
     %span.help-block
       If you are using SSH key authentication you don't need to supply a password.
 
-.clearfix
-  = f.label 'Port'
-  .input
+.control-group
+  = f.label 'Port', :class => 'control-label'
+  .controls
     = f.text_field :ssh_port
     %span.help-block
       The SSH process defaults to port 22 but if you have SSH running on a different port then please enter it here.
 
-.clearfix
-  = f.label :name, "Display Name"
-  .input
+.control-group
+  = f.label :name, "Display Name", :class => 'control-label'
+  .controls
     = f.text_field :name
     %span.help-block
       From now on I'd like you to refer to this server as

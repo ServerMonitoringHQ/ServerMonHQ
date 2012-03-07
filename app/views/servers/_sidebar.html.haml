@@ -1,5 +1,6 @@
-.block-message.alert-message.info
-  %h5 How does ServerMonitoringHQ collect information ?
+.alert.alert-info
+  %h5{ :style => 'margin-bottom: 10px' }
+    How does ServerMonitoringHQ collect information ?
   %p 
     A user account in Linux has 
     %em read only access 
@@ -9,15 +10,18 @@
     %strong SSH.
   %p
     All passwords are encrypted and we also encrypt private key information and keep this secure for obvious reasons.
-.block-message.alert-message.info
-  %h4 Public Key Authentication
+.alert.alert-info
+  %h5{ :style => 'margin-bottom: 10px' }
+    Public Key Authentication
   %p 
     If you connect to your server using SSH with key authentication
     You'll need to upload a ServerMonitoringHQ public key.
+  %p
     You can view they key by clicking the button below.    
   %p 
     %br
-    %button#public-key-button.btn.primary{ :href => '/key' }
+    %a#public-key-button.btn.btn-primary{ :href => '/key' }
+      %i.icon-play-circle.icon-white
       View Public Key
 
 #public-key{ :style => 'display:none' }

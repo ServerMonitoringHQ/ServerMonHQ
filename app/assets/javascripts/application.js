@@ -8,7 +8,6 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery.labelify.js
-//= require jqueryprogressbar.js
 //= require bootstrap-modal.js
 //= require facebox
 
@@ -80,9 +79,9 @@ $(document).ready(function() {
   
   if($('#livestats').length != 0)
   {
-    $("#load-graph").reportprogress(0);
-    $("#memory-graph").reportprogress(0);
-    $("#swap-graph").reportprogress(0);
+    $("#load-graph").html('<div class="bar" style="width: 0%"></div>');
+    $("#memory-graph").html('<div class="bar" style="width: 0%"></div>');
+    $("#swap-graph").html('<div class="bar" style="width: 0%"></div>');
     update_stats();
   }
   
@@ -318,13 +317,18 @@ function update_stats()
       if(load > 100)
           load = 100;
       
-      $("#load-graph").reportprogress(load);
-      $("#memory-graph").reportprogress(memperc);
-      $("#swap-graph").reportprogress(swapperc); 
+      $("#load-graph").html(
+        '<div class="bar" style="width: ' + load + '%"></div>');
+      $("#memory-graph").html(
+        '<div class="bar" style="width: ' + memperc + '%"></div>');
+      $("#swap-graph").html(
+        '<div class="bar" style="width: ' + swapperc + '%"></div>');
       
       var i = 0;
       $(this).find("percent").each(function() {
-        $("#drive-graph" + i).reportprogress(parseInt($(this).text()));
+        $("#drive-graph" + i).html(
+          '<div class="bar" style="width: ' 
+          + parseInt($(this).text()) + '%"></div>');
         i++;
       });
       

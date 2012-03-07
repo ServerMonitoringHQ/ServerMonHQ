@@ -5,16 +5,21 @@
   %div.box
     = f.error_messages
 
-.clearfix
-  = f.label :name, 'Name'
-  .input
-    = f.text_field :name
-    %span.help-block
-      Give the Port a name so you can easily recognise it. e.g. MySQL
-  
-.clearfix
-  = f.label :address, 'Port'
-  .input
-    = f.text_field :address
-    %span.help-block
-      The address is the port number e.g. 3306
+%fieldset
+  %legend TCP/IP Port Monitoring
+
+  .control-group
+    .controls
+      = f.label :name, 'Name'
+      .input
+        = f.text_field :name
+        %span.help-block
+          Give the Port a name so you can easily recognise it. e.g. MySQL
+    
+  .control-group
+    .controls
+      = f.label :address, 'Port'
+      .input
+        = f.text_field :address
+        %span.help-block
+          The address is the port number e.g. 3306

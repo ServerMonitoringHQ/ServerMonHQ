@@ -1,5 +1,5 @@
 .row
-  .span4.plan.basic
+  .span3.plan.basic
     .well
       %h3 Basic
       %p
@@ -23,7 +23,7 @@
         = link_to("Sign Up", signup_path(:plan_id => "0"), :class => 'btn primary')
           
       
-  .span4.plan.plus
+  .span3.plan.plus
     .well
       %h3 Plus
       %p
@@ -46,7 +46,7 @@
       - else
         = link_to("Sign Up", signup_path(:plan_id => "1"), :class => 'btn primary')
 
-  .span4.plan.premium
+  .span3.plan.premium
     .well
       %h3 Premium
       %p
@@ -69,7 +69,7 @@
       - else
         = link_to("Sign Up", signup_path(:plan_id => "2"), :class => 'btn primary')
 
-  .span4.plan.max
+  .span3.plan.max
     .well
       %h3 Max
       %p

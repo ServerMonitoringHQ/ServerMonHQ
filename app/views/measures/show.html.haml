@@ -5,7 +5,7 @@
     This monitor is currently active.
 
 .row
-  .span11
+  .span8
 
     %h3 1. Monitor Allowances
     %table.zebra-striped
@@ -100,7 +100,7 @@
             = link_to 'Edit Monitor', edit_measure_path(@measure), :class => 'btn primary'
     
     %h3 2. Who will receive notifications
-    %table#users-table.data.zebra-striped
+    %table#users-table.data.table.table-striped
       %thead
         %tr
           %th{ :style => 'width:40%' }
@@ -129,7 +129,7 @@
     
     %h3 3. Servers to monitor
 
-    %table#servers-table.data.zebra-striped
+    %table#servers-table.data.table.table-striped
       %thead
         %tr
           %th{ :style => "width:80%" }
@@ -144,7 +144,7 @@
             %td.action
               = link_to 'Delete', remove_servers_path(@measure.id, server.id), :class => 'remote-delete'
 
-  .span5
+  .span4
     .well
       %h3
         Users that will receive alerts from this monitor

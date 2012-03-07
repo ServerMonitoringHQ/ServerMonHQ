@@ -14,8 +14,18 @@ html, body
   padding-top: 20px
   background-color: #424242
 
-.tabs.sm > li.normal > a
+.nav.sm 
+  margin-bottom: 0
+  border-bottom: 0
+
+.nav.sm > li.normal > a
   color: white
+
+.nav.sm > li.normal > a:hover
+  color: black
+
+.nav.sm > li.active > a
+  background-color: #f5f5f5
 
 .tabs.sm > li.normal > a:hover
   color: black
@@ -65,43 +75,6 @@ table.form-table
   td.normal
     width: 20%
 
-table.stats-table, table.drive-table
-  width: 100%
-  font-size: 80%
-  background: url(<%= asset_path 'icons/bgss.gif' %>) repeat-x top left
-
-  td 
-    border: 1px solid $border_color
-
-  td.tiny
-    width: 15%
-
-.progressbar
-  border: 1px solid black
-  width: 480px
-  height: 20px
-  position: relative
-  color: black
-  background-color: #41e941
-
-  div.progress
-    position: absolute
-    width: 0
-    height: 100%
-    overflow: hidden
-    background-color: red
-
-  .text
-    position: absolute
-    text-align: center
-    color: #fff
-
-  div.text
-    position: absolute
-    width: 100%
-    height: 100%
-    text-align: center
-
 .page-info
   background-color: #f5f5f5
   padding: 10px 0 0 20px
@@ -132,11 +105,6 @@ table.stats-table, table.drive-table
   border: none
   background: none
   padding: 0
-
-#memory2, #swap2,#load1, #load2, #load3
-  font-size: 18px
-  font-weight: bold
-  margin-bottom: 10px
 
 ul.load
   margin: 0

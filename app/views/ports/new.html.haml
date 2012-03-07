@@ -5,14 +5,14 @@
   %h1 Port Monitoring
   
 .row
-  .span11
-    = form_for([@server, @port]) do |f|
+  .span8
+    = form_for([@server, @port], :html => { :class => 'form-horizontal' }) do |f|
       = render 'form', :f => f
 
-      .actions
-        %button.btn.primary{:type => 'submit'} Create
+      .form-actions
+        %button.btn.btn-primary{:type => 'submit'} Create
         or
         = link_to 'Back', server_ports_path(@server), :class => 'btn'
 
-  .span5
+  .span4
     = render :partial =>'examples'

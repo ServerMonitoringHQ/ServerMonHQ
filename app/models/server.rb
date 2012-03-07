@@ -69,10 +69,12 @@ class Server < ActiveRecord::Base
 
   def do_after_initialize
 
-    kc = Rails.cache.fetch("next_random_key#{account_id}") do
-      kc = Keychain.random
+    if self.keychain_id == nil
+      kc = Rails.cache.fetch("next_random_key#{account_id}") do
+        kc = Keychain.random
+      end
+      self.keychain_id = kc.id
     end
-    self.keychain_id = kc.id
 
     if self.access_key == nil
       self.access_key = Digest::SHA1.hexdigest Time.now.to_s

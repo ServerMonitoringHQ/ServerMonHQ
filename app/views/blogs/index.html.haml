@@ -1,6 +1,6 @@
 .container
   .row
-    .span12.columns
+    .span9.columns
       %h1{ :style => 'margin-top: 40px; font-size: 20px' }
         The ServerMonitoringHQ Blog
 
@@ -12,5 +12,5 @@
             &raquo;
             = link_to post.title, 'blog/' + post.to_s
 
-    .span4.columns
+    .span3.columns
       = render 'sidebar'
