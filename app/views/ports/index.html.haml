@@ -23,7 +23,7 @@
         = render @ports
 
   .span4
-    .well
+    .alert.alert-block
       %h2 Monitor a New Port
 
       - if @server.port_limit_reached?
@@ -32,4 +32,6 @@
         %p 
           ServerMonitoringHQ can monitor TCP/IP ports on your server for availability.
         %p
-          = link_to 'Monitor New Port', new_server_port_path(@server), :class => 'btn primary'
+          %a.btn.btn-success{ :href => new_server_port_path(@server) }
+            %i.icon-plus.icon-white
+            Add Port
