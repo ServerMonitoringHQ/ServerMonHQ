@@ -53,83 +53,107 @@
 
 .row
   .span6
-    .well
+    .alert.alert-info
       %h3
         Bandwidth Usage
-      %ul.unstyled
-        %li
-          = image_tag 'icons/php.gif'
-          TX:
-          %span#tx
-        %li
-          = image_tag 'icons/database.gif'
-          RX:
-          %span#rx
-        %li
-          = image_tag 'icons/zend.gif'
-          TX Rate :
-          %span#tx_rate
-          \/ min
+      %table
+        %tr
+          %td
+            = image_tag 'icons/php.gif'
+            TX:
+          %td
+            %span#tx{ :style => 'margin-left: 20px' }
+        %tr
+          %td
+            = image_tag 'icons/database.gif'
+            RX:
+          %td
+            %span#rx{ :style => 'margin-left: 20px' }
+        %tr
+          %td
+            = image_tag 'icons/zend.gif'
+            TX Rate :
+          %td
+            %span#tx_rate{ :style => 'margin-left: 20px' }
+            \/ min
 
   .span6
-    .well
+    .alert.alert-info
       %h3
         System Stats &amp; Info
-      %ul.unstyled
-        %li
-          = image_tag 'icons/comp.gif'
-          Uptime:
-          %span#uptime
-        %li
-          = image_tag 'icons/load.gif'
-          Avg Load:
-          %span#load1
-          %span#load2
-          %span#load3
-        %li
-          = image_tag 'icons/memory.gif'
-          Memory:
-          %span#memory_stat
-            = h @server.usedmem
-            MB \/
-            = h @server.totalmem
-            MB
+      %table
+        %tr
+          %td
+            = image_tag 'icons/comp.gif'
+            Uptime:
+          %td
+            %span#uptime{ :style => 'margin-left: 20px' }
+        %tr
+          %td
+            = image_tag 'icons/load.gif'
+            Avg Load:
+          %td
+            %span#load1{ :style => 'margin-left: 20px' }
+            %span#load2
+            %span#load3
+        %tr
+          %td
+            = image_tag 'icons/memory.gif'
+            Memory:
+          %td
+            %span#memory_stat{ :style => 'margin-left: 20px' }
+              = h @server.usedmem
+              MB \/
+              = h @server.totalmem
+              MB
 
   .span6
-    .well
+    .alert.alert-info
       %h3
         CPU/Processor Info
-      %ul.unstyled
-        %li
-          = image_tag 'icons/cpu.gif'
-          CPU:
-          %span#cpu
-            = @server.cpu
-        %li
-          = image_tag 'icons/cpunum.gif'
-          Number Of CPU(s):
-          %span#cpucount
-            = @server.cpucount
-        %li
-          = image_tag 'icons/speed.gif'
-          Speed:
-          %span#cpumhz
-            = @server.cpumhz
+      %table
+        %tr
+          %td
+            = image_tag 'icons/cpu.gif'
+            CPU:
+          %td
+            %span#cpu{ :style => 'margin-left: 20px' }
+              = @server.cpu
+        %tr
+          %td
+            = image_tag 'icons/cpunum.gif'
+            CPU(s):
+          %td
+            %span#cpucount{ :style => 'margin-left: 20px' }
+              = @server.cpucount
+        %tr
+          %td
+            = image_tag 'icons/speed.gif'
+            Speed:
+          %td
+            %span#cpumhz{ :style => 'margin-left: 20px' }
+              = @server.cpumhz
 
   .span6
-    .well
+    .alert.alert-info
       %h3
         Distro &amp; Os Info
-      %ul.unstyled
-        %li
-          = image_tag 'icons/distro.gif'
-          Linux Distro:
-          = @server.distro
-        %li
-          = image_tag 'icons/kernel.gif'
-          Kernel:
-          = @server.kernelver
-        %li
-          = image_tag 'icons/platform.gif'
-          Platform:
-          = @server.platform
+      %table
+        %tr
+          %td
+            = image_tag 'icons/distro.gif'
+            Linux Distro:
+          %td{ :style => 'padding-left: 20px' }
+            = @server.distro
+        %tr
+          %td
+            = image_tag 'icons/kernel.gif'
+            Kernel:
+          %td{ :style => 'padding-left: 20px' }
+            = @server.kernelver
+        %tr
+          %td
+            = image_tag 'icons/platform.gif'
+            Platform:
+          %td{ :style => 'padding-left: 20px' }
+            = @server.platform
