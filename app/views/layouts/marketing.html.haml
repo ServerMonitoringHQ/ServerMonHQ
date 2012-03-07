@@ -11,13 +11,14 @@
 
   %body
     #wrapper
-      .topbar
-        .topbar-inner
+      .navbar.navbar-fixed-top
+        .navbar-inner
           .container
-            = link_to('ServerMonitoring HQ', '/', :class => 'brand')
-
-            .pull-right
+            .nav-collapse
               %ul.nav
+                = link_to('ServerMonitoring HQ', '/', :class => 'brand')
+
+              %ul.nav.secondary-nav.pull-right
                 %li
                   = link_to 'Home', '/'
                 %li
