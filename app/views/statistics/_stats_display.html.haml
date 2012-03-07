@@ -1,14 +1,15 @@
 #livestats
-  %table.stats-table
+  
+  %table.table-bordered.table.table-condensed
     %tbody
       %tr
-        %td.tiny
+        %td{ :width => '20%' }
           Current Load
-        %td#cpu-load.tiny
+        %td#cpu-load{ :width => '20%' }
           = h @server.cpuload
         %td
-          #load-graph.progressbar
-        %td#cpu-load2.tiny
+          #load-graph.progress.progress-striped
+        %td#cpu-load2{ :width => '20%' }
           = h @server.cpuload
           \/ 1.0
       %tr
@@ -17,7 +18,7 @@
         %td#memory-used
           = h @server.usedmem
         %td
-          #memory-graph.progressbar
+          #memory-graph.progress.progress-striped
         %td#memory2
           = h @server.usedmem
           MB \/
@@ -30,22 +31,22 @@
           %td#swap
             = @server.usedswap
           %td
-            #swap-graph.progressbar
+            #swap-graph.progress.progress-striped
           %td#swap2
             = @server.usedswap
             \/
             = @server.totalswap
 
-  %table.drive-table
+  %table.table-bordered.table.table-condensed
     %tbody
       - @server.disks.each_index do |i|
         %tr
-          %td.tiny
+          %td{ :width => '20%' }
             = Disk
-          %td.tiny
+          %td{ :width => '20%' }
             = @server.disks[i].path
-          != '<td><div id="drive-graph' + i.to_s + '" class="progressbar"></div></td>'
-          %td.tiny
+          != '<td><div id="drive-graph' + i.to_s + '" class="progress progress-striped progress-danger"></div></td>'
+          %td{ :width => '20%' }
             = @server.disks[i].usedspace
             \/
             = @server.disks[i].totalspace
