@@ -33,14 +33,14 @@ module SysStats
 
     def Stats.memory(hostname, username, password, ssh_port, id, private_key, return_url)
 
-      xml = memory(hostname, username, password, ssh_port, id, private_key)
+      xml = do_memory(hostname, username, password, ssh_port, id, private_key)
       url = URI.parse(return_url + 'receive_memory')
       http = Net::HTTP.new(url.host, url.port)
       response,body = http.post(url.path, xml, {'Content-type'=>'text/xml;charset=utf-8'})
       puts response
     end
 
-    def Stats.memory(hostname, username, password, ssh_port, id, private_key)
+    def Stats.do_memory(hostname, username, password, ssh_port, id, private_key)
 
       commands = [CMD_MEMORY]
 
@@ -64,14 +64,14 @@ EOF
     end
 
     def Stats.top(hostname, username, password, ssh_port, id, private_key, return_url)
-      xml = top(hostname, username, password, ssh_port, id, private_key)
+      xml = do_top(hostname, username, password, ssh_port, id, private_key)
       url = URI.parse(return_url + 'receive_top')
       http = Net::HTTP.new(url.host, url.port)
       response,body = http.post(url.path, xml, {'Content-type'=>'text/xml;charset=utf-8'})
       puts response
     end
 
-    def Stats.top(hostname, username, password, ssh_port, id, private_key)
+    def Stats.do_top(hostname, username, password, ssh_port, id, private_key)
 
       commands = [CMD_TOP, CMD_LOAD]
 
