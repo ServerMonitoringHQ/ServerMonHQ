@@ -21,13 +21,13 @@
         
           .container
             %ul.nav.nav-tabs.sm
-              %li#server-tab.active{ :class => select_tab(/servers/) }
+              %li#server-tab.active
                 = link_to 'Servers', servers_path
-              %li#monitor-tab{ :class => select_tab(/measures/) }
+              %li#monitor-tab.normal
                 = link_to 'Monitors', measures_path
-              %li#incidents-tab{ :class => select_tab(/incidents/) }
+              %li#incidents-tab.normal
                 = link_to 'Incidents', incidents_path
-              %li#contacts-tab{ :class => select_tab(/users/) }
+              %li#contacts-tab.normal
                 = link_to 'Contacts', users_path
       
         .row
