@@ -2,8 +2,8 @@
   %h1 New Monitor
 
 .row
-  .span16   
-    = form_for(@measure) do |f|
+  .span12   
+    = form_for(@measure, :html => { :class => 'form-horizontal' }) do |f|
       = render 'form', :f => f
 
       .actions

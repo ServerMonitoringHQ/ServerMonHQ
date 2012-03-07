@@ -2,30 +2,31 @@
   %div.box
     = f.error_messages
 
-.clearfix
-  = f.label :name, 'Display Name'
-  .input
+.control-group
+  = f.label :name, 'Display Name', :class => 'control-label'
+  .controls
     = f.text_field :name
     %span.help-block
       Give the monitor a memorable name e.g. Load &amp; Memory Monitor
 
-.clearfix
-  = f.label :notify_pages, "Web Page Checking", :class => 'checkbox-label'
-  .input
+.control-group
+  = f.label :notify_pages, "Web Page Checking", :class => 'control-label'
+  .controls
     = f.check_box :notify_pages
     %span.help-block
-      ServerMonitoringHQ can scan web pages and will report 404 errors. Click on your server and then the pages tab.
+      ServerMonitoringHQ can scan web pages and will report 404 errors. 
+      Click on your server and then the pages tab.
 
-.clearfix
-  = f.label :notify_ports, "TCP/IP Port checking", :class => 'checkbox-label'
-  .input
+.control-group
+  = f.label :notify_ports, "TCP/IP Port checking", :class => 'control-label'
+  .controls
     = f.check_box :notify_ports
     %span.help-block
       Port checking is enabled from the ports tab.
   
-.clearfix
-  = f.label :notify_mem, "Memory Usage", :class => 'checkbox-label'
-  .input
+.control-group
+  = f.label :notify_mem, "Memory Usage", :class => 'control-label'
+  .controls
     = f.check_box :notify_mem
   
     %span.help-block Create an incident if memory usage exceed the value below.
@@ -42,9 +43,9 @@
           \%
           = f.hidden_field :mem_perc, :id => 'memory-value'
 
-.clearfix
-  = f.label :notify_swap, "Monitor Swap Space", :class => 'checkbox-label'
-  .input
+.control-group
+  = f.label :notify_swap, "Monitor Swap Space", :class => 'control-label'
+  .controls
     = f.check_box :notify_swap
   
     %span.help-block Create an incident if swap exceeds...
@@ -61,9 +62,9 @@
           \%
           = f.hidden_field :swap_perc, :id => 'swap-value'
 
-.clearfix
-  = f.label :notify_load, "Monitor CPU Usage", :class => 'checkbox-label'
-  .input
+.control-group
+  = f.label :notify_load, "Monitor CPU Usage", :class => 'control-label'
+  .controls
     = f.check_box :notify_load
   
     %table.form-table
@@ -78,9 +79,9 @@
           \%
           = f.hidden_field :load_perc, :id => 'load-value'
 
-.clearfix
-  = f.label :notify_disk, "Monitor Disk Space", :class => 'checkbox-label'
-  .input
+.control-group
+  = f.label :notify_disk, "Monitor Disk Space", :class => 'control-label'
+  .controls
     = f.check_box :notify_disk
   
     %table.form-table
@@ -95,17 +96,17 @@
           \%
           = f.hidden_field :disk_perc, :id => 'disk-value'
 
-.clearfix
-  = f.label :notify_heartbeat, "Check Availability", :class => 'checkbox-label'
-  .input
+.control-group
+  = f.label :notify_heartbeat, "Check Availability", :class => 'control-label'
+  .controls
     = f.check_box :notify_heartbeat
     %span.help-block
       If the server is not contactable via SSH this check will raise an incident.
 
-.clearfix
-  = f.label :notify_bandwidth, "Monitor Bandwidth Usage", :class => 'checkbox-label'
-  .input
-    .input-prepend
+.control-group
+  = f.label :notify_bandwidth, "Monitor Bandwidth Usage", :class => 'control-label'
+  .controls
+    .controls-prepend
       %label.add-on
         = f.check_box :notify_bandwidth
       

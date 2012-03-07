@@ -7,7 +7,7 @@
       Next update in 4 seconds.
 .row
   .span8  
-    %table#server-list.table
+    %table#server-list.table.table-striped
       = render 'servers/server_list', :servers => @servers
 
   .span4
@@ -23,7 +23,7 @@
           You still have capacity to add more servers under your current plan.
           
         %p
-          %a.btn.btn-info{ :href => new_server_path }
+          %a.btn.btn-success{ :href => new_server_path }
             %i.icon-plus.icon-white
             Add Server
 

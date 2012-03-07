@@ -2,10 +2,10 @@
   %h1 People
   
 .row
-  .span11
+  .span8
     %h3 Contacts (with account access)
 
-    %table.zebra-striped
+    %table.table.table-striped
       %thead
         %tr
           %th{ :style => 'width:25%' }
@@ -21,7 +21,7 @@
       
     %h3 Contacts
 
-    %table.zebra-striped
+    %table.table.table-striped
       %thead
         %tr
           %th{ :style => 'width:25%' }
@@ -34,9 +34,9 @@
             Action
       = render @people
 
-  .span5
-    .well
-      %h2 Create a New Contact
+  .span4
+    .alert.alert-block
+      %h4 Create a New Contact
 
       %p 
         Monitors set the criteria by which we measure server performance.
