@@ -6,12 +6,12 @@
     %span#timer-text
       Next update in 4 seconds.
 .row
-  .span11  
-    %table#server-list.zebra-striped
+  .span8  
+    %table#server-list.table
       = render 'servers/server_list', :servers => @servers
 
-  .span5
-    .block-message.warning.alert-message
+  .span4
+    .alert.alert-block
       - if current_user.account.server_limit_reached?
         %h3 Monitor More servers?
         %p 
@@ -23,7 +23,9 @@
           You still have capacity to add more servers under your current plan.
           
         %p
-          = link_to 'Add Server', new_server_path, :class => 'btn info'
+          %a.btn.btn-info{ :href => new_server_path }
+            %i.icon-plus.icon-white
+            Add Server
 
 - if @servers.length > 0
   = render 'servers/public_code', :servers => @servers
