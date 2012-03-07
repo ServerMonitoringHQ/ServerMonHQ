@@ -4,7 +4,15 @@
   %td
     = h port.address
   %td
-    = h port.status_text
+    - if port.status_text == 'Up'
+      %span.label.label-success
+        UP
+    - elsif port.status_text == 'Down'
+      %span.label.label-important
+        Down
+    - else
+      %span.label
+        Awaiting Data
   %td.action
     = link_to 'Edit', edit_server_port_path(@server, port)
     \|
