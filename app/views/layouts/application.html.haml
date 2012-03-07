@@ -5,6 +5,7 @@
     %title
       = @title || "Server Monitoring"
     %link{:rel => 'icon', :href => '/assets/favicon.ico'} 
+    = csrf_meta_tag
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
 
