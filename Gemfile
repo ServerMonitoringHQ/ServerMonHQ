@@ -26,7 +26,7 @@ gem 'net-ssh'
 gem 'encryptor'
 gem 'hominid'
 gem 'kaminari'
-gem 'twilio'
+gem 'twilio-ruby'
 gem 'resque'
 
 group :development do
