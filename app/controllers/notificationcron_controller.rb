@@ -74,7 +74,7 @@ class NotificationcronController < ApplicationController
       end
       if um.notify_type == 1 or um.notify_type == 2
         Twilio.connect('AC1d6be5fe338cad384648a39aa2354f0f', 'bf0aebbd2c61e00829508cc5ffa17d10')
-        Twilio::Sms.send('+1 954-621-1201', um.user.mobile_number, 
+        Twilio::Sms.send('+19546211201', um.user.mobile_number, 
           'Message from ServerMonitoringHQ.com we have #{new_incidents.length} new incident(s)')
       end
     end
