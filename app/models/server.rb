@@ -61,12 +61,6 @@ class Server < ActiveRecord::Base
     @ssh_connection = val
   end
 
-  def port_limit_reached?
-    if ports.count > 4
-      return true
-    end
-  end
-
   def do_after_initialize
 
     if self.keychain_id == nil
@@ -82,10 +76,32 @@ class Server < ActiveRecord::Base
     true
   end
 
+  def port_limit_reached?
+    if ports.count > 4
+      return true
+    end
+  end
+
   def page_limit_reached?
     if pages.count > 4
       return true
     end
+  end
+
+  def pages_up?
+    pgs = pages.find_by_status(0);
+    if pgs == nil
+      return true
+    end
+    return false
+  end
+
+  def ports_up?
+    pgs = ports.find_by_status(0);
+    if pgs == nil
+      return true
+    end
+    return false
   end
 
   def top_xml

@@ -21,11 +21,15 @@
       %span.label.warning
         = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
     %td
-      %span.label.label-success
-        UP
+      - if server.ports_up?
+        %span.label.label-success UP
+      - else
+        %span.label.label-important DOWN
     %td
-      %span.label.label-important
-        DOWN
+      - if server.pages_up?
+        %span.label.label-success UP
+      - else
+        %span.label.label-important DOWN
     %td
       %a{ :href => rename_server_path(server), :rel => 'facebox', 
           :title => 'Rename Server' }
