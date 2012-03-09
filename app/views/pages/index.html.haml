@@ -24,7 +24,7 @@
         = render @pages
 
   .span4
-    .well
+    .alert.alert-block
       %h2 
         Monitor a new
         %br
@@ -36,4 +36,6 @@
         %p 
           ServerMonitoringHQ can monitor web pages for availability. 
         %p
-          = link_to 'Monitor New Page', new_server_page_path(@server), :class => 'btn primary'
+          %a.btn.btn-success{ :href => new_server_page_path(@server) }
+            %i.icon-plus.icon-white
+            Monitor New Page
