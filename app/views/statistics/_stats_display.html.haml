@@ -4,21 +4,21 @@
     %tbody
       %tr
         %td{ :width => '20%' }
-          Current Load
+          %span.label Current Load
         %td#cpu-load{ :width => '20%' }
           = h @server.cpuload
         %td
-          #load-graph.progress.progress-striped
+          #load-graph.progress.progress{ :style => 'margin-bottom: 0' }
         %td#cpu-load2{ :width => '20%' }
           = h @server.cpuload
           \/ 1.0
       %tr
         %td
-          Memory Used
+          %span.label Memory Used
         %td#memory-used
           = h @server.usedmem
         %td
-          #memory-graph.progress.progress-striped
+          #memory-graph.progress.progress{ :style => 'margin-bottom: 0' }
         %td#memory2
           = h @server.usedmem
           MB \/
@@ -27,11 +27,11 @@
       - if ! (@server.totalswap == 0 or @server.totalswap == nil)
         %tr
           %td
-            Swap Used
+            %span.label Swap Used
           %td#swap
             = @server.usedswap
           %td
-            #swap-graph.progress.progress-striped
+            #swap-graph.progress.progress{ :style => 'margin-bottom: 0' }
           %td#swap2
             = @server.usedswap
             \/
@@ -42,10 +42,10 @@
       - @server.disks.each_index do |i|
         %tr
           %td{ :width => '20%' }
-            = Disk
+            %span.label Disk
           %td{ :width => '20%' }
             = @server.disks[i].path
-          != '<td><div id="drive-graph' + i.to_s + '" class="progress progress-striped progress-danger"></div></td>'
+          != '<td><div id="drive-graph' + i.to_s + '" style="margin-bottom: 0" class="progress progress progress-danger"></div></td>'
           %td{ :width => '20%' }
             = @server.disks[i].usedspace
             \/
@@ -53,7 +53,7 @@
 
 .row
   .span6
-    .alert.alert-info
+    .well
       %h3
         Bandwidth Usage
       %table
@@ -78,7 +78,7 @@
             \/ min
 
   .span6
-    .alert.alert-info
+    .well
       %h3
         System Stats &amp; Info
       %table
@@ -108,7 +108,7 @@
               MB
 
   .span6
-    .alert.alert-info
+    .well
       %h3
         CPU/Processor Info
       %table
@@ -135,7 +135,7 @@
               = @server.cpumhz
 
   .span6
-    .alert.alert-info
+    .well
       %h3
         Distro &amp; Os Info
       %table
