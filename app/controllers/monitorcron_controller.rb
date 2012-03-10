@@ -62,8 +62,10 @@ class MonitorcronController < ApplicationController
       ports.each { |port|
         p = Port.where(:address => port[:address].to_i, 
           :server_id => params[:ports][:id].to_i).first
-        p.status = port[:status].to_i
-        p.save
+        if p != nil
+          p.status = port[:status].to_i
+          p.save
+        end
       }
     end
 
