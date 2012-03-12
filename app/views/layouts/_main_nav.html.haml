@@ -7,7 +7,7 @@
         %ul.nav.secondary-nav.pull-right
           - if ! current_user.account.active?
             %li
-              %p
+              %p{ :style => 'color: white;padding-right: 15px; padding-top: 12px; font-size: 9px' }
                 = time_ago_in_words(current_user.account.trial_end, Time.now)
                 trial remaining
           - if current_user.admin?
