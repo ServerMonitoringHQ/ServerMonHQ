@@ -228,7 +228,6 @@ EOF
         return results
         
       rescue Timeout::Error
-        puts.error "Timed out trying to get a connection " + hostname
         return "Timed out trying to get a connection"
       end
     end
