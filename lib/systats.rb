@@ -22,7 +22,7 @@ module SysStats
   CMD_BANDWIDTH = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $9 }'"
   CMD_TOP = "top -b -n 1 | head -n 27 | tail -n 22"
   CMD_LOG = "tail -n 20 [path] 2>&1"
-  CMD_NETSTAT = "netstat -ln"
+  CMD_NETSTAT = "netstat -tulpn"
   JAKE_PURTON='Jake Purton, 18/8/2006'
 
   class Stats
@@ -404,8 +404,8 @@ EOF
       p = ports.split(/,/)
       xml = "<ports><id>#{id}</id>"
 
-      status = 0
       p.each { |port|
+        status = 0
         if ns.index(':' + port.to_s) != nil
           status = 1
         end
