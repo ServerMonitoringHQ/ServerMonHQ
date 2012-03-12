@@ -82,7 +82,7 @@ class MonitorcronController < ApplicationController
       server.usedmem = params[:memory][:used].to_f
       server.totalmem = params[:memory][:total].to_f
 
-      server.save
+      server.save(:validate=> false)
     end
     render :text => "OK"  
   end
@@ -96,7 +96,7 @@ class MonitorcronController < ApplicationController
       server.load2 = params[:top][:load][:load2].to_f
       server.load3 = params[:top][:load][:load3].to_f
 
-      server.save
+      server.save(:validate=> false)
     end
     render :text => "OK"  
   end
@@ -114,7 +114,7 @@ class MonitorcronController < ApplicationController
         server.down_mins = 0
       end
       server.down_mins = server.down_mins + 1
-      server.save
+      server.save(:validate=> false)
     end
 
     if params[:status]
