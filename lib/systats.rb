@@ -20,7 +20,7 @@ module SysStats
   CMD_MYSQL = 'mysql -e status|grep "Server version"' 
   CMD_APACHE = '/usr/bin/apache2ctl -v' 
   CMD_BANDWIDTH = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $9 }'"
-  CMD_BANDWIDTH_DEB = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $10 }'"
+  CMD_BANDWIDTH_DEB = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $2, $10 }'"
   CMD_TOP = "top -b -n 1 | head -n 27 | tail -n 22"
   CMD_LOG = "tail -n 20 [path] 2>&1"
   CMD_NETSTAT = "netstat -tulpn"
@@ -133,7 +133,12 @@ EOF
       drive_data = drive_info results[CMD_DRIVES]
       dist = distribution results[CMD_DISTRO]
 
-      bandwidth_data = bandwidth_info results[CMD_BANDWIDTH]
+      # If we're ubuntu we run bandwidth slightly differently.
+      if dist.index('Ubuntu') != nil
+        bandwidth_data = bandwidth_info results[CMD_BANDWIDTH_DEB], true
+      else
+        bandwidth_data = bandwidth_info results[CMD_BANDWIDTH], false
+      end
       results[CMD_PHP] = results[CMD_PHP][0, 255]
 
       version = results[CMD_VERSION1]
@@ -297,16 +302,22 @@ EOF
       return [val[0].to_f, val[1].to_f, val[2].to_f]
     end
       
-    def Stats.bandwidth_info(res)
+    def Stats.bandwidth_info(res, ubuntu)
       # Comes through looking like :-
       # lo:345345 345345
       # vnet0:345345 46456
+      # for ubuntu we get
+      # 234234 234234
         
       tx = 0
       rx = 0
       res.each_line { |bandwidth|
         tx = tx + bandwidth.split(" ")[1].to_i
-        rx = rx + bandwidth.split(" ")[0].split(":")[1].to_i
+        if ubuntu == true
+          rx = rx + bandwidth.split(" ")[0].to_i
+        else
+          rx = rx + bandwidth.split(" ")[0].split(":")[1].to_i
+        end
       }
         
       band = { :tx => tx, :rx =>  rx }
