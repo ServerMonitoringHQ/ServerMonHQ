@@ -20,6 +20,7 @@ module SysStats
   CMD_MYSQL = 'mysql -e status|grep "Server version"' 
   CMD_APACHE = '/usr/bin/apache2ctl -v' 
   CMD_BANDWIDTH = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $9 }'"
+  CMD_BANDWIDTH_DEB = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $10 }'"
   CMD_TOP = "top -b -n 1 | head -n 27 | tail -n 22"
   CMD_LOG = "tail -n 20 [path] 2>&1"
   CMD_NETSTAT = "netstat -tulpn"
@@ -118,7 +119,7 @@ EOF
       commands = [CMD_MEMORY, CMD_CPU,
         CMD_LOAD, CMD_DRIVES, CMD_DISTRO, CMD_PLATFORM,
         CMD_VERSION1, CMD_VERSION2, CMD_UPTIME,
-        CMD_PHP, CMD_MYSQL, CMD_APACHE, CMD_BANDWIDTH]
+        CMD_PHP, CMD_MYSQL, CMD_APACHE, CMD_BANDWIDTH, CMD_BANDWIDTH_DEB]
         
       results = execute_ssh(commands, hostname, username, password, ssh_port, private_key)
         
@@ -131,6 +132,7 @@ EOF
       load_data = load_info results[CMD_LOAD]
       drive_data = drive_info results[CMD_DRIVES]
       dist = distribution results[CMD_DISTRO]
+
       bandwidth_data = bandwidth_info results[CMD_BANDWIDTH]
       results[CMD_PHP] = results[CMD_PHP][0, 255]
 
@@ -340,8 +342,9 @@ EOF
     end
       
     def Stats.distribution(dist)
-      if dist.count("No such file") > 0
-        return "Debian"
+      m = /DISTRIB_DESCRIPTION=\"(.*)\"/.match(dist)
+      if m != nil
+        return m[1]
       end
       return dist
     end
