@@ -12,6 +12,21 @@ class NotificationcronController < ApplicationController
 
   private 
 
+  def send_text(to, message)
+
+    account_sid = 'AC1d6be5fe338cad384648a39aa2354f0f' 
+    auth_token = 'bf0aebbd2c61e00829508cc5ffa17d10'
+
+    client = Twilio::REST::Client.new account_sid, auth_token
+
+    client.account.sms.messages.create(   
+      :from => '+19546211201',   
+      :to => to,   
+      :body => message 
+    )
+
+  end
+
   def process_resolved_incidents(um)
 
     # Find all resolved incidents less than 48 hours old
@@ -38,8 +53,7 @@ class NotificationcronController < ApplicationController
         NotificationMailer.alert_service_restored(um, resolved_incidents).deliver
       end
       if um.notify_type == 1 or um.notify_type == 2
-        Twilio.connect('AC1d6be5fe338cad384648a39aa2354f0f', 'bf0aebbd2c61e00829508cc5ffa17d10')
-        Twilio::Sms.send('123456778', um.user.mobile_number, 
+        send_text(um.user.mobile_number, 
           'Message from ServerMonitoringHQ.com #{resolved_incidents.length} incident(s) resolved.')
       end
     end
@@ -73,8 +87,7 @@ class NotificationcronController < ApplicationController
         NotificationMailer.alert_service_down(um, new_incidents).deliver
       end
       if um.notify_type == 1 or um.notify_type == 2
-        Twilio.connect('AC1d6be5fe338cad384648a39aa2354f0f', 'bf0aebbd2c61e00829508cc5ffa17d10')
-        Twilio::Sms.send('123456778', um.user.mobile_number, 
+        send_text(um.user.mobile_number, 
           'Message from ServerMonitoringHQ.com we have #{new_incidents.length} new incident(s)')
       end
     end

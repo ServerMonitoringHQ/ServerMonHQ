@@ -13,7 +13,7 @@
         %ul
           - @incidents.each do |incident|
             %li
-              = h incident.type
+              = h incident.incident_type
               = h incident.server.name
               = h incident.created_at
               = h incident.description

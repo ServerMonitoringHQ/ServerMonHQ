@@ -4,7 +4,15 @@
   %td
     = h page.url
   %td
-    = h page.status_text
+    - if page.status_text == 'Up'
+      %span.label.label-success
+        UP
+    - elsif page.status_text == 'Down'
+      %span.label.label-important
+        Down
+    - else
+      %span.label
+        Awaiting Data
   %td
     = h page.search_text
   %td.action

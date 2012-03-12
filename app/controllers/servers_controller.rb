@@ -153,7 +153,6 @@ class ServersController < ApplicationController
           monitor_user.measure_id = @monitor_server.measure_id
           monitor_user.user_id = current_user.id
           monitor_user.wait_for = 5
-          monitor_user.wait_for = 30 if current_user.account.plan_id = 0
           monitor_user.save
         end
 

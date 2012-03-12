@@ -3,11 +3,11 @@
 
 .row
   .span8
-    = form_for([@server, @page]) do |f|
+    = form_for([@server, @page], :html => { :class => 'form-horizontal' }) do |f|
       = render 'form', :f => f
 
-      .actions
-        %button.btn.primary{:type => 'submit'} Create
+      .form-actions
+        %button.btn.btn-primary{:type => 'submit'} Create
         or
         = link_to 'Back', server_pages_path(@server), :class => 'btn'
 
