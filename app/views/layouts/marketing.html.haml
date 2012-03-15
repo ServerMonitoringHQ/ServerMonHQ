@@ -19,15 +19,15 @@
                 = link_to('ServerMonitoring HQ', '/', :class => 'brand')
 
               %ul.nav.secondary-nav.pull-right
-                %li
+                %li{ :class => select_tab(/^\/$/) }
                   = link_to 'Home', '/'
-                %li
+                %li{ :class => select_tab(/tour/) }
                   = link_to 'Tour & Features', tour_path
-                %li
+                %li{ :class => select_tab(/buy/) }
                   = link_to 'Pricing & Signup', buy_path
-                %li
+                %li{ :class => select_tab(/blog/) }
                   = link_to 'Blog', blog_index_path
-                %li
+                %li{ :class => select_tab(/contact/) }
                   = link_to 'Contact Us', contact_path
                 %li
                   = link_to_unless(logged_in?, 'Login', login_path, :class => 'login') { link_to('Servers', servers_path) }
