@@ -5,7 +5,7 @@
 # */5 * * * * /home/ianpurton.com/projects/worker-servermonhq/make-run.sh PASSWORD
 
 process=servermonitoringhq 
-makerun="$HOME/projects/worker-servermonhq/bin/runjob.exp $1"  
+makerun="$HOME/projects/servermonhq/bin/runjob.exp $1"  
 
 if ps ax | grep -v grep | grep $process > /dev/null         
 then                 

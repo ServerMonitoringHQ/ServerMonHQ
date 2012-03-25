@@ -1,14 +1,16 @@
 #!/usr/bin/expect -f
 
-spawn ssh ianpurton.com@dev.ianpurton.com
+spawn ssh ianpurton@109.104.120.114
 expect "assword: " 
 send "[lindex $argv 0]\n"
-expect "ianpurton.com@li311-142"
-send "cd projects/worker-servermonhq/\n"
-expect "ianpurton.com@li311-142"
+expect "ianpurton@"
+send "cd projects/servermonhq/\n"
+expect "ianpurton@"
 send "export RAILS_ENV=production\n"
-expect "ianpurton.com@li311-142"
+expect "ianpurton@"
 send "export QUEUE=servermonitoringhq\n"
+send "bundle exec rake resque:work >> log/worker.log &\n"
+send "bundle exec rake resque:work >> log/worker.log &\n"
 send "bundle exec rake resque:work >> log/worker.log &\n"
 send "bundle exec rake resque:work >> log/worker.log &\n"
 send "exit\n"
