@@ -54,7 +54,7 @@ class NotificationcronController < ApplicationController
       end
       if um.notify_type == 1 or um.notify_type == 2
         send_text(um.user.mobile_number, 
-          'Message from ServerMonitoringHQ.com #{resolved_incidents.length} incident(s) resolved.')
+          "Message from ServerMonitoringHQ.com #{resolved_incidents.length} incident(s) resolved.")
       end
     end
   end
@@ -88,7 +88,7 @@ class NotificationcronController < ApplicationController
       end
       if um.notify_type == 1 or um.notify_type == 2
         send_text(um.user.mobile_number, 
-          'Message from ServerMonitoringHQ.com we have #{new_incidents.length} new incident(s)')
+          "Message from ServerMonitoringHQ.com we have #{new_incidents.length} new incident(s)")
       end
     end
   end
