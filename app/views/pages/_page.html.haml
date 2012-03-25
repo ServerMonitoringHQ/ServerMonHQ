@@ -7,7 +7,7 @@
     - if page.status_text == 'Up'
       %span.label.label-success
         UP
-    - elsif page.status_text == 'Down'
+    - elsif page.status_text.match(/^Down/)
       %span.label.label-important
         Down
     - else
