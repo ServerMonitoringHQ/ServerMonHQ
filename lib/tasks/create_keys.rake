@@ -1,4 +1,4 @@
-require '/home/ianpurton/projects/servermonhq/lib/systats.rb'
+require File.dirname(__FILE__) + '/../systats.rb'
 
 desc "Pre-create all the secret ssh keys"
 task :create_ssh_keys => :environment do
