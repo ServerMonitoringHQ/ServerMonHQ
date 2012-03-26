@@ -44,6 +44,9 @@
                     %span.divider /
                   %li
                     = link_to @server.name, server_path(@server)
+                    - if @server.down_mins > 2
+                      %span.label.label-important
+                        Server not responding
 
                 %ul.nav.nav-tabs.pull-right.servers-nav{ :style => 'margin-bottom: -1px' }
                   %li#live-stats-tab{ :class => select_tab(/index/) }
