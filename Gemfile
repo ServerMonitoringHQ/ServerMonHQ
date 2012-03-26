@@ -29,6 +29,8 @@ gem 'kaminari'
 gem 'twilio-ruby'
 gem 'resque'
 
+gem 'sirportly'
+
 group :development do
   gem 'sqlite3'
 end
