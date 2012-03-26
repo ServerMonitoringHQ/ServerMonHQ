@@ -8,7 +8,7 @@
   .span8
 
     %h3 1. Monitor Allowances
-    %table.zebra-striped
+    %table.table.table-striped
       %tbody
         %tr
           %td{:style => 'width: 40%'} Memory
@@ -145,7 +145,7 @@
               = link_to 'Delete', remove_servers_path(@measure.id, server.id), :class => 'remote-delete'
 
   .span4
-    .well
+    .alert.alert-block
       %h3
         Users that will receive alerts from this monitor
       %ul.unstyled
@@ -156,17 +156,18 @@
             = h user.wait_for
             minutes
 
+      %br
       %a#add-user-link.btn.primary{ :href => "", }
         Add User
 
-    .well
+    .alert.alert-block
       %h3
         This monitor is effective for the following servers
       %ul.unstyled
         - @measure.monitor_servers.each do |server|
           %li
             = link_to h(server.server.name), :controller => :statistics, :id => server.server.id
-
+      %br
       %a#add-server-link.btn.primary{ :href => "" }
         Monitor Another Server
 
