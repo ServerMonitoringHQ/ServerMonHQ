@@ -13,7 +13,7 @@
         %tr
           %td{:style => 'width: 40%'} Memory
           %td
-            - if @measure.notify_mem?
+            - if ! @measure.notify_mem?
               %strong Don't
             Create an incident if memory >
             %strong
