@@ -1,5 +1,6 @@
 %tr
   %th Name
+  %th Last Response
   %th Load
   %th Memory
   %th Swap
@@ -11,6 +12,13 @@
     %td
       %strong
         = link_to server.name, :controller => :statistics, :id => server.id
+    %td
+      - if server.down_mins > 2
+        %span.label.label-important
+          = time_ago_in_words(server.down_mins.minutes.ago)
+      - else
+        %span.label.label-success
+          = time_ago_in_words(server.down_mins.minutes.ago)
     %td
       %span.label.warning
         = server.cpuload
