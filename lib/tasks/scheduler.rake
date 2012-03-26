@@ -18,7 +18,7 @@ task :registered_7_days => :environment do
       :subject => 'ServerMonitoringHQ.com',   
       :user => 'ianpurton',
       :name => user.first_name + ' ' + user.last_name,   
-      :email => 'ian.purton@rbs.com'
+      :email => user.email
     }
     ticket = sirportly.create_ticket(properties)
     ticket.post_update(:message => 'User has been on trial for 7 days.')
@@ -47,7 +47,7 @@ task :free_trial_end => :environment do
       :subject => 'ServerMonitoringHQ.com',   
       :user => 'ianpurton',
       :name => user.first_name + ' ' + user.last_name,   
-      :email => 'ian.purton@rbs.com'
+      :email => user.email
     }
     ticket = sirportly.create_ticket(properties)
     ticket.post_update(:message => 'Trial ends in 3 days.')
