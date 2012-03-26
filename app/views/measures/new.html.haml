@@ -2,11 +2,11 @@
   %h1 New Monitor
 
 .row
-  .span12   
+  .span8   
     = form_for(@measure, :html => { :class => 'form-horizontal' }) do |f|
       = render 'form', :f => f
 
-      .actions
-        %button.btn.primary{:type => 'submit'} Submit
+      .form-actions
+        %button.btn.btn-primary{:type => 'submit'} Submit
         or
         = link_to 'Cancel', measures_path, :class => 'btn'
