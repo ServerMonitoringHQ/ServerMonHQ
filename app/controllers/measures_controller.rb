@@ -38,6 +38,8 @@ class MeasuresController < ApplicationController
     @measure = Measure.new
     @measure.set_defaults
 
+    @load_options = load_dropdown
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @measure }
@@ -46,7 +48,16 @@ class MeasuresController < ApplicationController
 
   # GET /measures/1/edit
   def edit
+    @load_options = load_dropdown
     @measure = current_user.account.measures.find(params[:id])
+  end
+
+  def load_dropdown
+    ar = []
+    0.step(400,10) { |i|
+      ar << [i.to_s + '%', i]
+    }
+    return ar
   end
 
   # POST /measures

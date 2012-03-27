@@ -29,7 +29,7 @@
   .controls
     = f.check_box :notify_mem
   
-    %span.help-block Create an incident if memory usage exceed the value below.
+    %span.help-block Create an incident if memory usage exceeds the value below.
     
     %table.form-table
       %tr
@@ -66,18 +66,8 @@
   = f.label :notify_load, "Monitor CPU Usage", :class => 'control-label'
   .controls
     = f.check_box :notify_load
+    = f.select( :load_perc, @load_options)
   
-    %table.form-table
-      %tr
-        %td.normal
-          Load
-        %td.load{ :style => "padding-left: 15px; width: 250px" }
-          .slider
-        %td.normal
-          %span#load-show
-            0
-          \%
-          = f.hidden_field :load_perc, :id => 'load-value'
 
 .control-group
   = f.label :notify_disk, "Monitor Disk Space", :class => 'control-label'
