@@ -4,7 +4,8 @@
   %td
     = link_to incident.measure.name, measure_path(incident.measure)
   %td
-    = h incident.type_to_text
+    %span.label
+      = h incident.type_to_text
   %td
     = h incident.description
   %td
@@ -15,6 +16,8 @@
       = h distance_of_time_in_words(incident.created_at, incident.updated_at)
   %td.action
     - if incident.open
-      Open
+      %span.label.label-important
+        Open
     - else
-      Resolved
+      %span.label
+        Resolved

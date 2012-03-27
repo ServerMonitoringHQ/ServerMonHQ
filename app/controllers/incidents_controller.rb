@@ -9,7 +9,10 @@ class IncidentsController < ApplicationController
   # GET /incidents.xml
   def index
 
-    @incidents = current_user.account.incidents.order('created_at DESC').page(params[:page])
+    @incidents = current_user.account.incidents.where("open = ?", true).
+      order('created_at DESC').page(params[:page])
+    @closed_incidents = current_user.account.incidents.where("open = ?", false).
+      order('created_at DESC').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

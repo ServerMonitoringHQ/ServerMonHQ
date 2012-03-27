@@ -1,4 +1,9 @@
 desc "This task is called by the Heroku scheduler add-on" 
+task :remove_resolved_incidents => :environment do     
+  Incident.destroy_all(['created_at <= ? and open = ?', 1.days.ago.beginning_of_day, false])
+end
+
+desc "This task is called by the Heroku scheduler add-on" 
 task :registered_7_days => :environment do     
   accounts = Account.where('created_at >= ? and created_at <= ?', 7.days.ago.beginning_of_day, 7.days.ago.end_of_day)
   sirportly = Sirportly::Client.new('5040678f-a2bb-119c-150b-649cc531c2f9', 
