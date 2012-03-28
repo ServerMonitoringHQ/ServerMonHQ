@@ -115,11 +115,7 @@ function add_server()
 		data: dataString,
 		success: function(xml) 
 		{ 
-			id = $(xml).find('id').text();
-			$('#servers-table').append('<tr><td>' + server_name +
-				'</td>'
-				+ '<td class="action"><a href="/measures/' + measure_id 
-				+ '/ms/' + id + '">Delete</a></td></tr>');
+                  location.reload();
 		}
 	});
 
@@ -148,11 +144,7 @@ function add_user()
 		data: dataString,
 		success: function(xml) 
 		{ 
-			id = $(xml).find('id').text();
-			$('#users-table').append('<tr><td>' + user_name +
-				'</td><td>Notify by ' + msg + ' after ' + wait_for +  ' minutes</td>'
-				+ '<td class="action"><a href="/measures/' + measure_id 
-				+ '/mu/' + id + '">Delete</a></td></tr>');
+                  location.reload();
 		}
 	});
 
