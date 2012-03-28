@@ -7,7 +7,8 @@
       %p.meta
         = @post.created_at.strftime('%d %B %y')
 
-      = render :file => 'blogs/post_' + @post.id
+      %div{ :style => 'padding-right: 40px; margin-bottom: 60px' }
+        = render :file => 'blogs/post_' + @post.id
       
     .span3.columns
       = render 'sidebar'

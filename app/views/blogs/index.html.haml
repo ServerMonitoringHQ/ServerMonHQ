@@ -7,7 +7,7 @@
       %ul.posts{ :style => 'margin-left: 0; font-size: 16px' }
         - for post in @front_posts do
           %li{ :style => 'list-style-type: none' }
-            %span
+            %span{ :style => 'font-family: monospace' }
               = post.created_at.strftime('%d %b %y')
             &raquo;
             = link_to post.title, 'blog/' + post.to_s

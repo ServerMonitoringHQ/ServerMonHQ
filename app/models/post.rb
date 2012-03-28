@@ -22,7 +22,7 @@ class Post
     def all
       posts = Dir[POSTS_PATH + '/post_*']
       posts.map! { |p| Post.new(p) }
-      posts.sort { |a,b| b.updated_at <=> a.updated_at }
+      posts.sort { |a,b| b.created_at <=> a.created_at }
     end
     
     def find(id)

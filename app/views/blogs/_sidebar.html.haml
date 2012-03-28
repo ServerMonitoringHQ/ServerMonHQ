@@ -1,17 +1,12 @@
-.alert{ :style => 'margin-top: 50px' }
+.thumbnail{ :style => 'margin-top: 50px' }
   %h4 ServerMonitoringHQ 
-  %p{ :style => 'margin-bottom: 10px' }
-    ServerMonitoringHQ monitors your server load, memory and disk usage.
-  = image_tag("marketing/ServerPulseNewLook.png", :alt => 'Screenshot', :width => "165", :height => "75")
+  %p{ :style => 'margin-bottom: 10px; margin-top: 15px' }
+    Spot server issues in lightning time with no software to install.
+  .thumbnail
+    = image_tag("marketing/ServerPulseNewLook.png", :alt => 'Screenshot', :width => "200", :height => "120")
   %p{ :style => 'margin-top: 10px' }
-    Spot server issues before your servers go down.
+    "It's like PingDom for servers"
 
-  - if @posts
-    %h4 Recent Posts
-    
-    %ul{ :style => 'margin-left: 0; margin-right: 0' }
-      - @posts.each do |post|
-        = render 'blogs/post', :post => post
-
-    %br
-    = link_to image_tag('marketing/rss.png'), blog_rss_path
+  #signup-call
+    %a{ :href => '/' }
+      Take a look
