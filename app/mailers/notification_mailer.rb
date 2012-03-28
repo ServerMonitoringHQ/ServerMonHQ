@@ -26,6 +26,7 @@ class NotificationMailer < ActionMailer::Base
   
   def reset_notification(user)
     @url  = "http://servermonitoringhq.com/reset/#{user.reset_code}"
+    @user = user
     @sent_on     = Time.now
 
     mail(:to => user.email, :subject => 

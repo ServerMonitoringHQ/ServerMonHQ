@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  layout 'application'
+  layout 'application', :except => :reset
+  layout 'session', :only => :reset
  
   before_filter :login_required, :except => [:forgot, :reset, :create, :new]
   before_filter :check_account_expired
