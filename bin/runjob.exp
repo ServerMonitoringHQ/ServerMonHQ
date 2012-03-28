@@ -1,6 +1,6 @@
 #!/usr/bin/expect -f
 
-spawn ssh ianpurton@109.104.120.114
+spawn ssh ianpurton@localhost
 expect "assword: " 
 send "[lindex $argv 0]\n"
 expect "ianpurton@"
