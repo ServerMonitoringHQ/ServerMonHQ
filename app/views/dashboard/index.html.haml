@@ -1,21 +1,17 @@
-%p
-  Signups Past 7 Days - 
-  = @regs.count
-  , Servers Commisioned -
-  = @servers.count
-  , Servers Updated
-  = @recv.count.to_s
-  of
-  = @total.to_s
+%h3 The following users are in the trial period
 
 %table
   %tr
     %th First Name
     %th Surname
     %th Email
+    %th Account Id
+    %th Servers
+    %th Trial Ends
     
   - @regs.each do |account| 
-    - account.users.each do |user| 
+    - user = account.users.find(:first)
+    - if user != nil
       %tr
         %td
           = user.first_name
@@ -23,3 +19,34 @@
           = user.last_name
         %td
           = user.email
+        %td
+          = account.id
+        %td
+          = account.servers.count
+        %td
+          = account.trial_end
+
+%h3 The following users are active
+
+%table
+  %tr
+    %th First Name
+    %th Surname
+    %th Email
+    %th Account Id
+    %th Servers
+    
+  - @active.each do |account| 
+    - user = account.users.find(:first)
+    - if user != nil
+      %tr
+        %td
+          = user.first_name
+        %td
+          = user.last_name
+        %td
+          = user.email
+        %td
+          = account.id
+        %td
+          = account.servers.count
