@@ -1,1 +1,97 @@
-%p There are many ways to keep a process running on linux but I haven't seen any that are as easy to implement as the script below.
+%p The techniques in the first techniques work for a compromise hack, where someone has gained root access and can now install software on your server. The second section looks at a script kiddy style hack, where they may be able to steal CPU and memory but are otherwise only making a small footprint.  
+
+%br
+
+%h2 Root compromises.  
+
+%p This means someone has full access to the system, here are the tell tale signs in order of most likely to give you a quick feel for what's going on.
+
+%h3 1. Have a look for system files that have changed recently  
+
+%p This is the first thing I would do.
+
+%pre find /etc /var -mtime -2  
+
+%p The "-2" means 2 days, i.e. show me all files modified in the last 2 days.  
+
+%p Now if you haven't installed any new software on your server for a while then this command will run and produce very little output. For a server I investigated there were references to postfix. clearly someone had installed a mail server probably for sending spam.   
+
+%h3 2. Run who  
+
+%pre 
+  :preserve
+    who  
+
+    user1 pts/2        2012-03-28 13:38 (128.114.44.209)
+
+%p This should give you a list of users on the system, what you're looking for is users other than yourself especially root.
+
+%h3 3. History  
+
+%pre history  
+
+%p Login as root and run history, this will give you a list of recently run commands. If you're the only person who logs in as root you should have an idea if anything looks suspicious or not.  
+
+%h3 4. Netstat  
+
+%p It's a good idea at this point to see what processes are running on which ports.  
+
+%pre   
+  :preserve
+    netstat --listen -A inet   
+
+    tcp 0 0 *:64010 *:* LISTEN
+    tcp 0 0 *:http-alt *:* LISTEN 
+    tcp 0 0 *:ssh *:* LISTEN 
+    tcp 0 0 *:https *:* LISTEN 
+
+%br
+
+%h2 Application Breaches
+
+%p An example of an application breach might be a shopping cart that allows file uploads these uploads can be executed as say PHP scripts (This happened with oscommerce). The attacker doesn't have root access but they can certainly use up resources.
+
+%h3 5. High load and Memory.
+
+%p  Sudden spikes in memory and load usage are an indication of possible root breaches but sometimes the only indication an application has been breached.
+
+%p  If you're a ServerMonitoringHQ.com user then you'll receive notifications of CPU and Memory spikes. (Along with bandwidth and more).
+
+%p You can use the following command to track load (CPU usage). Generally values over 1 indicate the CPU is getting used quite hard.
+
+%pre
+  :preserve
+    cat /proc/loadavg
+
+    0.04 0.35 0.26 1/83 27412  
+
+%p 
+  The first column 
+  %code 0.04
+  is the number to look at
+
+%h3 6. Top
+
+%p 
+  The
+  %code top
+  command is a quickly way to see what processes are consuming resources.
+
+%img{ :src => 'http://4.bp.blogspot.com/_29yMocwFCms/ScWvwQ0PeBI/AAAAAAAAAKY/LPaU2AgemF4/s320/Picture+41.PNG' }
+
+%h3 7. Bandwidth Spikes
+
+%p As with process and memory if you don't know what you normally consume it's difficult to tell if you get a spike or not.
+
+%pre
+  :preserve
+    netstat -i 
+    Kernel Interface table Iface MTU Met RX-OK RX-ERR RX-DRP RX-OVR TX-OK TX-ERR TX-DRP TX-OVR 
+    eth0 1500 0 2937582 0 0 0 3127979 0 0 0 BMRU 
+    lo 16436 0 531312 0 0 0 531312 0 0 0 LRU 
+
+%p The larger numbers for TX and RX are bytes transferred (roughly), run this twice, a minute apart will give you an indication of bandwidth transfer per minute.
+
+%h3 And finally, good luck.
+
+%p We've all been there, best of luck getting your server up and running again.
