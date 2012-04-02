@@ -55,7 +55,7 @@ class NotificationcronController < ApplicationController
       if um.notify_type == 1 or um.notify_type == 2
         msg = "ServerMonitoringHQ.com #{resolved_incidents.length} new incident(s) resolved"
         resolved_incidents.each { |incident|
-          msg += "\n#{resolved_incidents.description}"
+          msg += "\n#{incident.description}"
         }
         send_text(um.user.mobile_number, msg)
       end
@@ -92,7 +92,7 @@ class NotificationcronController < ApplicationController
       if um.notify_type == 1 or um.notify_type == 2
         msg = "ServerMonitoringHQ.com #{new_incidents.length} new incident(s)"
         new_incidents.each { |incident|
-          msg += "\n#{new_incidents.description}"
+          msg += "\n#{incident.description}"
         }
         send_text(um.user.mobile_number, msg)
       end
