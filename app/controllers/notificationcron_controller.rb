@@ -53,8 +53,11 @@ class NotificationcronController < ApplicationController
         NotificationMailer.alert_service_restored(um, resolved_incidents).deliver
       end
       if um.notify_type == 1 or um.notify_type == 2
-        send_text(um.user.mobile_number, 
-          "Message from ServerMonitoringHQ.com #{resolved_incidents.length} incident(s) resolved.")
+				msg = "ServerMonitoringHQ.com #{resolved_incidents.length} new incident(s) resolved"
+				new_incidents.each { |incident|
+					msg += "\n#{resolved_incidents.description}"
+				}
+        send_text(um.user.mobile_number, msg)
       end
     end
   end
@@ -87,8 +90,11 @@ class NotificationcronController < ApplicationController
         NotificationMailer.alert_service_down(um, new_incidents).deliver
       end
       if um.notify_type == 1 or um.notify_type == 2
-        send_text(um.user.mobile_number, 
-          "Message from ServerMonitoringHQ.com we have #{new_incidents.length} new incident(s)")
+				msg = "ServerMonitoringHQ.com #{new_incidents.length} new incident(s)"
+				new_incidents.each { |incident|
+					msg += "\n#{new_incidents.description}"
+				}
+        send_text(um.user.mobile_number, msg)
       end
     end
   end
