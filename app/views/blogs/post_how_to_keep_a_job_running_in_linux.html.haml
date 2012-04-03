@@ -39,11 +39,11 @@
     process=servermonitoringhq 
     makerun="/home/path_to_the_job_you_want_running/runjob.sh"  
 
-    if ps ax | grep -v grep | grep $process > /dev/null         
+    if ps ax | grep -v grep | grep $process &gt; /dev/null         
     then                 
       exit         
     else         
-      $makerun &         
+      $makerun &amp;
     fi 
 
 %p

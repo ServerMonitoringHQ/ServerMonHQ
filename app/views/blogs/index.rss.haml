@@ -18,7 +18,3 @@
           = render :file => 'blogs/post_' + post.id + '.html.haml'
         %guid        
           = url_for :only_path => false, :controller => 'blogs', :action => 'show', :id => post.id      
-      end    
-    end   
-  end 
-end

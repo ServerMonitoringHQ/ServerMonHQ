@@ -63,19 +63,19 @@
 
 %pre
   :preserve
-    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" & 
+    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" &amp;
     pidlist="$pidlist $!" 
-    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" & 
+    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" &amp;
     pidlist="$pidlist $!" 
-    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" & 
+    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" &amp;
     pidlist="$pidlist $!" 
-    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" & 
+    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" &amp;
     pidlist="$pidlist $!" 
-    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" & 
+    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" &amp;
     pidlist="$pidlist $!" 
-    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" & 
+    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" &amp;
     pidlist="$pidlist $!" 
-    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" & 
+    curl -s "http://yourapp.com/page{1, 2}.php?[1-1000]" &amp;
     pidlist="$pidlist $!"  
     
     for job in $pidlist do 
