@@ -112,7 +112,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.mobile_number = ''
     @account = Account.new(params[:account])
-    @account.trial_end = 30.days.from_now
+    @account.trial_end = 14.days.from_now
 
     # For a free trial account un-comment below
     #@account.active = true if @account.plan_id == 0
