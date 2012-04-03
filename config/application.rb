@@ -38,5 +38,7 @@ module Servermonitoringhq
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    Haml::Template.options[:format] = :xhtml
   end
 end
