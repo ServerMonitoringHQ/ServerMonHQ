@@ -226,7 +226,7 @@ class MonitorcronController < ApplicationController
   end
 
   def receive_drives(params)
-    if params[:status][:drives]
+    if params[:status][:drives] and params[:status][:drives][:drive]
 
       server_id = params[:status][:id].to_i
 
