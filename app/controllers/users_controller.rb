@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   layout 'application', :except => :reset
-  layout 'session', :only => :reset
  
   before_filter :login_required, :except => [:forgot, :reset, :create, :new]
   before_filter :check_account_expired
@@ -191,7 +190,7 @@ class UsersController < ApplicationController
         flash[:notice] = "Password reset successfully for #{@user.email}"
         redirect_back_or_default('/')
       else
-        render :action => :reset
+        render :action => :reset, :layout => 'session'
       end
     end
   end

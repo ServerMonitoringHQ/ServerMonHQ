@@ -218,7 +218,7 @@ EOF
             retry
           rescue Net::SSH::AuthenticationFailed => e
             return "Failed Authentication " + e.to_s + ' ' + username + '@' + 
-              hostname +  ':' + ssh_port.to_s + ">>" + ssh_params.to_s 
+              hostname +  ':' + ssh_port.to_s 
           rescue StandardError => e
             puts e.to_s
             puts e.backtrace

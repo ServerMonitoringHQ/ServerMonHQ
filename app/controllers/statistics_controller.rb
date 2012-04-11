@@ -202,6 +202,11 @@ class StatisticsController < ApplicationController
   private
 
   def send_job(job_type)
+
+    if Rails.env == 'test'
+      return
+    end
+
     Rails.cache.fetch("#{job_type}-#{params[:id]}", :expires_in => 10.seconds) do
       Resque.enqueue(job_type, @server.to_hash, return_url, Time.now.gmtime, Rails.env)
     end

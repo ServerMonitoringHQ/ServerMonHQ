@@ -16,18 +16,6 @@ class ServersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create server" do
-    assert_difference('Server.count') do  
-      attrs = { 
-        :name => 'foo',
-        :url => 'http://pulse-agent.ianpurton.com'
-      }
-      post :create, :server => attrs
-    end
-    assert_response :redirect
-    assert_redirected_to :controller => :statistics, :id => assigns(:server).id
-  end
-
   test "should show server" do
     get :show, :id => servers(:server_one).id
     assert_response :success
