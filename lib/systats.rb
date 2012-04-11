@@ -136,7 +136,6 @@ EOF
       else
         bandwidth_data = bandwidth_info results[CMD_BANDWIDTH], false
       end
-      results[CMD_PHP] = results[CMD_PHP][0, 255]
 
       version = results[CMD_VERSION1]
       if version.index('No such file') != 0
@@ -180,6 +179,8 @@ EOF
     end
 
     def Stats.execute_ssh(commands, hostname, username, password, ssh_port, private_key) 
+
+      commands_run = 0
       begin
 
         results = {}
@@ -201,8 +202,8 @@ EOF
         Timeout::timeout(5) do
           begin
             Net::SSH.start( hostname, username, ssh_params) do |ssh|
-              
               commands.each { |command|
+                commands_run = commands_run + 1
                 results[command] = ssh.exec!(command)
                 results[command].gsub!(/stdin: is not a tty/, '')
               }
@@ -222,7 +223,11 @@ EOF
         return results
         
       rescue Timeout::Error
-        return "Timed out trying to get a connection"
+        if commands_run > 1
+          return "Timed out fetching statistics from server CMD(" + commands_run.to_s + ")"
+        else
+          return "Timed out trying to get a connection"
+        end
       end
     end
       
