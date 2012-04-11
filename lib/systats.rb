@@ -7,6 +7,8 @@ module SysStats
   require 'encryptor'
   require 'base64'
 
+  TIME_OUT = 10 # How long should we wait for connecting
+
   CMD_MEMORY = 'cat /proc/meminfo'
   CMD_CPU = 'cat /proc/cpuinfo'
   CMD_LOAD = 'cat /proc/loadavg'
@@ -199,7 +201,7 @@ EOF
           ssh_params[:key_data] = key_data
         end
 
-        Timeout::timeout(5) do
+        Timeout::timeout(TIME_OUT) do
           begin
             Net::SSH.start( hostname, username, ssh_params) do |ssh|
               commands.each { |command|
@@ -363,7 +365,7 @@ EOF
       status = 0
       error = ''
       begin
-      Timeout::timeout(15) do
+      Timeout::timeout(TIME_OUT) do
         begin
           html = open(url).read
           status = 1
