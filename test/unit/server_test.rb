@@ -5,8 +5,8 @@ class ServerTest < ActiveSupport::TestCase
   def test_load_data_from_server
     
     record = Server.new({ :name => 'ServerPulse', :username => 'servermonhq', 
-      :hostname => 'dev.ianpurton.com', :password => 'vja481x', 
-      :ssh_port => 22, :cpu => 'Intel' })
+      :hostname => 'shell.ianpurton.com', :password => 'vja481x', 
+      :ssh_port => 22, :cpu => 'Intel', :keychain_id => 1 })
     a = record.retrieve_stats(true)
 
     assert a == true, "Stats not retrieved::" + record.errors[:base][0].to_s
@@ -17,11 +17,9 @@ class ServerTest < ActiveSupport::TestCase
   # Run ‘tail -f /var/log/auth.log’ on the remotehost to help with debug. 
   def test_load_data_from_server_ssh
     
-    kc = Keychain.find(1)
-
     record = Server.new({ :name => 'ServerPulse', :username => 'servermonhq', 
-      :hostname => 'dev.ianpurton.com', 
-      :ssh_port => 22, :cpu => 'Intel' })
+      :hostname => 'shell.ianpurton.com', 
+      :ssh_port => 22, :cpu => 'Intel', :keychain_id => 1 })
     a = record.retrieve_stats(true)
 
     assert a == true, "Stats not retrieved::" + record.errors[:base][0].to_s
@@ -32,7 +30,7 @@ class ServerTest < ActiveSupport::TestCase
     kc = Keychain.find(1)
 
     record = Server.new({ :name => 'ServerPulse', :username => 'servermonhq', 
-      :hostname => 'dev.ianpurton.com', 
+      :hostname => 'shell.ianpurton.com', 
       :ssh_port => 22, :cpu => 'Intel' })
 
     record.keychain_id = kc.id

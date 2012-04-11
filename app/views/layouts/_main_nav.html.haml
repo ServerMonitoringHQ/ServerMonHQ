@@ -1,9 +1,8 @@
 .navbar.navbar-fixed-top
   .navbar-inner
     .container
+      = link_to('ServerMonitoring HQ', servers_path, :class => 'brand')
       .nav-collapse
-        %ul.nav
-          = link_to('ServerMonitoring HQ', servers_path, :class => 'brand')
         %ul.nav.secondary-nav.pull-right
           - if ! current_user.account.active?
             %li

@@ -14,10 +14,8 @@
       .navbar.navbar-fixed-top
         .navbar-inner
           .container
+            = link_to('ServerMonitoring HQ', '/', :class => 'brand')
             .nav-collapse
-              %ul.nav
-                = link_to('ServerMonitoring HQ', '/', :class => 'brand')
-
               %ul.nav.secondary-nav.pull-right
                 %li{ :class => select_tab(/^\/$/) }
                   = link_to 'Home', '/'
