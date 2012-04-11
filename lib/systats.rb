@@ -16,9 +16,6 @@ module SysStats
   CMD_VERSION2 = 'uname -r'
   CMD_PLATFORM = 'uname -m'
   CMD_UPTIME = 'cat /proc/uptime' 
-  CMD_PHP = 'php -v'
-  CMD_MYSQL = 'mysql -e status|grep "Server version"' 
-  CMD_APACHE = '/usr/bin/apache2ctl -v' 
   CMD_BANDWIDTH = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $1, $9 }'"
   CMD_BANDWIDTH_DEB = "cat /proc/net/dev | grep '^.*[^lo]:' | awk '{print $2, $10 }'"
   CMD_TOP = "top -b -n 1 | head -n 27 | tail -n 22"
@@ -119,7 +116,7 @@ EOF
       commands = [CMD_MEMORY, CMD_CPU,
         CMD_LOAD, CMD_DRIVES, CMD_DISTRO, CMD_PLATFORM,
         CMD_VERSION1, CMD_VERSION2, CMD_UPTIME,
-        CMD_PHP, CMD_MYSQL, CMD_APACHE, CMD_BANDWIDTH, CMD_BANDWIDTH_DEB]
+        CMD_BANDWIDTH, CMD_BANDWIDTH_DEB]
         
       results = execute_ssh(commands, hostname, username, password, ssh_port, private_key)
         
@@ -165,9 +162,6 @@ xml = <<EOF
     <load2>#{load_data[1]}</load2>
     <load3>#{load_data[2]}</load3>
   </load>
-  <mysql>#{results[CMD_MYSQL]}</mysql>
-  <phpversion>#{results[CMD_PHP]}</phpversion>
-  <apacheversion>#{results[CMD_APACHE]}</apacheversion>
   <uptime>#{results[CMD_UPTIME].split(' ')[0]}</uptime>
   <bandwidth>
     <tx>#{bandwidth_data[:tx]}</tx> 

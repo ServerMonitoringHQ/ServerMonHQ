@@ -165,9 +165,6 @@ xml = <<EOF
     <load2>#{load2}</load2>
     <load3>#{load3}</load3>
   </load>
-  <mysql>#{mysql}</mysql>
-  <phpversion>#{phpversion}</phpversion>
-  <apacheversion>#{apacheversion}</apacheversion>
   <uptime>#{uptime}</uptime>
   <bandwidth>
     <tx>#{last_tx}</tx> 
@@ -278,10 +275,7 @@ EOF
       self.last_tx = doc.root.elements['*/tx'].text.to_i
       self.last_rx = doc.root.elements['*/rx'].text.to_i
 
-      self.apacheversion = doc.root.elements['apacheversion'].text
       self.platform = doc.root.elements['release'].text
-      self.mysql = doc.root.elements['mysql'].text
-      self.phpversion = doc.root.elements['phpversion'].text
       self.kernelver = doc.root.elements['version'].text
       self.uptime = doc.root.elements['uptime'].text
 
