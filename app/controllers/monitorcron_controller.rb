@@ -118,7 +118,12 @@ class MonitorcronController < ApplicationController
     end
 
     if params[:status]
-      server = Server.find(params[:status][:id].to_i)
+      if params[:status][:access_key]
+        server = Server.find_by_access_key(params[:status][:access_key])
+        params[:status][:id] = server.id
+      else
+        server = Server.find(params[:status][:id].to_i)
+      end
 
       # Do we have some down time to log ?
       downtime = 0
