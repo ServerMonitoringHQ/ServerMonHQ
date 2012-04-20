@@ -40,6 +40,8 @@ Servermonitoringhq::Application.routes.draw do
   match '/receive_memory' => 'monitorcron#receive_memory', :as => :receive_memory, :method => :post
   match '/receive_top' => 'monitorcron#receive_top', :as => :receive_top, :method => :post
   match '/receive_ports' => 'monitorcron#receive_ports', :as => :receive_ports, :method => :post
+  match '/pulse/:id' => 'servers#pulse', :as => :pulse
+
   resources :users do
     collection do
   post :add_user
@@ -55,24 +57,24 @@ Servermonitoringhq::Application.routes.draw do
   resource :alerts
   resources :servers do
     collection do
-  get :may_add
-  get :newagent
-  end
+      get :may_add
+      get :newagent
+    end
     member do
-  post :renamed
-  get :configure
-  get :agentedit
-  get :statistics
-  get :remove
-  get :download
-  get :rename
-  put :removed
-  end
-      resources :logs
+      post :renamed
+      get :configure
+      get :agentedit
+      get :statistics
+      get :remove
+      get :download
+      get :rename
+      put :removed
+    end
+    resources :logs
     resources :pages
     resources :ports
   end
 
   match '/' => 'Marketing#index'
-match '/:controller(/:action(/:id))'
+  match '/:controller(/:action(/:id))'
 end

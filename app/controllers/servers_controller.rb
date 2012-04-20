@@ -6,7 +6,7 @@ class ServersController < ApplicationController
 
   protect_from_forgery :except => [:history]
   
-  layout 'application', :except => [ 'rename', 'remove' ]
+  layout 'application', :except => [ 'rename', 'remove', 'pulse' ]
 
   # GET /servers
   # GET /servers.xml
@@ -32,6 +32,22 @@ class ServersController < ApplicationController
   
   def remove
     @server = current_user.account.servers.find(params[:id])
+  end
+
+  def pulse
+    server = Server.find_by_access_key(params[:id])
+    
+    if server
+      script_name = File.join(Rails.root, 'app', 'views', 'servers', 'monitor.sh') 
+      script = File.open(script_name, 'rb') { |file| file.read }
+
+      script = script.gsub /\$\$THESERVER\$\$/, request.protocol + request.host_with_port
+      script = script.gsub /\$\$THEKEY\$\$/, params[:id]
+    else
+      script = 'echo "Not Valid"'
+    end
+
+    send_data script, :filename => 'monitor.sh'
   end
   
   def renamed
