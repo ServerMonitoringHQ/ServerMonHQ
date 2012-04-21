@@ -8,16 +8,18 @@
   .span8
     %h2
       1. Edit your crontab
-    %code
+    %code{ :style => 'font-size: 9px' }
       crontab -e
     %br
     %br
     %h2
       2. Add the following entry.
-    %code
-      curl -L -s 
-      = "curl -L -s #{request.protocol + request.host_with_port}/pulse/#{@server.access_key} | rbash -s stable"
+    %code{ :style => 'font-size: 9px' }
+      = "*/1 * * * * curl -L -s #{request.protocol + request.host_with_port}/pulse/#{@server.access_key} | rbash -s stable"
     %br
     %br
     %h2
       3. That's it.
+
+    %a{ :href => servers_path}
+      Click here when you've finished.
