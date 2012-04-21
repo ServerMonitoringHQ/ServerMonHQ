@@ -11,7 +11,6 @@ class Server < ActiveRecord::Base
   require 'keychain'
   require 'systats'
 
-  before_save :encrypt_fields
   before_destroy :clear_incidents
   
   has_many :histories, :dependent => :destroy
@@ -20,14 +19,9 @@ class Server < ActiveRecord::Base
   has_many :pages, :dependent => :destroy
   has_many :disks, :dependent => :destroy
   belongs_to :account
-  belongs_to :keychain
   has_many :monitor_servers, :dependent => :destroy
 
   validates_presence_of :name
-  validates_presence_of :hostname, :if => :ssh_connection?
-  validates_presence_of :ssh_port, :if => :ssh_connection?
-  validates_presence_of :username, :if => :ssh_connection?
-  validates_presence_of :url, :unless => :ssh_connection?
 
   after_initialize :do_after_initialize
   
@@ -63,15 +57,8 @@ class Server < ActiveRecord::Base
 
   def do_after_initialize
 
-    if self.keychain_id == nil
-      kc = Rails.cache.fetch("next_random_key#{account_id}") do
-        kc = Keychain.random
-      end
-      self.keychain_id = kc.id
-    end
-
     if self.access_key == nil
-      self.access_key = Digest::SHA1.hexdigest Time.now.to_s
+      self.access_key = SecureRandom.urlsafe_base64(8)
     end
     true
   end
@@ -202,117 +189,7 @@ EOF
     return 0
   end
 
-  def retrieve_stats(encrypt_pass = false)
-
-    begin
-    
-      xml = ''
-      agent = false
-
-      if ssh_connection? or self.url == nil
-
-        pass = password
-        if encrypt_pass == true and password != nil and !password.empty?
-          pass = Base64.encode64(Encryptor.encrypt(:value => self.password, 
-            :key => SysStats::JAKE_PURTON))
-        end
-
-        xml = SysStats::Stats.live_stats_xml(hostname,
-          username, pass, ssh_port, id, self.keychain.private_key)
-
-      else
-        agent = true
-        response = Net::HTTP.get_response(
-          URI.parse(self.url + '?cmd=stats'))
-
-        if response.kind_of? Net::HTTPSuccess
-          xml = response.body
-        end
-      end
-    
-      process_stats_xml(xml)
-    
-    rescue Exception => e
-      if agent
-        errors[:base] << 'Unable to connect via agent ' + e.to_s
-      else
-        errors[:base] << 'Unable to connect ' + e.to_s
-      end
-      return false
-    end
-    
-    if errors[:base].length > 0
-      return false
-    end
-    return true
-  end
-
-  def process_stats_xml(xml)
-
-    doc = REXML::Document.new(xml)
-
-    if doc.root.elements['*/cpucount'] == nil
-      if doc.root.elements['message'] == nil
-        errors[:base] << 'Unable to parse results'
-      else
-        errors[:base] <<  doc.root.elements['message'].text
-      end
-    else
-      #process data from agent
-      self.usedswap = doc.root.elements['*/swapused'].text.to_f
-      self.totalswap = doc.root.elements['*/swaptotal'].text.to_f
-
-      self.usedmem = doc.root.elements['*/used'].text.to_f
-      self.totalmem = doc.root.elements['*/total'].text.to_f
-
-      self.cpuload = doc.root.elements['*/load1'].text.to_f
-      self.load2 = doc.root.elements['*/load2'].text.to_f
-      self.load3 = doc.root.elements['*/load3'].text.to_f
-      self.cpumhz = doc.root.elements['*/cpumhz'].text
-      self.cpu = doc.root.elements['*/cpu'].text
-      self.cpucount = doc.root.elements['*/cpucount'].text.to_i
-
-      self.last_tx = doc.root.elements['*/tx'].text.to_i
-      self.last_rx = doc.root.elements['*/rx'].text.to_i
-
-      self.platform = doc.root.elements['release'].text
-      self.kernelver = doc.root.elements['version'].text
-      self.uptime = doc.root.elements['uptime'].text
-
-      doc.elements.each("*/drives/drive") { |drive| 
-        continue if drive.elements[1].text == ''
-        d = self.disks.new
-        d.path = drive.elements[1].text
-        d.usedspace = drive.elements[2].text
-        d.totalspace = drive.elements[3].text
-        d.percent = drive.elements[4].text
-        d.save
-      }
-    end
-  end
-
   private
-
-  def decode_private_key
-    return Encryptor.decrypt(:value => Base64.decode64(self.private_key),
-      :key => SysStats::JAKE_PURTON)
-  end
-
-  def clear_private_key(id)
-    Rails.cache.delete("next_random_key#{id}")
-  end
-
-  def encrypt_fields
-
-    if password_changed? and !password.empty?
-
-      p = Encryptor.encrypt(:value => self.password, 
-        :key => SysStats::JAKE_PURTON)
-      self.password = Base64.encode64(p)
-    end
-    clear_private_key(self.account_id)
-    true
-  end
 
   def clear_incidents
     incidents = account.incidents.where(:server_id => self.id)

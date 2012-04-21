@@ -9,6 +9,24 @@
   %th Action
 - for server in @servers
   %tr
+  - if server.cpuload == nil
+    %td
+      %strong
+        = server.name
+    %td
+      %span.label
+        Awaiting Data 
+    %td
+      &nbsp;
+    %td
+      &nbsp;
+    %td
+      &nbsp;
+    %td
+      &nbsp;
+    %td
+      &nbsp;
+  - else
     %td
       %strong
         = link_to server.name, :controller => :statistics, :id => server.id
@@ -38,16 +56,13 @@
         %span.label.label-success UP
       - else
         %span.label.label-important DOWN
-    %td
-      %a{ :href => rename_server_path(server), :rel => 'facebox', 
-          :title => 'Rename Server' }
-        %i.icon-retweet
-      %a{ :href => remove_server_path(server), :rel => 'facebox', 
-          :title => 'Delete Server' }
-        %i.icon-trash
-      - if server.url != nil
-        %a{ :href => agentedit_server_path(server), :title => 'Edit Server' }
-          %i.icon-pencil
-      - else
-        %a{ :href => edit_server_path(server), :title => 'Edit Server'}
-          %i.icon-pencil
+
+  %td
+    %a{ :href => rename_server_path(server), :rel => 'facebox', 
+        :title => 'Rename Server' }
+      %i.icon-retweet
+    %a{ :href => remove_server_path(server), :rel => 'facebox', 
+        :title => 'Delete Server' }
+      %i.icon-trash
+    %a{ :href => configure_server_path(server), :title => 'Edit Server' }
+      %i.icon-pencil

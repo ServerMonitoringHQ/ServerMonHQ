@@ -1,29 +1,23 @@
-#context-header
-  .inner-page
-    .left-side
-      %h1
-        Configure Server
-      %p
-        Follow the steps to add the server
-        = @server.name
-    .right-side
-.inner-page
-  %h2
-    1. Download the agent php script to your server
-  %p
-    The agent php script
-    %em
-      = download_server_path(@server.access_key)
-    = link_to 'Download', download_server_path(@server.access_key)
-  %pre
-    %code.terminal
-      wget -O
-      = @server.access_key
-      \.php http://servermonitoringhq.com
-      = download_server_path(@server.access_key)
-  %h2
-    2. Access the agent script with your browser
-  %p
-    This verifies that ServerMonitoringHQ will be able to show live statitics
-  %h2
-    3. Add the agent script to your crontab
+- content_for :page_title do
+  %h1.header 
+    Configure The Agent For
+    = @server.name
+  %p Follow the steps below to start collecting data from your server
+
+.row
+  .span8
+    %h2
+      1. Edit your crontab
+    %code
+      crontab -e
+    %br
+    %br
+    %h2
+      2. Add the following entry.
+    %code
+      curl -L -s 
+      = "curl -L -s #{request.protocol + request.host_with_port}/pulse/#{@server.access_key} | rbash -s stable"
+    %br
+    %br
+    %h2
+      3. That's it.

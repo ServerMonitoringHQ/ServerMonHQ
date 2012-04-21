@@ -89,8 +89,8 @@ memory_data()
 
 cpu_data()
 {
-  CPU=`awk 'BEGIN { FS=":" } /model name/ { print $2 }' /proc/cpuinfo`
-  CPUMHZ=`awk 'BEGIN { FS=":" } /cpu MHz/ { print $2 }' /proc/cpuinfo`
+  CPU=`awk 'BEGIN { FS=":" } /model name/ { print $2 }' /proc/cpuinfo | sed q`
+  CPUMHZ=`awk 'BEGIN { FS=":" } /cpu MHz/ { print $2 }' /proc/cpuinfo | sed q`
   CPUCOUNT=`cat /proc/cpuinfo | grep processor | wc -l`
 }
 

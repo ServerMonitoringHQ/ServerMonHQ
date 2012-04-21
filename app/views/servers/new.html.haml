@@ -20,7 +20,7 @@
           = collection_select(:monitor_server, :measure_id, @measures, :id, :name)
 
       .form-actions
-        %button.btn.btn-primary{:type => 'submit', :name => 'connect'} Connect Now
+        %button.btn.btn-primary{:type => 'submit', :name => 'connect'} Next
         or
         = link_to 'Back to Servers', servers_path, :class => 'btn'
 

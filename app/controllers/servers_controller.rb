@@ -1,6 +1,6 @@
 class ServersController < ApplicationController
 
-  before_filter :login_required
+  before_filter :login_required, :except => [:pulse]
   before_filter :check_account_expired
   config.filter_parameters :password, :private_key
 
@@ -97,7 +97,6 @@ class ServersController < ApplicationController
   def new
     @server = current_user.account.servers.new
     @measures = current_user.account.measures
-    @server.ssh_port = 22
     @checked = true
 
     respond_to do |format|
@@ -152,15 +151,9 @@ class ServersController < ApplicationController
       @checked = true
     end
 
-    # Handle both agents and ssh connections
-    action = :newagent
-    if params[:ssh]
-      @server.ssh(true)
-      action = :new
-    end
 
     respond_to do |format|
-      if @server.valid? and @server.retrieve_stats(true) and @server.save
+      if @server.valid? and @server.save
 
         if @checked
           @monitor_server.server_id = @server.id
@@ -173,10 +166,11 @@ class ServersController < ApplicationController
         end
 
         flash[:notice] = 'Server was successfully created.'
-        format.html { redirect_to(:controller => :statistics, :id => @server.id) }
+        format.html { redirect_to(:controller => :servers, :action => :configure, 
+          :id => @server.id) }
         format.xml  { render :xml => @server, :status => :created, :location => @server }
       else
-        format.html { render :action => action }
+        format.html { render :action => :new }
         format.xml  { render :xml => @server.errors, :status => :unprocessable_entity }
       end
     end

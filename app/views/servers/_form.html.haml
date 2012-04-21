@@ -2,33 +2,8 @@
   %div.box
     = f.error_messages
 
-.control-group
-  = f.label 'Hostname', :class => 'control-label'
-  .controls
-    = f.text_field :hostname
-    %span.help-block
-      The hostname e.g. hostname.com or an IP address e.g. 127.8.9.252
-
-.control-group
-  = f.label 'SSH Username', :class => 'control-label'
-  .controls
-    = f.text_field :username, :autocomplete => 'off'
-    %span.help-block
-      Provide a username you have created for ServerMonitoringHQ or a standard username.
-
-.control-group
-  = f.label 'SSH Password', :class => 'control-label'
-  .controls
-    = f.password_field :password, :autocomplete => 'off'
-    %span.help-block
-      If you are using SSH key authentication you don't need to supply a password.
-
-.control-group
-  = f.label 'Port', :class => 'control-label'
-  .controls
-    = f.text_field :ssh_port
-    %span.help-block
-      The SSH process defaults to port 22 but if you have SSH running on a different port then please enter it here.
+%fieldset
+  %legend Name the Server
 
 .control-group
   = f.label :name, "Display Name", :class => 'control-label'
@@ -37,6 +12,3 @@
     %span.help-block
       From now on I'd like you to refer to this server as
 
-= f.hidden_field :keychain_id
-
-%input{ :type => 'hidden', :name => 'ssh' }
