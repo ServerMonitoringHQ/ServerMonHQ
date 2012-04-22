@@ -7,7 +7,7 @@ lowercase()
 
 ports_data()
 {
-  ports=(8080 443 29)
+  ports=( $$THEPORTS$$ )
 
   PORTXML=""
 
