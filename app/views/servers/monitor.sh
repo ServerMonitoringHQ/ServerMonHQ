@@ -16,9 +16,9 @@ ports_data()
     netstat -ln  | awk '{ print $4 }' | awk 'BEGIN { FS=":" } ; { print $2 }' | grep "^${port}$" > /dev/null
     if [ $? =  "1" ]
       then
-        PORTXML="${PORTXML}<port><address>${port}</address><status>DOWN</status></port>"
+        PORTXML="${PORTXML}<port><address>${port}</address><status>0</status></port>"
       else
-        PORTXML="${PORTXML}<port><address>${port}</address><status>UP</status></port>"
+        PORTXML="${PORTXML}<port><address>${port}</address><status>1</status></port>"
     fi
   done
 }

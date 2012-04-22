@@ -54,22 +54,20 @@ class MonitorcronController < ApplicationController
     render :text => "OK"  
   end
 
-  def receive_ports
+  def receive_ports(params, server_id)
 
-    if params[:ports]
-      ports = params[:ports][:port]
+    if params[:status][:ports]
+      ports = params[:status][:ports][:port]
       ports = [ports] unless ports.is_a?(Array)
       ports.each { |port|
         p = Port.where(:address => port[:address].to_i, 
-          :server_id => params[:ports][:id].to_i).first
+          :server_id => server_id).first
         if p != nil
           p.status = port[:status].to_i
           p.save
         end
       }
     end
-
-    render :text => "OK"  
   end
 
   def receive_memory
@@ -174,7 +172,8 @@ class MonitorcronController < ApplicationController
 
       server.save(:validate=> false)
 
-      receive_drives(params)
+      receive_drives(params, server.id)
+      receive_ports(params, server.id)
 
       load = ((server.cpuload / server.cpucount) * 100) rescue 0
       load = 0 if load.nan?
@@ -230,11 +229,9 @@ class MonitorcronController < ApplicationController
   
   end
 
-  def receive_drives(params)
+  def receive_drives(params, server_id)
     if params[:status][:drives] and 
       params[:status][:drives].class.name != 'String'
-
-      server_id = params[:status][:id].to_i
 
       Server.find(server_id).disks.clear
 

@@ -14,8 +14,6 @@ class StatisticsController < ApplicationController
     
     @server = current_user.account.servers.find(params[:id])
  
-    send_job ServerMonitoringHQ::Jobs::Monitor
-    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @server }
@@ -34,8 +32,6 @@ class StatisticsController < ApplicationController
 
     @server = Server.by_access_key(params[:id]).first
  
-    send_job ServerMonitoringHQ::Jobs::Monitor
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @server }
@@ -48,8 +44,6 @@ class StatisticsController < ApplicationController
 
     xml = @server.stats_xml
 
-    send_job ServerMonitoringHQ::Jobs::Monitor
-
     respond_to do |format|
       format.xml  { render :text => xml }
     end
@@ -59,8 +53,6 @@ class StatisticsController < ApplicationController
 
     @server = current_user.account.servers.find(params[:id])
     xml = @server.top_xml
-
-    send_job ServerMonitoringHQ::Jobs::Top
 
     respond_to do |format|
       format.xml  { render :text => xml }
@@ -171,8 +163,6 @@ class StatisticsController < ApplicationController
   def memory
     @server = current_user.account.servers.find(params[:id])
     
-    send_job ServerMonitoringHQ::Jobs::Memory
-
     criteria = ['mem_lo', 'mem_hi']
      
     Time.zone = 'UTC'
@@ -192,24 +182,9 @@ class StatisticsController < ApplicationController
     @server = current_user.account.servers.find(params[:id])
     xml = @server.memory_xml
 
-    send_job ServerMonitoringHQ::Jobs::Memory
-
     respond_to do |format|
       format.xml  { render :text => xml }
     end
   end 
 
-  private
-
-  def send_job(job_type)
-
-    if Rails.env == 'test'
-      return
-    end
-
-    Rails.cache.fetch("#{job_type}-#{params[:id]}", :expires_in => 10.seconds) do
-      Resque.enqueue(job_type, @server.to_hash, return_url, Time.now.gmtime, Rails.env)
-    end
-  end
-   
 end

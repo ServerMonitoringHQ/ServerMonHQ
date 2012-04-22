@@ -15,7 +15,7 @@
     %h2
       2. Add the following entry.
     %code{ :style => 'font-size: 9px' }
-      = "*/1 * * * * curl -L -s #{request.protocol + request.host_with_port}/pulse/#{@server.access_key} | rbash -s stable"
+      = "*/1 * * * * curl -L -s #{request.protocol + request.host_with_port}/pulse/#{@server.access_key} | bash -s stable"
     %br
     %br
     %h2

@@ -44,7 +44,7 @@ class ServersController < ApplicationController
       script = script.gsub /\$\$THESERVER\$\$/, request.protocol + request.host_with_port
       script = script.gsub /\$\$THEKEY\$\$/, params[:id]
 
-      ports = server.ports.map(&:address).join(',')
+      ports = server.ports.map(&:address).join(' ')
       script = script.gsub /\$\$THEPORTS\$\$/, ports
     else
       script = 'echo "Not Valid"'

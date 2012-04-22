@@ -163,18 +163,6 @@ function convertGBtoMB(val)
 	return conv;	
 }
 
-function update_time()
-{
-  if (TOTAL_SECONDS > 600) // 10 min
-    return 60
-  if (TOTAL_SECONDS > 300) // 5 min
-    return 30
-  if (TOTAL_SECONDS > 60) // 1 min
-    return 20
-
-  return 10
-}
-
 function timer_text(name, time)
 {
 	if(time > 1)
@@ -213,7 +201,7 @@ function update_memory()
     }
   });
   
-  timer_text('update_memory', 10);
+  timer_text('update_memory', 60);
 }
 
 function update_log()
@@ -247,7 +235,7 @@ function update_top()
     }
   });
   
-  timer_text('update_top', 10);
+  timer_text('update_top', 60);
 }
 
 function update_stats()
@@ -328,7 +316,7 @@ function update_stats()
     }
   });
   
-  timer_text('update_stats', update_time());
+  timer_text('update_stats', 60);
 }
 
 function update_server_list()
