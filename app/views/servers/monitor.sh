@@ -5,6 +5,24 @@ lowercase()
   echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
 }
 
+ports_data()
+{
+  ports=(8080 443 29)
+
+  PORTXML=""
+
+  for port in "${ports[@]}"
+  do
+    netstat -ln  | awk '{ print $4 }' | awk 'BEGIN { FS=":" } ; { print $2 }' | grep "^${port}$" > /dev/null
+    if [ $? =  "1" ]
+      then
+        PORTXML="${PORTXML}<port><address>${port}</address><status>DOWN</status></port>"
+      else
+        PORTXML="${PORTXML}<port><address>${port}</address><status>UP</status></port>"
+    fi
+  done
+}
+
 os_data()
 {
   OS=`lowercase \`uname\``
@@ -106,6 +124,7 @@ uptime_data
 bandwidth_data
 os_data
 disk_data
+ports_data
 
 XML=`cat <<SETVAR
 <status>
@@ -135,9 +154,8 @@ XML=`cat <<SETVAR
   <version>$REV</version>
   <platform>$KERNEL</platform>
   <drives>$DRIVES</drives>
+  <ports>$PORTXML</ports>
 </status>
 SETVAR`
 
 curl -H "Content-Type: text/xml" -d "$XML" $$THESERVER$$/receive_monitor/
-
-echo "$XML"
