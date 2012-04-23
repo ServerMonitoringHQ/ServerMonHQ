@@ -4,16 +4,7 @@ class MonitorcronController < ApplicationController
     @servers = Server.active
     @servers.sort_by {rand} #  Randomize the array, give everyone a fair chnace
 
-    time = Time.new
-
     @servers.each do |server|
-      Resque.enqueue(ServerMonitoringHQ::Jobs::Monitor,
-        server.to_hash,
-        return_url,
-        Time.now.gmtime,
-        Rails.env
-      )
-
       server.pages.each do |page|
         Resque.enqueue(ServerMonitoringHQ::Jobs::Page,
           page.url,
@@ -25,17 +16,6 @@ class MonitorcronController < ApplicationController
         )
       end
 
-      ports = server.ports.map(&:address).join(',')
-
-      if ports != ''
-        Resque.enqueue(ServerMonitoringHQ::Jobs::Ports,
-          server.to_hash,
-          ports,
-          return_url,
-          Time.now.gmtime,
-          Rails.env
-        ) 
-      end
     end
 
     render :layout => false
