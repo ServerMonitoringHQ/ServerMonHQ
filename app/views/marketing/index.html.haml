@@ -2,10 +2,9 @@
 - content_for :navigation, @selected_nav = :home
 
 #headings
-  %h1.heading Get notified BEFORE your server goes down not afterwards.
+  %h1.heading Get notified BEFORE your server goes down, not afterwards.
   %h2.subheading 
-    We monitor CPU, Load, Memory, Bandwidth, Disks and 
-    notify you when critical levels are reached.
+    Web page AND server monitoring for the cost of a Pingdom account.
 
 %p{:style => "text-align: center; margin: 0; padding: 0; height:250px"}
   = image_tag("marketing/ServerPulseNewLook.png", 
@@ -20,68 +19,71 @@
 .container#marketing
   .row
     .span3
-      %h3 No Software to Install
+      %h3 Installed and running in Seconds
       %p
-        No software to install on your server we
-        collect measurements via SSH and can use
-        key authentication.
+        Add 1 line to your crontab and you're done.  
+      %p
+        The SMHQ agent is a bash script and runs without modifying your server.
     .span3
-      %h3 Vital Statistics and Alerts
+      %h3 CPU, Memory, Bandwidth and Disk Monitoring
       %p
-        We alert you if memory, load or bandwidth
-        limits set by you are exceeded.
+        Just by monitoring these 4 items you can pre-empt most server down time.  
+      %p
+        A hack attempt on your server will generally trigger alerts.
 
     .span3
-      %h3 Live Statistics Drill Down
+      %h3 Web Page and Port monitoring
       %p
-        Drill down by server and see a live display
-        of your servers statistics including TCP/IP ports
-        and pages.
+        MySQL down ? A simple monitor on port 3306 will spot this.  
+      %p
+        Shopping cart down ? Web page monitoring just one of several checks we're making for you.
 
     .span3
-      %h3 Historic Data and Graphs
+      %h3 Historic Data and Graphs for 1 Year
       %p
         Predict memory, bandwidth usage and load trends with 24 hour,
         7 day and 1 year graphs.
+      %p
+        See how your server responds to load testing.
 
   .row
     .well
       %blockquote
         %p 
           &quot;
-          Yet, this one [ServerMonitoringHQ.com] thankfully brings something 
-          praiseworthy to the table, 
-          namely the ability to  monitor everything from CPU, memory and 
-          bandwidth without you having to  
-          install a single file on your computer.
+          Page monitoring, disk monitoring, easy to install. 
+          Everything we could want from a competitive monitoring solution. 
+          Sign up you won't regret it.
           &quot;
         %small
-          %a{ :href => 'http://www.killerstartups.com/Web-App-Tools/servermonitoringhq-com-monitor-your-servers',
-            :target => "#" } 
-            Killer Startups
+          David Smith, London (bitehouse.co.uk)
 
   .row.screengrabs
     .span3
       = image_tag("marketing/front-screen1.png", :width => "210", :height => "90", :alt => "Bar Graph")
-      %h3 Alert Escalation
+      %h3{ :style => 'margin-top: 15px' }
+        Alert Escalation
       %p
-        Configure alert escalations. e.g. Contact support after 5 mins, managers after 1 hour of downtime.
+        Configure alert escalations. e.g. Contact support after 5 mins, managers after 1 hour.
     .span3
       = image_tag("marketing/front-screen2.png", :width => "210", :height => "90", :alt => "Bar Graph")
-      %h3 Monitor Granularity
+      %h3{ :style => 'margin-top: 15px' }
+        Fine Tune Triggers
       %p
-        Only want to monitor disk space ? ServerMonitoringHQ allows you to configure each monitor.
+        Only want to monitor disk space ? SMHQ can monitor disks for one team and CPU for another.
     .span3
       = image_tag("marketing/front-screen3.png", :width => "210", :height => "90", :alt => "Bar Graph")
-      %h3 Public Key Authentication
+      %h3{ :style => 'margin-top: 15px' }
+        Free SMS Alerts
       %p
-        We can generate a public key for each server you configure for maximum security.
+        SMS and email alerts are free. We'll be adding twitter alerts soon too.
 
     .span3
       = image_tag("marketing/front-screen4.png", :width => "210", :height => "90", :alt => "Bar Graph")
-      %h3 1 Minute Granularity
+      %h3{ :style => 'margin-top: 15px' }
+        1 Minute Granularity
       %p
-        We can monitor server down to 1 minute resolution so you see issues as soon as they happen.
+        We can monitor servers down to 1 minute resolution so you see issues as soon as they happen.
 
   .row
     .well

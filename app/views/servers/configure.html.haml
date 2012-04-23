@@ -23,3 +23,10 @@
 
     %a{ :href => servers_path}
       Click here when you've finished.
+  .span4
+    .alert.alert-block
+      %h3 How we collect data from your server
+      %p
+        The cron job downloads a bash script located on our server and executes it.
+      %p
+        Linux stores server data mainly in the /proc file system, the script collects this data into an XML bundle and sends it to our servers for processing.
