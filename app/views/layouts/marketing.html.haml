@@ -8,6 +8,15 @@
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'marketing'
     = render :partial => "layouts/analytics"
+    :javascript
+      var _kmq = _kmq || [];
+      function _kms(u){
+        setTimeout(function(){
+        var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;
+        s.src = u; f.parentNode.insertBefore(s, f);
+        }, 1);
+      }
+      _kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/3c80f932436f9f2194839a5d6e037193deffd8c8.1.js');
 
   %body
     #wrapper
