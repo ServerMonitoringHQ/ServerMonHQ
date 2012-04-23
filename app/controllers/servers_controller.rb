@@ -198,7 +198,7 @@ class ServersController < ApplicationController
     update = @server.update_attributes(params[:server])
     
     respond_to do |format|
-      if update and @server.retrieve_stats
+      if update 
         flash[:notice] = 'Server was successfully updated.'
         format.html { redirect_to(:controller => :statistics, :id => @server.id) }
         format.xml  { head :ok }
