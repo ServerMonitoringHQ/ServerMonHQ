@@ -16,6 +16,18 @@ class MonitorcronController < ApplicationController
         )
       end
 
+      if server.updated_at < 1.minute.ago
+
+        server.serverdown = true
+        if server.down_mins == nil
+          server.down_mins = 0
+        end
+        server.down_mins = server.down_mins + 1
+        ActiveRecord::Base.record_timestamps = false
+        server.save(:validate=> false)
+        ActiveRecord::Base.record_timestamps = true
+      end
+
     end
 
     render :layout => false
