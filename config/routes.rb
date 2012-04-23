@@ -13,9 +13,6 @@ Servermonitoringhq::Application.routes.draw do
     :controller => 'blogs',
     :only => [ :index, :show ]
     
-  resource :contact,
-    :only => [ :show, :create ]
-
   resources :incidents, :only => [:index, :show]
   match '/measures/:measure_id/mu/:id' => 'measures#remove_user', :as => :remove_users
   match '/measures/:measure_id/ms/:id' => 'measures#remove_server', :as => :remove_servers
@@ -31,6 +28,7 @@ Servermonitoringhq::Application.routes.draw do
   match '/tour' => 'marketing#tour', :as => :tour
   match '/buy' => 'marketing#buy', :as => :buy
   match '/agent' => 'marketing#agent', :as => :agent
+  match '/contact' => 'marketing#contact', :as => :contact
   match '/dashboard' => 'dashboard#index', :as => :dashboard
   match '/paypal_ipn' => 'paypal#paypal_ipn', :as => :paypal_ipn
   match '/monitor_cron' => 'monitorcron#monitor_cron', :as => :monitor_cron

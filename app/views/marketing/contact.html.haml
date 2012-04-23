@@ -1,0 +1,52 @@
+.row
+  .span8
+    %form{:class => 'form-horizontal', :action => "https://ianpurton.sirportly.com/remote_form/35", :method => "POST"}   
+      %fieldset
+        %legend Help &amp; Support Contact Form
+      %dl     
+        %dt       
+          %label{:for => "form35-name"} Name       
+        %dd           
+          %input#form35-name{:class => 'span6',:name => "ticket[name]", :type => "text"}        
+        %dt           
+          %label{:for => "form35-email"} E-Mail Address           
+        %dd               
+          %input#form35-email{:class => 'span6',:name => "ticket[email]", :type => "text"}             
+        %dt               
+          %label{:for => "form35-subject"} Subject               
+        %dd                   
+          %input#form35-subject{:class => 'span6',:name => "ticket[subject]", :type => "text"}                 
+        %dt                   
+          %label{:for => "form35-priority"} 
+            Priority                   
+        %dd                       
+          %select#form35-priority{:class => 'span6',:name => "ticket[priority]"}                         
+            %option{:value => "246"} Urgent                         
+            %option{:value => "247"} High                         
+            %option{:selected => "selected", :value => "248"} Normal                         
+            %option{:value => "249"} Low                     
+        %dt                       
+          %label{:for => "form35-message"} Message                       
+        %dd                           
+          %textarea#form35-message{:class => 'span6',:name => "ticket[message]"}   
+        %p.submit     
+          %input{:name => "send", :type => "submit", :class=> "btn btn-success", :value => "Send Message"}
+
+  .span4
+    .well
+      %h3 Help and Support
+      %p You can contact us with the form on this page or directly via email to support@servermonitoringhq.com.
+      %p You can also contact us on twitter.com/monitorhq.
+
+  .span4
+    .well
+      %h3 Helpdesk Hours
+      %p 
+        We're available 9am to 5pm UTC Monday to Friday. 
+        We do provide out of hours support but we may not get back to you as quickly.
+
+  .span4
+    .well
+      %h3 Our current time.
+      %h3
+        = Time.now.gmtime.strftime('%H:%M:%S')

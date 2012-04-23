@@ -1,10 +1,11 @@
 .row
   .span3.plan.basic
     .well
-      %h3 Basic
-      %p
-        %em $5/Month
-      %p 1 Server
+      %div{ :style => 'background-color: #E7B41D; color: white' }
+        %h3 Basic
+        %p
+          %em $5/Month
+        %p 1 Server
       %ul.unstyled
         %li
           %strong Monitor Every Minute
@@ -18,17 +19,18 @@
         - elsif current_user != nil and current_user.account.plan_id == 0
           = link_to("Your Current Plan", '#', :class => 'btn')
         - else
-          = link_to("Upgrade", paypal_path(0), :class => 'btn primary')
+          = link_to("Upgrade", paypal_path(0), :class => 'btn btn-primary')
       - else
-        = link_to("Sign Up", signup_path(:plan_id => "0"), :class => 'btn primary')
+        = link_to("Sign Up", signup_path(:plan_id => "0"), :class => 'btn btn-primary')
           
       
   .span3.plan.plus
     .well
-      %h3 Plus
-      %p
-        %em $19/Month
-      %p 5 Servers
+      %div{ :style => 'background-color: #ADCA0E; color: white' }
+        %h3 Plus
+        %p
+          %em $19/Month
+        %p 5 Servers
       %ul.unstyled
         %li 
           %strong Monitor Every Minute
@@ -42,16 +44,17 @@
         - elsif current_user.account.plan_id == 1 and current_user.account.active?
           = link_to("Your Current Plan", '#', :class => 'btn')
         - else
-          = link_to("Upgrade", paypal_path(1), :class => 'btn primary')
+          = link_to("Upgrade", paypal_path(1), :class => 'btn btn-primary')
       - else
-        = link_to("Sign Up", signup_path(:plan_id => "1"), :class => 'btn primary')
+        = link_to("Sign Up", signup_path(:plan_id => "1"), :class => 'btn btn-primary')
 
   .span3.plan.premium
     .well
-      %h3 Premium
-      %p
-        %em $35/Month
-      %p 10 Servers
+      %div{ :style => 'background-color: #5CC417; color: white' }
+        %h3 Premium
+        %p
+          %em $35/Month
+        %p 10 Servers
       %ul.unstyled
         %li
           %strong Monitor Every Minute
@@ -65,16 +68,17 @@
         - elsif current_user.account.plan_id == 2 and current_user.account.active?
           = link_to("Your Current Plan", '#', :class => 'btn')
         - else
-          = link_to("Upgrade", paypal_path(2), :class => 'btn primary')
+          = link_to("Upgrade", paypal_path(2), :class => 'btn btn-primary')
       - else
-        = link_to("Sign Up", signup_path(:plan_id => "2"), :class => 'btn primary')
+        = link_to("Sign Up", signup_path(:plan_id => "2"), :class => 'btn btn-primary')
 
   .span3.plan.max
     .well
-      %h3 Max
-      %p
-        %em $60/Month
-      %p 20 Servers
+      %div{ :style => 'background-color: #E3BC16; color: white' }
+        %h3 Max
+        %p
+          %em $60/Month
+        %p 20 Servers
       %ul.unstyled
         %li
           %strong Monitor Every Minute
@@ -88,6 +92,6 @@
         - elsif current_user.account.plan_id == 3 and current_user.account.active?
           = link_to("Your Current Plan", '#', :class => 'btn')
         - else
-          = link_to("Upgrade", paypal_path(3), :class => 'btn primary')
+          = link_to("Upgrade", paypal_path(3), :class => 'btn btn-primary')
       - else
-        = link_to("Sign Up", signup_path(:plan_id => "3"), :class => 'btn primary')
+        = link_to("Sign Up", signup_path(:plan_id => "3"), :class => 'btn btn-primary')
