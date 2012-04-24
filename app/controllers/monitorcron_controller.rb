@@ -16,6 +16,7 @@ class MonitorcronController < ApplicationController
         )
       end
 
+      # If the server hasn't been updated in a while it's probably down.
       if server.updated_at < 1.minute.ago
 
         server.serverdown = true
@@ -27,6 +28,14 @@ class MonitorcronController < ApplicationController
         server.save(:validate=> false)
         ActiveRecord::Base.record_timestamps = true
       end
+
+      server.monitor_servers.each do |sm|
+        next if !sm.server.totalmem || sm.measure.paused
+        if sm.measure.notify_heartbeat?
+          check_heartbeat(sm, 'Not heard from agent for a while.')
+        end
+      end
+
 
     end
 
