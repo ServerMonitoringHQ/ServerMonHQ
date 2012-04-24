@@ -86,18 +86,12 @@ class MonitorcronController < ApplicationController
     render :text => "OK"  
   end
 
-  def receive_top
-    if params[:top]
-      server = Server.find(params[:top][:id].to_i)
-
-      server.top = params[:top][:top]
-      server.cpuload = params[:top][:load][:load1].to_f
-      server.load2 = params[:top][:load][:load2].to_f
-      server.load3 = params[:top][:load][:load3].to_f
+  def receive_top(params, server)
+    if params[:status][:top]
+      server.top = params[:status][:top]
 
       server.save(:validate=> false)
     end
-    render :text => "OK"  
   end
 
   def receive_monitor
