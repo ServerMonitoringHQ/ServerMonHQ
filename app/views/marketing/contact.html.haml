@@ -1,5 +1,12 @@
 .row
   .span8
+    - if @success and @success == 'true'
+      .alert.alert-success
+        Message succesfully sent.
+    - elsif @success
+      .alert.alert-error
+        Something went wrong sending the message.
+
     %form{:class => 'form-horizontal', :action => "https://ianpurton.sirportly.com/remote_form/35", :method => "POST"}   
       %fieldset
         %legend Help &amp; Support Contact Form

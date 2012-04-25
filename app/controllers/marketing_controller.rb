@@ -8,6 +8,10 @@ class MarketingController < ApplicationController
   
   def privacy
   end
+
+  def contact
+    @success = params[:success]
+  end
   
   def terms
   end
