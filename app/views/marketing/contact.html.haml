@@ -42,18 +42,30 @@
   .span4
     .well
       %h3 Help and Support
-      %p You can contact us with the form on this page or directly via email to support@servermonitoringhq.com.
-      %p You can also contact us on twitter.com/monitorhq.
+      %p 
+        You can contact us with the form on this page 
+        or directly via email to :-
+      %p
+        %span.label
+          support@servermonitoringhq.com
+      %p 
+        You can also contact us on 
+      %p
+        %span.label
+          twitter.com/monitorhq
 
   .span4
     .well
       %h3 Helpdesk Hours
       %p 
-        We're available 9am to 5pm UTC Monday to Friday. 
+        We're available 
+        %strong 
+          9am to 5pm London 
+        time Monday to Friday. 
         We do provide out of hours support but we may not get back to you as quickly.
 
   .span4
     .well
-      %h3 Our current time.
-      %h3
-        = Time.now.gmtime.strftime('%H:%M:%S')
+      %h3 Current time in London.
+      %h4
+        = DateTime.now.utc.in_time_zone('Europe/London').strftime('%A %H:%M:%S')
