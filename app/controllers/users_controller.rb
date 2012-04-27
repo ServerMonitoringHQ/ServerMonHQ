@@ -129,6 +129,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
      
       begin
+        @mixpanel.track_event("Activation - Account Signup", {:mp_name_tag => "@user.email"})
         # Save out to Fat Free
         #l = Api::Lead.new({ :first_name => @user.first_name, :last_name => @user.last_name, 
         #  :email => @user.email, :user_id => 1})

@@ -4,6 +4,7 @@ class MarketingController < ApplicationController
 
   def index
     @remember_me = true
+    @mixpanel.track_event("Acquisition")
   end 
   
   def privacy

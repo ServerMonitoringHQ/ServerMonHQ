@@ -6,6 +6,12 @@ require 'yaml'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
+  before_filter :initialize_mixpanel  
+
+  def initialize_mixpanel   
+    @mixpanel = Mixpanel::Tracker.new("ab2192d8724107fdd4037f5f1ec30803", request.env, true) 
+  end
+
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'fe6b21ea888ac9a583035a54d971c48f'
@@ -17,6 +23,7 @@ class ApplicationController < ActionController::Base
   def return_url
     request.protocol + request.host_with_port + '/'
   end
+
 
   protected
 

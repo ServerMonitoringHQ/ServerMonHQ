@@ -77,6 +77,7 @@ class ServersController < ApplicationController
    
   def configure    
     @server = current_user.account.servers.find(params[:id])
+    @mixpanel.track_event("Activation - Added a Server", {:mp_name_tag => current_user.email})
   end
   
   def download

@@ -29,6 +29,8 @@ gem 'kaminari'
 gem 'twilio-ruby'
 gem 'resque'
 
+gem 'mixpanel'
+
 gem 'sirportly'
 
 group :development do
