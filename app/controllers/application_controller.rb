@@ -6,12 +6,6 @@ require 'yaml'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
-  before_filter :initialize_mixpanel  
-
-  def initialize_mixpanel   
-    @mixpanel = Mixpanel::Tracker.new("ab2192d8724107fdd4037f5f1ec30803", request.env, true) 
-  end
-
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'fe6b21ea888ac9a583035a54d971c48f'
@@ -232,6 +226,13 @@ class ApplicationController < ActionController::Base
 
   def require_admin
     (authorized? && current_user.admin?) || access_denied
+  end
+
+  def mixpanel_track(*args)
+    json_array = args.to_json.strip
+    json_args = json_array.slice(1, json_array.length-2)
+
+    (session[:mixpanel_events] ||= "") << "mixpanel.track(#{json_args} );"
   end
 
 end

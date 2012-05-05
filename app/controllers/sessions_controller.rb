@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
       redirect_back_or_default(servers_path)
-      @mixpanel.track_event("Retention - Signin", {:mp_name_tag => user.email})
+      mixpanel_track("Retention - Signin", {:mp_name_tag => user.email})
     else
       note_failed_signin
       @login       = params[:login]
