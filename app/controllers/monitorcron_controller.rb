@@ -140,7 +140,9 @@ class MonitorcronController < ApplicationController
       server.platform = params[:status][:platform]
       server.distro = params[:status][:release]
       server.phpversion = params[:status][:phpversion]
-      server.kernelver = params[:status][:version][0]
+      if params[:status][:version] != nil
+        server.kernelver = params[:status][:version][0]
+      end
       server.uptime = params[:status][:uptime].to_i
 
       tx_diff = 0
