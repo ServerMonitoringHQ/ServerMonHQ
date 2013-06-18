@@ -2,11 +2,7 @@
   %h5{ :style => 'margin-bottom: 10px' }
     How does ServerMonitoringHQ collect information ?
   %p 
-    A user account in Linux has 
-    %em read only access 
-    to server statistics. 
-    We can connect securely to a user account and run a few lightweight 
-    commands to retrieve the data we need via 
-    %strong SSH.
+    ServerMonitoringHQ requires you to run a Bash script that we provide via crontab.
   %p
-    All passwords are encrypted and we also encrypt private key information and keep this secure for obvious reasons.
+    The Bash script is gather statistics information from your server and sends it to
+    the ServerMonitoringHQ servers.
