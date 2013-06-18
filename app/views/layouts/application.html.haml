@@ -6,6 +6,10 @@
       = @title || "Server Monitoring"
     %link{:rel => 'icon', :href => '/assets/favicon.ico'} 
     = csrf_meta_tag
+    %link{ :href => "https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css",               :rel => "stylesheet" } 
+    %link{ :href => "https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css",                                   :rel => "stylesheet" } 
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'marketing'
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
 
