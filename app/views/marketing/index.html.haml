@@ -17,7 +17,7 @@
     30 second signup &mdash; no credit card required &gt;&gt;
   
 .container#marketing
-  .row
+  .row{ :style => 'margin-top: 50px; margin-bottom: 30px' }
     .span3
       %h3 Installed and running in Seconds
       %p
@@ -32,11 +32,12 @@
         A hack attempt on your server will generally trigger alerts.
 
     .span3
-      %h3 Web Page and Port monitoring
+      %h3 Port monitoring
       %p
         MySQL down ? A simple monitor on port 3306 will spot this.  
       %p
-        Shopping cart down ? Web page monitoring just one of several checks we're making for you.
+        Port monitoring is configured directly from the ServerMonitoringHQ management
+        interface.
 
     .span3
       %h3 Historic Data and Graphs for 1 Year
@@ -58,7 +59,7 @@
         %small
           David Smith, London (bitehouse.co.uk)
 
-  .row.screengrabs
+  .row.screengrabs{ :style => 'margin-top: 50px; margin-bottom: 30px' }
     .span3
       = image_tag("marketing/front-screen1.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3{ :style => 'margin-top: 15px' }

@@ -3,16 +3,15 @@
     .well
       %div
         %h3 Basic
+        %p 
+          %em 10 Servers
         %p
-          %em $10/Month
-        %p 10 Servers
+          $10/Month
       %ul.unstyled
         %li
           %strong Monitor Every Minute
         %li
           %strong 5 Ports Per Server
-        %li
-          %strong 5 Pages Per Server
       - if current_user
         - if current_user.account.plan_id > 0
           = link_to("Disabled", '#', :class => 'btn')
@@ -28,16 +27,15 @@
     .well
       %div
         %h3 Plus
+        %p 
+          %em 25 Servers
         %p
-          %em $20/Month
-        %p 25 Servers
+          $20/Month
       %ul.unstyled
         %li 
           %strong Monitor Every Minute
         %li 
           %strong Unlimited Ports
-        %li 
-          %strong 5 Pages Per Server
       - if current_user
         - if current_user.account.plan_id > 1 and current_user.account.active?
           = link_to("Disabled", '#', :class => 'btn')
@@ -52,16 +50,15 @@
     .well
       %div
         %h3 Premium
+        %p 
+          %em 100 Servers
         %p
-          %em $50/Month
-        %p 100 Servers
+          $50/Month
       %ul.unstyled
         %li
           %strong Monitor Every Minute
         %li
           %strong Unlimited Ports
-        %li
-          %strong 5 Pages Per Server
       - if current_user
         - if current_user.account.plan_id > 2 and current_user.account.active?
           = link_to("Disabled", '#', :class => 'btn')
@@ -76,16 +73,15 @@
     .well
       %div
         %h3 Max
+        %p 
+          %em 200 Servers
         %p
-          %em $100/Month
-        %p 200 Servers
+          $100/Month
       %ul.unstyled
         %li
           %strong Monitor Every Minute
         %li
           %strong Unlimited Ports
-        %li
-          %strong 5 Pages Per Server
       - if current_user
         - if current_user.account.plan_id > 3 and current_user.account.active?
           = link_to("Disabled", '#', :class => 'btn')
