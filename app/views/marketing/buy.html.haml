@@ -9,17 +9,18 @@
   = render :partial => 'marketing/plans'
   #sales-faq
     %h2 Frequently Asked Questions
-    %h3 More than 20 Servers ?
+    %h3 More than 200 Servers ?
     %p
       %a{ :href => "/contact" } Contact Us
       for pricing details.
     %h3 ServerMonitoringHQ System Requirements ?
     %p 
-      A Unix distribution (Such as Linux) running Secure Shell (SSH). 
-      Most Unix systems are already running SSH.
+      A Unix distribution (Such as Linux) with Bash and Curl installed. 
+      Most Unix systems already have Bash and Curl installed.
     %h3 What needs to be installed on the server.
     %p 
-      There&apos;s nothing to install server side all commands are run remotely.
+      Our small bash script. The script is easy to read and basically runs a few
+      systems commands to collect data. This data is then posted to our server.
     %h3 What types of payment do you accept ?
     %p 
       We use Paypal which accepts Visa, Mastercard, Discover, and American Express.

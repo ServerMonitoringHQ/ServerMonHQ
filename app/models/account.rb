@@ -14,16 +14,16 @@ class Account < ActiveRecord::Base
     
     count = servers.count
 
-    if plan_id == 0 and count > 0
+    if plan_id == 0 and count > 10
       return true
     end
-    if plan_id == 1 and count > 4
+    if plan_id == 1 and count > 25
       return true
     end
-    if plan_id == 2 and count > 9
+    if plan_id == 2 and count > 100
       return true
     end
-    if plan_id == 3 and count > 19
+    if plan_id == 3 and count > 200
       return true
     end
     
