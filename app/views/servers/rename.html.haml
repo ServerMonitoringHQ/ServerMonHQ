@@ -3,7 +3,7 @@
     = link_to 'x', '#', :class => 'close'
     %h3 Rename
   
-  = form_for(@server, :url => { :action => 'rename' }) do |f|
+  = form_for(@server) do |f|
     .modal-body
       .clearfix
       = f.label 'Name'
