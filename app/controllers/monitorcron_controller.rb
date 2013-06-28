@@ -415,7 +415,7 @@ class MonitorcronController < ApplicationController
 
   def disk_desc(threshold)
 
-    return "At least 1 disk is using more than {threshold}% of space."
+    return "At least 1 disk is using more than #{threshold}% of space."
   end
 
   def bandwidth_desc(total, threshold)
