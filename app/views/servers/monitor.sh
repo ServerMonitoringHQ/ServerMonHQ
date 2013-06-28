@@ -13,7 +13,7 @@ ports_data()
 
   for port in "${ports[@]}"
   do
-    netstat -ln  | awk '{ print $4 }' | awk 'BEGIN { FS=":" } ; { print $2 }' | grep "^${port}$" > /dev/null
+    netstat -ln  | awk '{ print $4 }' | awk 'BEGIN { FS=":" } ; { print $NF }' | grep "^${port}$" > /dev/null
     if [ $? =  "1" ]
       then
         PORTXML="${PORTXML}<port><address>${port}</address><status>0</status></port>"
@@ -57,9 +57,18 @@ os_data()
         REV=`cat /etc/mandrake-release | sed s/.*release\ // | sed s/\ .*//`
       elif [ -f /etc/debian_version ] ; then
         DistroBasedOn='Debian'
-        DIST=`cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }'`
-        PSUEDONAME=`cat /etc/lsb-release | grep '^DISTRIB_CODENAME' | awk -F=  '{ print $2 }'`
-        REV=`cat /etc/lsb-release | grep '^DISTRIB_RELEASE' | awk -F=  '{ print $2 }'`
+        if [ -f /etc/lsb-release ] ; then
+          DIST=`cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }'`
+          PSUEDONAME=`cat /etc/lsb-release | grep '^DISTRIB_CODENAME' | awk -F= '{ print $2 }'`
+          REV=`cat /etc/lsb-release | grep '^DISTRIB_RELEASE' | awk -F=  '{ print $2 }'`
+        elif [ -x /usr/bin/lsb_release ] ; then
+          DIST=`/usr/bin/lsb_release -i | awk -F'\t'  '{ print $2 }'`
+          PSUEDONAME=`/usr/bin/lsb_release -c | awk -F'\t'  '{ print $2 }'`
+          REV=`/usr/bin/lsb_release -r | awk -F'\t'  '{ print $2 }'`
+        else
+          DIST='Debian'
+          REV=`head /etc/debian_version`
+        fi
       fi
       if [ -f /etc/UnitedLinux-release ] ; then
         DIST="${DIST}[`cat /etc/UnitedLinux-release | tr "\n" ' ' | sed s/VERSION.*//`]"
@@ -79,8 +88,8 @@ os_data()
 
 bandwidth_data()
 {
-  RX=`cat /proc/net/dev | grep '^.*[^lo]:' | awk 'BEGIN { FS=":" }; {print $2 }' | awk '{ print $1 }' | head -1`
-  TX=`cat /proc/net/dev | grep '^.*[^lo]:' | awk 'BEGIN { FS=":" }; {print $2 }' | awk '{ print $2 }' | head -1`
+  RX=`netstat -i | grep -v lo | awk '{print $4}' | tail -1`
+  TX=`netstat -i | grep -v lo | awk '{print $8}' | tail -1`
   readonly TX
   readonly RX
 }
