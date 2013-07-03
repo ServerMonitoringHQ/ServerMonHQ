@@ -65,8 +65,8 @@
                     = link_to 'Bandwidth', :action => 'bandwidth', :controller => 'statistics', :id => @server
                   %li#ports-tab{ :class => select_tab(/ports/) }
                     = link_to 'Ports', server_ports_path(@server)
-                  / %li#pages-tab{ :class => select_tab(/pages/) }
-                  /   = link_to 'Pages', server_pages_path(@server)
+                  %li#pages-tab{ :class => select_tab(/pages/) }
+                    = link_to 'Pages', server_pages_path(@server)
               / end servers
             
         / .alert-message.alert

@@ -9,10 +9,11 @@
   %td
     = h incident.description
   %td
-    = h time_ago_in_words(incident.created_at)
-    ago
+    = h incident.created_at
   %td
-    - unless incident.open
+    - if incident.open
+      = h time_ago_in_words(incident.created_at)
+    - else
       = h distance_of_time_in_words(incident.created_at, incident.updated_at)
   %td.action
     - if incident.open

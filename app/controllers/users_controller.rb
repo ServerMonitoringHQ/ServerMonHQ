@@ -107,51 +107,69 @@ class UsersController < ApplicationController
     render :layout => "marketing"
   end
  
-  def create    
-    @user = User.new(params[:user])
-    @user.mobile_number = ''
-    @account = Account.new(params[:account])
-    @account.trial_end = 14.days.from_now
 
-    # For a free trial account un-comment below
-    #@account.active = true if @account.plan_id == 0
-
-    success =  @account && @account.save
-    @user.account_id = @account.id
-    @user.admin = true
-    success = @user && @user.save && success
-
-    if success && @user.errors.empty? && @account.errors.empty?
-      # Protects against session fixation attacks, causes request forgery
-      # protection if visitor resubmits an earlier form using back
-      # button. Uncomment if you understand the tradeoffs.
-      # reset session
-      session[:user_id] = @user.id
-     
-      begin
-        mixpanel_track("Activation - Account Signup", {:mp_name_tag => "@user.email"})
-        # Save out to Fat Free
-        #l = Api::Lead.new({ :first_name => @user.first_name, :last_name => @user.last_name, 
-        #  :email => @user.email, :user_id => 1})
-        #l.save
+  def create
+    if logged_in?
+        @user = current_user.account.users.new(params[:user])
+        @user.password = 'just_filler'
+        @user.password_confirmation = 'just_filler'
         
-        # Add now to mailchimp
-        #h = Hominid::Base.new({:api_key => '72c8ca6a7ea19fcb9dabf68ff38e360b-us1'})
-        #h.subscribe(h.find_list_id_by_name("ServerMonitoringHQ Signups"), @user.email, 
-        #  {:FNAME => @user.first_name, :LNAME => @user.last_name}, {:email_type => 'html'})
-      rescue
-        # Do nothing
-      end
-
-      # Add a default monitor
-      measure = current_user.account.measures.new(:name => 'Default Monitor')
-      measure.set_defaults
-      measure.save
-
-      redirect_to(new_server_url)
+        respond_to do |format|
+            if @user.save
+                flash[:notice] = 'User was successfully created.'
+                format.html { redirect_to(users_path) }
+                format.xml  { render :xml => @user, :status => :created, :location => @user }
+                else
+                format.html { render :action => 'add' }
+                format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+            end
+        end        
     else
-      flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
-      render :action => :new, :layout => 'marketing'
+      @user = User.new(params[:user])
+      @user.mobile_number = ''
+      @account = Account.new(params[:account])
+      @account.trial_end = 14.days.from_now
+
+      # For a free trial account un-comment below
+      #@account.active = true if @account.plan_id == 0
+
+      success =  @account && @account.save
+      @user.account_id = @account.id
+      @user.admin = true
+      success = @user && @user.save && success
+
+      if success && @user.errors.empty? && @account.errors.empty?
+        # Protects against session fixation attacks, causes request forgery
+        # protection if visitor resubmits an earlier form using back
+        # button. Uncomment if you understand the tradeoffs.
+        # reset session
+        session[:user_id] = @user.id
+     
+        begin
+          mixpanel_track("Activation - Account Signup", {:mp_name_tag => "@user.email"})
+          # Save out to Fat Free
+          #l = Api::Lead.new({ :first_name => @user.first_name, :last_name => @user.last_name,
+          #  :email => @user.email, :user_id => 1})
+          #l.save
+        
+          # Add now to mailchimp
+          #h = Hominid::Base.new({:api_key => '72c8ca6a7ea19fcb9dabf68ff38e360b-us1'})
+          #h.subscribe(h.find_list_id_by_name("ServerMonitoringHQ Signups"), @user.email,
+          #  {:FNAME => @user.first_name, :LNAME => @user.last_name}, {:email_type => 'html'})
+        rescue
+          # Do nothing
+        end
+
+        # Add a default monitor
+        measure = current_user.account.measures.new(:name => 'Default Monitor')
+        measure.set_defaults
+        measure.save
+
+        redirect_to(new_server_url)
+      else
+        flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
+        render :action => :new, :layout => 'marketing'
+      end
     end
   end
   
