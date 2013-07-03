@@ -75,20 +75,22 @@ class Server < ActiveRecord::Base
     end
   end
 
-  def pages_up?
-    pgs = pages.find_by_status(0);
-    if pgs == nil
-      return true
+  def ports_up?
+    if ports.count == 0
+      return -1
+    elsif ports.find_by_status(0) == nil
+      return 1
     end
-    return false
+    return 0
   end
 
-  def ports_up?
-    pgs = ports.find_by_status(0);
-    if pgs == nil
-      return true
+  def pages_up?
+    if pages.count == 0
+      return -1
+    elsif pages.find_by_status(0) == nil
+      return 1
     end
-    return false
+    return 0
   end
 
   def top_xml

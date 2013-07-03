@@ -54,8 +54,10 @@
       - else
         %span.label.label-important DOWN
     %td
-      - if server.pages_up?
+      - if server.pages_up? == 1
         %span.label.label-success UP
+      - elsif server.pages_up_new? == -1
+        %span.label N/A
       - else
         %span.label.label-important DOWN
 
