@@ -49,14 +49,16 @@
       %span.label.warning
         = number_to_percentage(server.swap_percentage, :precision => 2, :strip_insignificant_zeros => true)
     %td
-      - if server.ports_up?
+      - if server.ports_up? == 1
         %span.label.label-success UP
+      - elsif server.ports_up? == -1
+        %span.label N/A
       - else
         %span.label.label-important DOWN
     %td
       - if server.pages_up? == 1
         %span.label.label-success UP
-      - elsif server.pages_up_new? == -1
+      - elsif server.pages_up? == -1
         %span.label N/A
       - else
         %span.label.label-important DOWN
