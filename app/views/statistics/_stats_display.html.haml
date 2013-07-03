@@ -11,7 +11,8 @@
           #load-graph.progress.progress{ :style => 'margin-bottom: 0' }
         %td#cpu-load2{ :style =>'width: 20%' }
           = h @server.cpuload
-          \/ 1.0
+          \/ 
+          = h @server.cpucount
       %tr
         %td
           %span.label Memory Used
@@ -21,7 +22,7 @@
           #memory-graph.progress.progress{ :style => 'margin-bottom: 0' }
         %td#memory2
           = h @server.usedmem
-          MB \/
+          MB /
           = h @server.totalmem
           MB
       - if ! (@server.totalswap == 0 or @server.totalswap == nil)
@@ -103,7 +104,7 @@
           %td
             %span#memory_stat{ :style => 'margin-left: 20px' }
               = h @server.usedmem
-              MB \/
+              MB /
               = h @server.totalmem
               MB
 

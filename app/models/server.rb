@@ -172,7 +172,7 @@ EOF
   
   def load_percentage
     if cpuload != nil
-      return (cpuload / 1.0) * 100
+      return (cpuload / cpucount) * 100
     end
     return 0
   end
