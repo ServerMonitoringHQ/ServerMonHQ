@@ -10,8 +10,6 @@ class NotificationcronController < ApplicationController
     render :layout => false
   end
 
-  private 
-
   def send_text(to, message)
 
     account_sid = 'AC1d6be5fe338cad384648a39aa2354f0f' 

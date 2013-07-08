@@ -248,8 +248,6 @@ class MonitorcronController < ApplicationController
 
   end
 
-  private
-
   def check_ports(sm)
 
     info = {}
