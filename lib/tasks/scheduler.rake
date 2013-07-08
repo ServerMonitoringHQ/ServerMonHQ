@@ -60,3 +60,40 @@ task :free_trial_end => :environment do
   users = User.where('created_at >= ?and created_at <= ?', 7.days.ago.beginning_of_day, 7.days.ago.end_of_day)
   puts users
 end
+
+desc "This task is called by the Heroku scheduler add-on" 
+task :run_monitor_cron => :environment do
+  @servers = Server.active
+  @servers.sort_by {rand} #  Randomize the array, give everyone a fair chnace
+
+  @servers.each do |server|
+
+    # If the server hasn't been updated in a while it's probably down.
+    if server.updated_at < 1.minute.ago
+
+      server.serverdown = true
+      if server.down_mins == nil
+        server.down_mins = 0
+      end
+      server.down_mins = server.down_mins + 1
+      ActiveRecord::Base.record_timestamps = false
+      server.save(:validate=> false)
+      ActiveRecord::Base.record_timestamps = true
+    end
+
+    server.monitor_servers.each do |sm|
+      next if !sm.server.totalmem || sm.measure.paused
+      if sm.measure.notify_heartbeat?
+        check_heartbeat(sm, 'Not heard from agent for a while.')
+      end
+    end
+  end
+end
+
+desc "This task is called by the Heroku scheduler add-on" 
+task :run_notification_cron => :environment do
+  MonitorUser.active.each do |um|
+    process_new_incidents(um)
+    process_resolved_incidents(um)
+  end
+end
