@@ -93,8 +93,8 @@ end
 desc "This task is called by the Heroku scheduler add-on" 
 task :run_notification_cron => :environment do
   MonitorUser.active.each do |um|
-    NotificationcronController.process_new_incidents(um)
-    NotificationcronController.process_resolved_incidents(um)
+    process_new_incidents(um)
+    process_resolved_incidents(um)
   end
 end
 
