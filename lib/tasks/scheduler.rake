@@ -84,7 +84,7 @@ task :run_monitor_cron => :environment do
     server.monitor_servers.each do |sm|
       next if !sm.server.totalmem || sm.measure.paused
       if sm.measure.notify_heartbeat?
-        check_heartbeat(sm, 'Not heard from agent for a while.')
+        MonitorcronController.check_heartbeat(sm, 'Not heard from agent for a while.')
       end
     end
   end
@@ -93,7 +93,7 @@ end
 desc "This task is called by the Heroku scheduler add-on" 
 task :run_notification_cron => :environment do
   MonitorUser.active.each do |um|
-    process_new_incidents(um)
-    process_resolved_incidents(um)
+    NotificationcronController.process_new_incidents(um)
+    NotificationcronController.process_resolved_incidents(um)
   end
 end
