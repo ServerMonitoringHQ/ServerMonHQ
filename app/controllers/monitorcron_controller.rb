@@ -5,16 +5,6 @@ class MonitorcronController < ApplicationController
     @servers.sort_by {rand} #  Randomize the array, give everyone a fair chnace
 
     @servers.each do |server|
-      server.pages.each do |page|
-        Resque.enqueue(ServerMonitoringHQ::Jobs::Page,
-          page.url,
-          page.search_text,
-          page.id,
-          return_url,
-          Time.now.gmtime,
-          Rails.env
-        )
-      end
 
       # If the server hasn't been updated in a while it's probably down.
       if server.updated_at < 1.minute.ago
@@ -247,6 +237,8 @@ class MonitorcronController < ApplicationController
     end
 
   end
+
+  private
 
   def check_ports(sm)
 
