@@ -26,7 +26,7 @@ ports_data()
 pages_data()
 {
   urls=( $$THEPAGES$$ )
-  $PAGEXML=""
+  PAGEXML=""
 
   for page in "${urls[@]}"
   do
