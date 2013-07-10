@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout 'application', :except => :reset
  
-  before_filter :login_required, :except => [:forgot, :reset, :create, :new]
+  before_filter :login_required, :except => [:forgot, :reset, :create, :new, :invitation]
   before_filter :check_account_expired
 
   def index    
