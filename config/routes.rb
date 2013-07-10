@@ -24,6 +24,7 @@ Servermonitoringhq::Application.routes.draw do
   match '/register' => 'users#create', :as => :register
   match '/signup' => 'users#new', :as => :signup
   match '/forgot' => 'users#forgot', :as => :forgot
+  match '/invitation/:id' => 'users#invitation', :as => :invitation
   match 'reset/:reset_code' => 'users#reset', :as => :reset
   match '/tour' => 'marketing#tour', :as => :tour
   match '/buy' => 'marketing#buy', :as => :buy

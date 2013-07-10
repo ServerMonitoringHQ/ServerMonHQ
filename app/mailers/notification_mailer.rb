@@ -20,6 +20,7 @@ class NotificationMailer < ActionMailer::Base
     @user = user
     @inviter = inviter
     @code = code
+    @url = "http://servermonitoringhq.com/invitation/#{code}"
 
     mail(:to => user.email, :subject => "You've been invited.")
   end

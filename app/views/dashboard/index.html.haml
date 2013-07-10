@@ -37,7 +37,7 @@
     %th Servers
     
   - @active.each do |account| 
-    - user = account.users.find(:first)
+    - user = account.users.where('login IS NOT NULL').find(:first)
     - if user != nil
       %tr
         %td
