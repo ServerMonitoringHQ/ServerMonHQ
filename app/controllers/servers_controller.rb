@@ -46,6 +46,10 @@ class ServersController < ApplicationController
 
       ports = server.ports.map(&:address).join(' ')
       script = script.gsub /\$\$THEPORTS\$\$/, ports
+      
+      pages = server.pages.map(&:url).join(' ')
+      script = script.gsub /\$\$THEPAGES\$\$/, pages
+
     else
       script = 'echo "Not Valid"'
     end

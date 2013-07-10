@@ -23,6 +23,23 @@ ports_data()
   done
 }
 
+pages_data()
+{
+  urls=( $$THEPAGES$$ )
+  $PAGEXML=""
+
+  for page in "${urls[@]}"
+  do
+    if curl --output /dev/null --silent --head --fail "${page}"
+      then
+        PAGEXML="${PAGEXML}<page><url>${page}</url><status>1</status></page>"
+      else
+        PAGEXML="${PAGEXML}<page><url>${page}</url><status>0</status></page>"
+      fi
+  done
+
+}
+
 os_data()
 {
   OS=`lowercase \`uname\``
@@ -134,6 +151,7 @@ bandwidth_data
 os_data
 disk_data
 ports_data
+pages_data
 
 XML=`cat <<SETVAR
 <status>
@@ -164,6 +182,7 @@ XML=`cat <<SETVAR
   <platform>$KERNEL</platform>
   <drives>$DRIVES</drives>
   <ports>$PORTXML</ports>
+  <pages>$PAGEXML</pages>
 </status>
 SETVAR`
 

@@ -8,7 +8,7 @@ class Page < ActiveRecord::Base
       when -1
         return "Awaiting Data"
       when 0
-        return "Down " + last_error
+        return "Down"
       else
         return "Up"
     end

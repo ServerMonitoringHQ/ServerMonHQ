@@ -45,6 +45,23 @@ class MonitorcronController < ApplicationController
     render :text => "OK"  
   end
 
+  def receive_pages(params, server_id)
+        
+    if params[:status][:pages]
+      pages = params[:status][:pages][:page]
+      pages = [pages] unless pages.is_a?(Array)
+      pages.each { |page|
+        p = Page.where(:url => page[:url],
+          :server_id => server_id).first
+        if p != nil
+          p.status = page[:status].to_i
+          p.save
+        end
+      }
+    end
+  end
+
+
   def receive_ports(params, server_id)
 
     if params[:status][:ports]
@@ -161,6 +178,7 @@ class MonitorcronController < ApplicationController
 
       receive_drives(params, server.id)
       receive_ports(params, server.id)
+      receive_pages(params, server.id)
 
       load = ((server.cpuload / server.cpucount) * 100) rescue 0
       load = 0 if load.nan?
