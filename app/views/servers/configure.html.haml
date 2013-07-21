@@ -7,15 +7,26 @@
 .row
   .span8
     %h2
-      1. Edit your crontab
+      1. Download the monitoring script on the server and make executable
+    %code{ :style => 'font-size: 9px' }
+      mkdir servermonhq; cd servermonhq
+    %br
+    %code{ :style => 'font-size: 9px' }
+      = "curl -Lfs -o monitor.sh #{request.protocol + request.host_with_port}/pulse/#{@server.access_key}"
+    %br
+    %code{ :style => 'font-size: 9px' }
+      chmod +x monitor.sh
+    %br
+    %a{ :href => "#{request.protocol + request.host_with_port}/pulse/#{@server.access_key}" }
+      Download monitor.sh
+    %br
+    %h2
+      2. Edit your crontab and add an entry to run the monitoring script (remember to update the path)
     %code{ :style => 'font-size: 9px' }
       crontab -e
     %br
-    %br
-    %h2
-      2. Add the following entry.
     %code{ :style => 'font-size: 9px' }
-      = "*/1 * * * * curl -L -s #{request.protocol + request.host_with_port}/pulse/#{@server.access_key} | bash -s stable"
+      = "*/1 * * * * /path/to/servermonhq/monitor.sh "
     %br
     %br
     %h2
