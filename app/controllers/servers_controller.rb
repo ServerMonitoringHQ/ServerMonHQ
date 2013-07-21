@@ -1,12 +1,12 @@
 class ServersController < ApplicationController
 
-  before_filter :login_required, :except => [:pulse]
+  before_filter :login_required, :except => [:pulse, :urlandports]
   before_filter :check_account_expired
   config.filter_parameters :password, :private_key
 
   protect_from_forgery :except => [:history]
   
-  layout 'application', :except => [ 'rename', 'remove', 'pulse' ]
+  layout 'application', :except => [ 'rename', 'remove', 'pulse', 'urlandports' ]
 
   # GET /servers
   # GET /servers.xml
@@ -55,6 +55,20 @@ class ServersController < ApplicationController
     end
 
     send_data script, :filename => 'monitor.sh'
+  end
+  
+  def urlandports
+	server = Server.find_by_access_key(params[:id])
+	
+	if server
+	  pages = server.pages.map(&:url).join(' ')
+	  ports = server.ports.map(&:address).join(' ')
+	  pagesandports = pages + "\n" + ports
+	else
+	  pagesandports = 'echo "Not Valid"'
+	end
+	
+    send_data pagesandports, :type => 'text/plain', :filename => 'test'
   end
   
   def renamed

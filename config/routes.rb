@@ -40,6 +40,7 @@ Servermonitoringhq::Application.routes.draw do
   match '/receive_top' => 'monitorcron#receive_top', :as => :receive_top, :method => :post
   match '/receive_ports' => 'monitorcron#receive_ports', :as => :receive_ports, :method => :post
   match '/pulse/:id' => 'servers#pulse', :as => :pulse
+  match '/urlandports/:id' => 'servers#urlandports', :as => :urlandports
 
   resources :users do
     collection do
