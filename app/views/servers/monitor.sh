@@ -5,9 +5,34 @@ lowercase()
   echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
 }
 
+exit_if_invalid()
+{
+  remaining_chars="$(echo -n $* | sed s'/|\|\/\|(\|)\|;\|:\|@\|&\|-\|+\|\$\|=\|,\|?\|%\|#\|!\|[a-zA-Z0-9]\|\n\|\.\| //'g)"
+  if [ "$remaining_chars" == '' ]; then
+    return
+  else
+    exit 1
+  fi
+}
+
+get_ports_pages()
+{
+  curl -Lfs -o tempfile.txt $$THESERVER$$/urlandports/$$THEKEY$$ || ( echo "could not download content" &&  exit 1)
+  line_number="1"
+  while read line;do
+    exit_if_invalid "$line"
+    if [ $line_number = "1" ]
+      then
+        pages=$line
+      else
+        ports=$line
+    fi
+    ((++line_number))
+  done < tempfile.txt
+}
+
 ports_data()
 {
-  ports=( $$THEPORTS$$ )
 
   PORTXML=""
 
@@ -25,7 +50,7 @@ ports_data()
 
 pages_data()
 {
-  urls=( $$THEPAGES$$ )
+
   PAGEXML=""
 
   for page in "${urls[@]}"
@@ -150,6 +175,7 @@ uptime_data
 bandwidth_data
 os_data
 disk_data
+get_ports_pages
 ports_data
 pages_data
 

@@ -63,7 +63,7 @@ class ServersController < ApplicationController
 	if server
 	  pages = server.pages.map(&:url).join(' ')
 	  ports = server.ports.map(&:address).join(' ')
-	  pagesandports = pages + "\n" + ports
+	  pagesandports = pages + "\n" + ports + "\n"
 	else
 	  pagesandports = 'echo "Not Valid"'
 	end
