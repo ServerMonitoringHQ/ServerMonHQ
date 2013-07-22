@@ -212,4 +212,4 @@ XML=`cat <<SETVAR
 </status>
 SETVAR`
 
-curl -H "Content-Type: text/xml" -d "$XML" $$THESERVER$$/receive_monitor/
+curl -s -H "Content-Type: text/xml" -d "$XML" $$THESERVER$$/receive_monitor/ > /dev/null
