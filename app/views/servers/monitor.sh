@@ -23,9 +23,9 @@ get_ports_pages()
     exit_if_invalid "$line"
     if [ $line_number = "1" ]
       then
-        pages=$line
+        urls=( $line )
       else
-        ports=$line
+        ports=( $line )
     fi
     ((++line_number))
   done < tempfile.txt
