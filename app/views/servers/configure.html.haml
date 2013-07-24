@@ -6,36 +6,36 @@
 
 .row
   .span8
-    %h2
+    %h4
       1. Download the monitoring script on the server and make executable
-    %code{ :style => 'font-size: 9px' }
+    %code{ :style => 'font-size: 12px' }
       mkdir servermonhq; cd servermonhq
     %br
-    %code{ :style => 'font-size: 9px' }
+    %code{ :style => 'font-size: 12px' }
       = "curl -Lfs -o monitor.sh #{request.protocol + request.host_with_port}/pulse/#{@server.access_key}"
     %br
-    %code{ :style => 'font-size: 9px' }
+    %code{ :style => 'font-size: 12px' }
       chmod +x monitor.sh
     %br
     %a{ :href => "#{request.protocol + request.host_with_port}/pulse/#{@server.access_key}" }
       Download monitor.sh
     %br
-    %h2
+    %h4
       2. Edit your crontab and add an entry to run the monitoring script (remember to update the path)
-    %code{ :style => 'font-size: 9px' }
+    %code{ :style => 'font-size: 12px' }
       crontab -e
     %br
-    %code{ :style => 'font-size: 9px' }
+    %code{ :style => 'font-size: 12px' }
       = "*/1 * * * * /path/to/servermonhq/monitor.sh "
     %br
     %br
-    %h2
+    %h4
       3. That's it.
 
     %a{ :href => servers_path}
       Click here when you've finished.
   .span4
-    .alert.alert-block
+    .alert.alert-info
       %h3 How we collect data from your server
       %p
         The cron job downloads a bash script located on our server and executes it.
