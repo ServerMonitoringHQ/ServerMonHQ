@@ -19,28 +19,36 @@
 .container#marketing
   .row{ :style => 'margin-top: 50px; margin-bottom: 30px' }
     .span3
-      %h3 Installed and running in Seconds
+      %h3 
+        %i.icon.icon-upload
+        Installed and running in Seconds
       %p
         Installing our simple bash script on your servers takes just a few seconds.
       %p
         The bash script is called by a crontab and sends statistics to our servers.
     .span3
-      %h3 CPU, Memory, Bandwidth and Disk Monitoring
+      %h3 
+        %i.icon.icon-tasks
+        CPU, Memory, Bandwidth and Disk Monitoring
       %p
         Just by monitoring these 4 items you can pre-empt most server down time.  
       %p
         A hack attempt on your server will generally trigger alerts.
 
     .span3
-      %h3 Port monitoring
+      %h3 
+        %i.icon.icon-laptop
+        TCP Port and Web Page monitoring
       %p
         MySQL down ? A simple monitor on port 3306 will spot this.  
       %p
-        Port monitoring is configured directly from the ServerMonitoringHQ management
+        Port and web page monitoring is configured directly from the ServerMonitoringHQ management
         interface.
 
     .span3
-      %h3 Historic Data and Graphs for 1 Year
+      %h3 
+        %i.icon.icon-signal
+        Historic Data and Graphs for 1 Year
       %p
         Predict memory, bandwidth usage and load trends with 24 hour,
         7 day and 1 year graphs.
@@ -63,18 +71,21 @@
     .span3
       = image_tag("marketing/front-screen1.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3{ :style => 'margin-top: 15px' }
+        %i.icon.icon-level-up
         Alert Escalation
       %p
         Configure alert escalations. e.g. Contact support after 5 mins, managers after 1 hour.
     .span3
       = image_tag("marketing/front-screen2.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3{ :style => 'margin-top: 15px' }
+        %i.icon.icon-reorder
         Fine Tune Triggers
       %p
         Only want to monitor disk space ? SMHQ can monitor disks for one team and CPU for another.
     .span3
       = image_tag("marketing/front-screen3.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3{ :style => 'margin-top: 15px' }
+        %i.icon.icon-envelope
         Free SMS Alerts
       %p
         SMS and email alerts are free. We'll be adding twitter alerts soon too.
@@ -82,6 +93,7 @@
     .span3
       = image_tag("marketing/front-screen4.png", :width => "210", :height => "90", :alt => "Bar Graph")
       %h3{ :style => 'margin-top: 15px' }
+        %i.icon.icon-time
         1 Minute Granularity
       %p
         We can monitor servers down to 1 minute resolution so you see issues as soon as they happen.
