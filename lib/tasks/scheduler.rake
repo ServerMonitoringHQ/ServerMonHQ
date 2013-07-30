@@ -4,6 +4,12 @@ task :remove_resolved_incidents => :environment do
 end
 
 desc "This task is called by the Heroku scheduler add-on" 
+task :send_usage_statistics => :environment do     
+  FlyingV.post(Date.today.strftime("SMHQ-Signups-%B-%Y"), User.where('created_at >= ?', Date.today.at_beginning_of_month).count.to_s)
+  FlyingV.post(Date.today.strftime("SMHQ-Servers-Commissioned-%B-%Y"), Server.where('created_at >= ? and uptime is not NULL', Date.today.at_beginning_of_month).count.to_s)
+end
+
+desc "This task is called by the Heroku scheduler add-on" 
 task :registered_7_days => :environment do     
   accounts = Account.where('created_at >= ? and created_at <= ?', 7.days.ago.beginning_of_day, 7.days.ago.end_of_day)
   sirportly = Sirportly::Client.new('5040678f-a2bb-119c-150b-649cc531c2f9', 

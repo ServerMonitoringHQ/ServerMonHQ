@@ -31,6 +31,9 @@ gem 'resque'
 
 gem 'sirportly'
 
+# For storing usage data
+gem 'flyingv'
+
 group :development do
   gem 'sqlite3'
 end
